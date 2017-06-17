@@ -1,0 +1,117 @@
+<project name="P2009_Tools.build" default="all" basedir="./">
+	<!--ANT 1.7 is required                  	-->
+	<property environment="env" />
+	<property name="src.main.dir" value="${basedir}/src" />
+	<property name="src.test.dir" value="${basedir}/test" />
+	<property name="lib.dir" value="${basedir}/lib" />
+
+	<property name="bin.dir" value="${basedir}/antbin" />
+	<property name="bin.main" value="${bin.dir}/main" />
+	<property name="bin.test" value="${bin.dir}/test" />
+
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="docs.dist.dir" value="${dist.dir}/docs" />
+	<property name="release.dist.dir" value="${dist.dir}/release" />
+	<property name="res.dir" value="${basedir}/res" />
+
+	<!-- 初始化classpath -->
+	<zipfileset id="jar_lib" dir="${lib.dir}">
+		<include name="com.baitian.events.v1.0.jar" />
+		<include name="com.baitian.local.win32.v1.0.jar" />
+		<include name="jdom-2.0.3.jar" />
+		<include name="jxl.jar" />
+		<include name="log4j-1.2.17.jar" />
+		<include name="org.eclipse.core.commands_3.5.0.I20090525-2000.jar" />
+		<include name="org.eclipse.core.runtime_3.5.0.v20090525.jar" />
+		<include name="org.eclipse.equinox.common_3.5.0.v20090520-1800.jar" />
+		<include name="org.eclipse.equinox.registry_3.4.100.v20090520-1800.jar" />
+		<include name="org.eclipse.jface_3.5.0.I20090525-2000.jar" />
+		<include name="org.eclipse.jface.text_3.5.0.v20090602.jar" />
+		<include name="org.eclipse.osgi_3.5.0.v20090520.jar" />
+		<include name="org.eclipse.swt.win32.win32.x86_3.5.0.v3550b.jar" />
+		<include name="org.eclipse.text_3.5.0.v20090513-2000.jar" />
+		<include name="org.eclipse.ui.forms_3.4.0.v20090526.jar" />
+		<include name="org.eclipse.ui.workbench_3.5.0.I20090603-2000.jar" />
+	</zipfileset>
+	<path id="id_classpath">
+		<fileset refid="jar_lib" />
+	</path>
+	<!-- 默认构建入口 -->
+	<target name="all" description="默认构建入口">
+		<antcall target="init" />
+		<antcall target="compile" />
+		<antcall target="jar" />
+		<antcall target="moveconfig" />
+		<!--
+		<antcall target="javadoc" />
+		 -->
+	</target>
+	<!-- 初始化环境-->
+	<target name="init" description="初始化环境">
+		<antcall target="clean" />
+		<antcall target="initdir" />
+	</target>
+	<target name="clean">
+		<delete dir="${bin.dir}" />
+		<delete dir="${docs.dist.dir}" />
+		<delete dir="${release.dist.dir}" />
+	</target>
+	<target name="initdir">
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${docs.dist.dir}" />
+		<mkdir dir="${release.dist.dir}" />
+	</target>
+	<!-- 编译文件-->
+	<target name="compile" description="编译文件">
+		<antcall target="compile.main" />
+		<antcall target="compile.test" />
+	</target>
+	<target name="compile.test">
+		<delete dir="${bin.test}" />
+		<mkdir dir="${bin.test}" />
+		<javac srcdir="${src.test.dir}" destdir="${bin.test}" encoding="UTF-8">
+			<classpath refid="id_classpath" />
+		</javac>
+	</target>
+	<target name="compile.main">
+		<delete dir="${bin.main}" />
+		<mkdir dir="${bin.main}" />
+		<javac srcdir="${src.main.dir}" destdir="${bin.main}" encoding="UTF-8" debug="true">
+			<classpath refid="id_classpath" />
+		</javac>
+	</target>
+	<!-- 打包成可执行文件jar -->
+	<target name="jar" description="打包成可执行文件jar">
+		<property name="jarName" value="奥拉星自动化更新工具" />
+		<property name="version" value="v1.1" />
+		<jar destfile="${release.dist.dir}/${jarName}${version}.jar" update="false">
+			<manifest>
+				<attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader" />
+				<attribute name="Rsrc-Main-Class" value="mmo.p2009.P2009Tools" />
+				<attribute name="Class-Path" value="." />
+				<attribute name="Rsrc-Class-Path" value="./ jxl.jar org.eclipse.core.commands_3.5.0.I20090525-2000.jar org.eclipse.core.runtime_3.5.0.v20090525.jar org.eclipse.equinox.common_3.5.0.v20090520-1800.jar org.eclipse.equinox.registry_3.4.100.v20090520-1800.jar org.eclipse.jface_3.5.0.I20090525-2000.jar org.eclipse.jface.text_3.5.0.v20090602.jar org.eclipse.osgi_3.5.0.v20090520.jar org.eclipse.swt.win32.win32.x86_3.5.0.v3550b.jar org.eclipse.text_3.5.0.v20090513-2000.jar org.eclipse.ui.forms_3.4.0.v20090526.jar org.eclipse.ui.workbench_3.5.0.I20090603-2000.jar log4j-1.2.17.jar jdom-2.0.3.jar com.baitian.local.win32.v1.0.jar com.baitian.events.v1.0.jar" />
+			</manifest>
+			<zipfileset src="${lib.dir}/jar-in-jar-loader.zip" />
+			<fileset dir="${bin.main}" />
+			<zipfileset refid="jar_lib" />
+		</jar>
+	</target>
+	<!-- 生成API -->
+	<target name="javadoc" description="生成API">
+		<javadoc sourcepath="${src.main.dir}" destdir="${docs.dist.dir}" author="true" version="true" use="true" charset="UTF-8" encoding="UTF-8" docencoding="UTF-8">
+			<classpath refid="id_classpath" />
+			<package name="mmo.*" />
+		</javadoc>
+	</target>
+	<!-- 复制转移配置文件 -->
+	<target name="moveconfig" description="复制转移配置文件">
+		<copy todir="${release.dist.dir}">
+			<fileset dir="${res.dir}">
+				<include name="config/**/*.xml" />
+				<include name="icons/**" />
+				<include name="template/**" />
+				<include name="debug.bat" />
+			</fileset>
+		</copy>
+	</target>
+</project>

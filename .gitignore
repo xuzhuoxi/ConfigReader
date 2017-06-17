@@ -1,0 +1,6 @@
+/bin/
+/dist/
+/antbin/
+/libsrc/
+
+*.class

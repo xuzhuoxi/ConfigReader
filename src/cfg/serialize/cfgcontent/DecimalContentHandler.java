@@ -25,4 +25,9 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 		}
 	}
 
+	@Override
+	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

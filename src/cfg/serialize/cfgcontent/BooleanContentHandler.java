@@ -23,4 +23,14 @@ public class BooleanContentHandler implements IContentSerializeHandler {
 			throw new Error("BooleanDataHandler.toJson");
 		}
 	}
+
+	@Override
+	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+		if (obj instanceof Boolean && attrDataType.equals(AttributeDataType.Boolean)) {
+			byte b = BooleanUtil.toByte((Boolean) obj);
+			return new byte[] { b };
+		} else {
+			throw new Error("BooleanDataHandler.toBinary");
+		}
+	}
 }

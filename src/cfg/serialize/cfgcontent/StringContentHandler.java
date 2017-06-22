@@ -1,6 +1,8 @@
 package cfg.serialize.cfgcontent;
 
 import cfg.serialize.AttributeDataType;
+import code.array.ArrayUtils;
+import code.lang.IntegerUtil;
 
 public class StringContentHandler implements IContentSerializeHandler {
 
@@ -37,4 +39,13 @@ public class StringContentHandler implements IContentSerializeHandler {
 		}
 	}
 
+	@Override
+	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+		String value = (String) obj;
+		byte[] stringBytes = value.getBytes();
+		int byteCount = attrDataType.getByteCount();
+		int len = (-1 == byteCount) ? stringBytes.length : byteCount;
+		byte[] lens = IntegerUtil.toByteArray(len);
+		return ArrayUtils.mergeArray(lens, stringBytes);
+	}
 }

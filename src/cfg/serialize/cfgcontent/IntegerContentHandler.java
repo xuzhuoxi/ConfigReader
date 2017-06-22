@@ -3,19 +3,27 @@ package cfg.serialize.cfgcontent;
 import java.math.BigInteger;
 
 import cfg.serialize.AttributeDataType;
+import code.lang.BigIntegerUtil;
+import code.lang.IntegerUtil;
 
 public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public Object fromString(String valueContent, AttributeDataType attrDataType) {
 		int dotIndex = valueContent.indexOf(".");
+		String newContent;
 		if (-1 == dotIndex) {
-			return new BigInteger(valueContent);
+			newContent = valueContent;
 		} else {
 			if (0 == dotIndex)
-				return new BigInteger("0");
+				newContent = "0";
 			else
-				return new BigInteger(valueContent.substring(0, dotIndex));
+				newContent = valueContent.substring(0, dotIndex);
+		}
+		if (attrDataType.getByteCount() <= 4) {
+			return Integer.parseInt(newContent);
+		} else {
+			return new BigInteger(newContent);
 		}
 	}
 
@@ -32,4 +40,18 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 			throw new Error("IntegerDataHandler.toJson");
 		}
 	}
+
+	@Override
+	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+		boolean typeTrue = (obj instanceof Integer) || (obj instanceof BigInteger);
+		if (!typeTrue) {
+			throw new Error("IntegerDataHandler.toBinary");
+		}
+		if (obj instanceof Integer) {
+			return IntegerUtil.toByteArray((Integer) obj, attrDataType.getByteCount());
+		} else {
+			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getByteCount());
+		}
+	}
+
 }

@@ -107,7 +107,9 @@ public class AttributeDataType {
 			return Int32;
 		} else if (stringValue.equals(Boolean.typeName)) {
 			return Boolean;
-		} else {
+		} else if (stringValue.equals(String.typeName)) {
+			return String;
+		} else {// 字符串
 			int startIndex = stringValue.indexOf(StartChar) + 1;
 			int endIndex = stringValue.indexOf(EndChar);
 			if (startIndex == -1 || endIndex == -1 || endIndex <= startIndex) {

@@ -1,11 +1,13 @@
 {
 	"source": {
 		"value": "E:/sourcestore/tools/Eclipse_ConfigReader/res/cfg_building.xls",
+		"encoding": "UTF-8",
 		"desc": "默认处理的文件或目录"
 	},
 	"target": {
 		"value": "E:/sourcestore/tools/Eclipse_ConfigReader/res",
-		"desc": "输出目录"
+		"encoding": "UTF-8",
+		"desc": "输出目录,encoding属性只作用于字符文件的输出"
 	},
 	"dataFormat": {
 		"value": ["json", "binary", "sql"],
@@ -42,7 +44,7 @@
 	},
 	"valid": {
 		"value": 6,
-		"desc": "输出选择，格式: 'a,b'，a和b的格式只能是0或1，a指前端，b指后端"
+		"desc": "输出选择，格式: 'a,b'，a和b的格式只能是0或1，a指后，b指前端"
 	},
 	"fieldName": {
 		"value": {
@@ -58,7 +60,7 @@
 	},
 	"dataType": {
 		"value": 8,
-		"desc": "数据格式,支持{uint8,uint16,uint32,int8,int16,int32,boolean,string(*)}"
+		"desc": "数据格式,支持{uint8,uint16,uint32,int8,int16,int32,boolean,string(*)},其中string中的*代表字节数"
 	},
 	"startRow": {
 		"value": 9,

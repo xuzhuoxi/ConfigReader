@@ -30,12 +30,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	@Override
 	public Object serialize(ExportProjectType exprotType, AttributeKeyType attrKeyType) {
 		this.start();
-		Integer[] indexs;
-		if (exprotType == ExportProjectType.Client) {
-			indexs = sheetDefine.getClientValidIndexs();
-		} else {
-			indexs = sheetDefine.getServerValidIndexs();
-		}
+		Integer[] indexs = sheetDefine.getExportInfo(exprotType).getValidIndexs();
 		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());
 
 		this.start();

@@ -1,0 +1,3 @@
+module ${MODULE} {
+	${CLASS_CONTENT}
+}

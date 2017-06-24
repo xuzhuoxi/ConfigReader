@@ -1,4 +1,4 @@
-package cfg.serialize.data;
+package cfg.serialize.cfgcontent;
 
 import java.math.BigInteger;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import cfg.serialize.cfgcontent.IntegerContentHandler;
 
-public class TestInteger {
+public class IntegerContentTest {
 
 	@Test
 	public void testFromString() {

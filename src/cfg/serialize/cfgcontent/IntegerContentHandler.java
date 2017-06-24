@@ -20,6 +20,9 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 			else
 				newContent = valueContent.substring(0, dotIndex);
 		}
+		if (null == attrDataType) {
+			return new BigInteger(newContent);
+		}
 		if (attrDataType.getByteCount() <= 4) {
 			return Integer.parseInt(newContent);
 		} else {

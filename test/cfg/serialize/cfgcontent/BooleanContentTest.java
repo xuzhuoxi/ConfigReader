@@ -1,10 +1,10 @@
-package cfg.serialize.data;
+package cfg.serialize.cfgcontent;
 
 import org.junit.Test;
 
 import cfg.serialize.cfgcontent.BooleanContentHandler;
 
-public class TestBoolean {
+public class BooleanContentTest {
 
 	@Test
 	public void testFromString() {

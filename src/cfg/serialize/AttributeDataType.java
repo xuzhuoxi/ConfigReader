@@ -116,7 +116,7 @@ public class AttributeDataType {
 				return null;
 			}
 			String charLen = value.substring(startIndex, endIndex);
-			int byteCount = Integer.parseInt(charLen) << 1;
+			int byteCount = Integer.parseInt(charLen);
 			return new AttributeDataType("string", byteCount);
 		}
 	}

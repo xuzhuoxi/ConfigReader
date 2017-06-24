@@ -1,11 +1,30 @@
-package cfg.serialize.data;
+package cfg.serialize.cfgcontent;
 
 import org.junit.Test;
 
 import cfg.serialize.AttributeDataType;
-import cfg.serialize.cfgcontent.StringContentHandler;
+import code.array.ArrayUtils;
+import code.lang.IntegerUtil;
 
-public class TestString {
+public class StringContentTest {
+
+	@Test
+	public void testBinary() {
+		String[] strs = new String[] { "顶你个肺", "123456", "abcdef" };
+		StringContentHandler handler = new StringContentHandler();
+		AttributeDataType attType = AttributeDataType.from("string(25)");
+		// AttributeDataType attType = AttributeDataType.String;
+		for (String str : strs) {
+			byte[] bs = handler.toBinary(str, attType);
+			int len = IntegerUtil.toInt(new byte[] { bs[0], bs[1] });
+			String newStr = new String(ArrayUtils.subArray(bs, 2));
+			System.out.println(bs.length);
+			System.out.println(len);
+			System.out.println("|" + newStr + "|");
+			System.out.println("|" + newStr.trim() + "|");
+			System.out.println();
+		}
+	}
 
 	@Test
 	public void testFromString() {

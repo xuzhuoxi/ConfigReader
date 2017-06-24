@@ -1,0 +1,10 @@
+/**
+ * @author ${AUTHOR}
+ * Created on ${DATE}.
+ */
+export class ${CLASS} {
+   ${PROPERTY_CONTENT}
+   
+    public parse(data: any): void {
+    }
+}

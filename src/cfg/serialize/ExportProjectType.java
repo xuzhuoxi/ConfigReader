@@ -1,5 +1,5 @@
 package cfg.serialize;
 
 public enum ExportProjectType {
-	Server, Client;
+	Server, Client, Sql
 }

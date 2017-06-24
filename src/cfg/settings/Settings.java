@@ -1,5 +1,6 @@
 package cfg.settings;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,11 +9,16 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cfg.serialize.cfgcontent.StringContentHandler;
 import code.file.FileUtils;
 
 public class Settings {
 	protected String source;
+	protected String sourceEncoding;
+	protected Charset sourceCharset;
 	protected String target;
+	protected String targetEncoding;
+	protected Charset targetCharset;
 	protected String[] dataFormat;
 	protected String[] langs;
 	protected String sheetPrefix;
@@ -36,8 +42,24 @@ public class Settings {
 		return source;
 	}
 
+	public String getSourceEncoding() {
+		return sourceEncoding;
+	}
+
+	public Charset getSourceCharset() {
+		return sourceCharset;
+	}
+
 	public String getTarget() {
 		return target;
+	}
+
+	public String getTargetEncoding() {
+		return targetEncoding;
+	}
+
+	public Charset getTargetCharset() {
+		return targetCharset;
 	}
 
 	public String[] getDataFormat() {
@@ -107,7 +129,15 @@ public class Settings {
 		JSONObject jsonObj = new JSONObject(json);
 		Settings settings = new Settings();
 		settings.source = jsonObj.getJSONObject("source").getString("value");
+		settings.sourceEncoding = jsonObj.getJSONObject("source").getString("encoding");
+		settings.sourceCharset = Charset.forName(settings.sourceEncoding);
+		StringContentHandler.CHARSET_SOURCE = settings.sourceCharset;
+
 		settings.target = jsonObj.getJSONObject("target").getString("value");
+		settings.targetEncoding = jsonObj.getJSONObject("target").getString("encoding");
+		settings.targetCharset = Charset.forName(settings.targetEncoding);
+		StringContentHandler.CHARSET_TARGET = settings.targetCharset;
+
 		settings.dataFormat = getStringArray(jsonObj, "dataFormat", "value");
 		settings.langs = getStringArray(jsonObj, "langs", "value");
 		settings.sheetPrefix = jsonObj.getJSONObject("sheetPrefix").getString("value").toLowerCase();

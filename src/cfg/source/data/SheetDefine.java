@@ -9,24 +9,18 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import cfg.serialize.AttributeDataType;
+import cfg.serialize.ExportProjectType;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
 
 public class SheetDefine {
 
 	private int maxColLength;// 字段个数
-	private String serverClassName;// server导出类类名
-	private String serverDataFileName;// server数据文件名
-	private String sqlTableName;// sql表名
-	private String sqlFileName;// sql脚本文件名
-	private String clientClassName;// client导出类类名
-	private String clientDataFileName;// client数据文件名
 
-	private int[] keys;// 主键索引
+	private int[] keys;// 主键索引(未使用)
+	private Map<ExportProjectType, SheetValidInfo> infoMap = new HashMap<ExportProjectType, SheetValidInfo>();
 	private String[] names;// 字段名
 	private String[] remarks;// 字段注释
-	private Integer[] clientValidIndexs;// client字段索引
-	private Integer[] serverValidIndexs;// server字段索引
 	private Map<String, String[]> fieldNameMap;
 	private String[] dataTypes;// 每个字段对应的数据类型
 
@@ -34,6 +28,9 @@ public class SheetDefine {
 
 	private SheetDefine() {
 		super();
+		this.infoMap.put(ExportProjectType.Server, new SheetValidInfo());
+		this.infoMap.put(ExportProjectType.Client, new SheetValidInfo());
+		this.infoMap.put(ExportProjectType.Sql, new SheetValidInfo());
 	}
 
 	/**
@@ -46,60 +43,6 @@ public class SheetDefine {
 	}
 
 	/**
-	 * server导出类类名
-	 * 
-	 * @return
-	 */
-	public String getServerClassName() {
-		return serverClassName;
-	}
-
-	/**
-	 * server数据文件名
-	 * 
-	 * @return
-	 */
-	public String getServerDataFileName() {
-		return serverDataFileName;
-	}
-
-	/**
-	 * sql表名
-	 * 
-	 * @return
-	 */
-	public String getSqlTableName() {
-		return sqlTableName;
-	}
-
-	/**
-	 * sql脚本文件名
-	 * 
-	 * @return
-	 */
-	public String getSqlFileName() {
-		return sqlFileName;
-	}
-
-	/**
-	 * client导出类类名
-	 * 
-	 * @return
-	 */
-	public String getClientClassName() {
-		return clientClassName;
-	}
-
-	/**
-	 * client数据文件名
-	 * 
-	 * @return
-	 */
-	public String getClientDataFileName() {
-		return clientDataFileName;
-	}
-
-	/**
 	 * 主键索引
 	 * 
 	 * @return
@@ -107,25 +50,7 @@ public class SheetDefine {
 	public int[] getKeys() {
 		return keys;
 	}
-
-	/**
-	 * client字段索引
-	 * 
-	 * @return
-	 */
-	public Integer[] getClientValidIndexs() {
-		return clientValidIndexs.clone();
-	}
-
-	/**
-	 * server字段索引
-	 * 
-	 * @return
-	 */
-	public Integer[] getServerValidIndexs() {
-		return serverValidIndexs.clone();
-	}
-
+	
 	/**
 	 * 取对应字段的名称
 	 * 
@@ -211,6 +136,16 @@ public class SheetDefine {
 		return dataTypeInstances[index];
 	}
 
+	/**
+	 * 取导出数据文件名
+	 * 
+	 * @param projectType
+	 * @return
+	 */
+	public SheetValidInfo getExportInfo(ExportProjectType projectType) {
+		return this.infoMap.get(projectType);
+	}
+
 	public static SheetDefine parse(Sheet sheet, Settings settings) {
 		SheetDefine define = new SheetDefine();
 		Row nameRow = sheet.getRow(settings.getNameRowIndex());
@@ -218,25 +153,27 @@ public class SheetDefine {
 		define.maxColLength = len;
 		// System.out.println("\nNameRow");
 		define.names = WorkbookUtil.getContentArray(sheet, settings.getNameRowIndex(), len);
+		// System.out.println("\nRemarkRow");
+		define.remarks = WorkbookUtil.getContentArray(sheet, settings.getRemarkRowIndex(), len);
 
 		// System.out.println("\ntServerOutRow");
 		String[] serverOut = WorkbookUtil.getContentArray(sheet, settings.getServerOutRowIndex(), 5);
 		// System.out.println("\nClientOutRow");
 		String[] clientOut = WorkbookUtil.getContentArray(sheet, settings.getClientOutRowIndex(), 3);
-		define.serverClassName = serverOut[1].trim();
-		define.serverDataFileName = serverOut[2].trim();
-		define.sqlTableName = serverOut[3].trim();
-		define.sqlFileName = serverOut[4].trim();
-		define.clientClassName = clientOut[1].trim();
-		define.clientDataFileName = clientOut[2].trim();
-
-		// System.out.println("\nRemarkRow");
-		define.remarks = WorkbookUtil.getContentArray(sheet, settings.getRemarkRowIndex(), len);
-
+		String serverClassName = serverOut[1].trim();
+		String serverDataFileName = serverOut[2].trim();
+		String sqlTableName = serverOut[3].trim();
+		String sqlFileName = serverOut[4].trim();
+		String clientClassName = clientOut[1].trim();
+		String clientDataFileName = clientOut[2].trim();
 		// System.out.println("\nValidRow");
 		int validRowIndex = settings.getValidRowIndex();
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
-		handleValidData(define, validStrAry, settings.getValidRowIndex());
+		Integer[][] valids = new Integer[2][];// 0为server, 1为client,
+		handleValidData(define, validStrAry, settings.getValidRowIndex(), valids);
+		define.infoMap.get(ExportProjectType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
+		define.infoMap.get(ExportProjectType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
+		define.infoMap.get(ExportProjectType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
 
 		Map<String, Integer> fieldNameIndexMap = settings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
@@ -257,7 +194,7 @@ public class SheetDefine {
 		define.fieldNameMap = fieldNameMap;
 	}
 
-	private static void handleValidData(SheetDefine define, String[] validStrAry, int rowIndex) {
+	private static void handleValidData(SheetDefine define, String[] validStrAry, int rowIndex, Integer[][] valids) {
 		List<Integer> clientList = new ArrayList<Integer>();
 		List<Integer> serverList = new ArrayList<Integer>();
 		char client;
@@ -272,8 +209,8 @@ public class SheetDefine {
 			if (str.length() != 3) {
 				throw new Error("Format Error At : (" + (rowIndex + 1) + "," + (nameBaseChar + index) + ")");
 			}
-			client = str.charAt(0);
-			server = str.charAt(2);
+			server = str.charAt(0);
+			client = str.charAt(2);
 			if ('0' != client) {
 				clientList.add(index);
 			}
@@ -282,10 +219,10 @@ public class SheetDefine {
 			}
 			index++;
 		}
-		Integer[] c = new Integer[clientList.size()];
-		define.clientValidIndexs = clientList.toArray(c);
 		Integer[] s = new Integer[serverList.size()];
-		define.clientValidIndexs = serverList.toArray(s);
+		valids[0] = serverList.toArray(s);
+		Integer[] c = new Integer[clientList.size()];
+		valids[1] = clientList.toArray(c);
 	}
 
 	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) {

@@ -32,7 +32,8 @@ public class ModuleGeneraterTest {
 		String mPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Module.ts.temp";
 		String cPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Class.ts.temp";
 		String pPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath,
+		String pjpPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/PropertyParseJson.ts.temp";
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
 				ExportLangClassType.TypeScript.getValue());
 		String value = cg.serialize(sheetDefine, ExportProjectType.Server);
 		System.out.println(value);

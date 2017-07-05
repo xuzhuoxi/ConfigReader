@@ -25,6 +25,10 @@ public class TempKey {
 	 */
 	public static final String KEY_PROPETY = "${PROPERTY}";
 	/**
+	 * Json属性名
+	 */
+	public static final String KEY_PROPETY_JSON = "${PROPERTY_JSON}";
+	/**
 	 * 属性名(首字母大写)
 	 */
 	public static final String KEY_PROPERTY_UP = "${UP_PROPERTY}";
@@ -53,11 +57,15 @@ public class TempKey {
 	/**
 	 * 类实体
 	 */
-	public static final String KEY_CLASS_CONTENT = "${CLASS_CONTENT}";
+	public static final String KEY_CONTENT_CLASS = "${CLASS_CONTENT}";
 	/**
 	 * 属性实体
 	 */
-	public static final String KEY_PROPERTY_CONTENT = "${PROPERTY_CONTENT}";
+	public static final String KEY_CONTENT_PROPERTY = "${PROPERTY_CONTENT}";
+	/**
+	 * Json实体解释
+	 */
+	public static final String KEY_CONTENT_PARSE_JSON = "${PARSE_JSON_CONTENT}";
 
 	private TempKey() {
 		super();

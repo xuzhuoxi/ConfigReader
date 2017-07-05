@@ -22,9 +22,10 @@ public interface IContentGenerater {
 	/**
 	 * 设置子生成器
 	 * 
+	 * @param contentKey
 	 * @param subGenerater
 	 */
-	public void setSubGenerater(IContentGenerater subGenerater);
+	public void setSubGenerater(String contentKey, IContentGenerater subGenerater);
 
 	/**
 	 * 序列化类

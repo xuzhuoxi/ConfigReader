@@ -31,7 +31,8 @@ public class ClassGeneraterTest {
 
 		String cPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Class.ts.temp";
 		String pPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
-		IContentGenerater cg = LangFileGenerater.getClassGenerater(cPath, pPath,
+		String pjpPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/PropertyParseJson.ts.temp";
+		IContentGenerater cg = LangFileGenerater.getClassGenerater(cPath, pPath, pjpPath,
 				ExportLangClassType.TypeScript.getValue());
 		String value = cg.serialize(sheetDefine, ExportProjectType.Client);
 		System.out.println(value);

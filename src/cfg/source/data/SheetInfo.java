@@ -30,6 +30,12 @@ public class SheetInfo {
 		return dataList;
 	}
 
+	@Override
+	public String toString() {
+		return "SheetInfo [sheetNamed=" + sheetNamed + ", sheet=" + sheet + ", define=" + define + ", dataList="
+				+ dataList + "]";
+	}
+
 	public SheetInfo(String sheetNamed, Sheet sheet) {
 		super();
 		this.sheetNamed = sheetNamed;

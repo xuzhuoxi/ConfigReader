@@ -1,12 +1,14 @@
 package cfg;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 
 import cfg.serialize.AttributeKeyType;
 import cfg.serialize.ExportProjectType;
+import cfg.serialize.cfgdata.BinarySheetHandler;
 import cfg.serialize.cfgdata.JsonSheetHandler;
 import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
@@ -31,18 +33,14 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testLoadSettings() {
-		// String settingPath =
-		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
-		String settingPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
+		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
 		Settings settings = Settings.parseByPath(settingPath);
 		System.out.println(settings);
 	}
 
 	@Test
 	public void testJsonWorkbook() {
-		String settingPath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
-		// String settingPath =
-		// "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
+		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
 		Settings settings = Settings.parseByPath(settingPath);
 		String filePath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
 		// String filePath =
@@ -61,29 +59,30 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testBinaryWorkbook() {
-		String settingPath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
-		// String settingPath =
-		// "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
+		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
+		System.out.println(settingPath);
 		Settings settings = Settings.parseByPath(settingPath);
-		String filePath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
 		// String filePath =
-		// "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/configs/cfg_building.xls";
+		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
+		String filePath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
 
-		// List<SheetInfo> sheets = info.getSheetInfos();
-		// BinarySheetHandler handler = new BinarySheetHandler();
-		// for (SheetInfo sheetInfo : sheets) {
-		// handler.config(sheetInfo);
-		// Object out = handler.serialize(ExportProjectType.Client,
-		// AttributeKeyType.Json);
-		// System.out.println(out);
-		// }
+		BinarySheetHandler handler = new BinarySheetHandler();
+		List<SheetInfo> sheets = info.getSheetInfos();
+		for (SheetInfo sheetInfo : sheets) {
+			handler.config(sheetInfo);
+			byte[] out = (byte[]) handler.serialize(ExportProjectType.Client, AttributeKeyType.Json);
+			System.out.println(sheetInfo);
+			System.out.println(out.length);
+		}
 	}
 
 	@Test
 	public void testSettings() {
-		String filePath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
+		// String filePath =
+		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
+		String filePath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
 		Settings settings = Settings.parseByPath(filePath);
 		System.out.println(settings);
 	}
@@ -91,6 +90,7 @@ public class ConfigReaderTest {
 	@Test
 	public void testBasePath() {
 		System.out.println(BasePathUtils.getBasePath());
+		System.out.println(BasePathUtils.getBasePath(Settings.class));
 		System.out.println(BasePathUtils.getAppPath(Settings.class));
 	}
 }

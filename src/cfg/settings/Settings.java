@@ -20,6 +20,7 @@ public class Settings {
 	protected String targetEncoding;
 	protected Charset targetCharset;
 	protected String[] dataFormat;
+	protected BuffSettings buffSettings;
 	protected String[] langs;
 	protected String sheetPrefix;
 
@@ -64,6 +65,10 @@ public class Settings {
 
 	public String[] getDataFormat() {
 		return dataFormat.clone();
+	}
+
+	public BuffSettings getBuffSettings() {
+		return buffSettings;
 	}
 
 	public String[] getLangs() {
@@ -112,16 +117,18 @@ public class Settings {
 
 	@Override
 	public String toString() {
-		return "Settings [source=" + source + ", target=" + target + ", dataFormat=" + Arrays.toString(dataFormat)
-				+ ", langs=" + Arrays.toString(langs) + ", sheetPrefix=" + sheetPrefix + ", serverOutRowIndex="
-				+ serverOutRowIndex + ", clientOutRowIndex=" + clientOutRowIndex + ", nameRowIndex=" + nameRowIndex
-				+ ", remarkRowIndex=" + remarkRowIndex + ", validRowIndex=" + validRowIndex + ", dataTypeRowIndex="
-				+ dataTypeRowIndex + ", startRowIndex=" + startRowIndex + ", fieldNameRowIndexMap="
-				+ fieldNameRowIndexMap + "]";
+		return "Settings [source=" + source + ", sourceEncoding=" + sourceEncoding + ", sourceCharset=" + sourceCharset
+				+ ", target=" + target + ", targetEncoding=" + targetEncoding + ", targetCharset=" + targetCharset
+				+ ", dataFormat=" + Arrays.toString(dataFormat) + ", buffSettings=" + buffSettings + ", langs="
+				+ Arrays.toString(langs) + ", sheetPrefix=" + sheetPrefix + ", serverOutRowIndex=" + serverOutRowIndex
+				+ ", clientOutRowIndex=" + clientOutRowIndex + ", nameRowIndex=" + nameRowIndex + ", remarkRowIndex="
+				+ remarkRowIndex + ", validRowIndex=" + validRowIndex + ", dataTypeRowIndex=" + dataTypeRowIndex
+				+ ", startRowIndex=" + startRowIndex + ", fieldNameRowIndexMap=" + fieldNameRowIndexMap + "]";
 	}
 
 	public static final Settings parseByPath(String filePath) {
 		String jsonContent = FileUtils.readFileContent(filePath);
+		System.out.println(jsonContent);
 		return parseByJson(jsonContent);
 	}
 
@@ -139,6 +146,9 @@ public class Settings {
 		StringContentHandler.CHARSET_TARGET = settings.targetCharset;
 
 		settings.dataFormat = getStringArray(jsonObj, "dataFormat", "value");
+		JSONObject buffObject = jsonObj.getJSONObject("buff");
+		settings.buffSettings = BuffSettings.create(buffObject.getInt("token"), buffObject.getInt("item"),
+				buffObject.getInt("sheet"));
 		settings.langs = getStringArray(jsonObj, "langs", "value");
 		settings.sheetPrefix = jsonObj.getJSONObject("sheetPrefix").getString("value").toLowerCase();
 

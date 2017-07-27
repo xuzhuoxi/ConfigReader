@@ -1,20 +1,20 @@
 package cfg.serialize.cfgdata;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 import cfg.serialize.AttributeDataType;
-import cfg.serialize.ExportProjectType;
 import cfg.serialize.AttributeKeyType;
+import cfg.serialize.ExportProjectType;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 
-public class JsonSheetHandler implements ISheetHandler {
+public class BinarySheetHandler implements ISheetHandler {
 
-	private IItemHandler jsonItemHandler = new JsonItemHandler();
+	private IItemHandler binaryItemHandler = new BinaryItemHandler();
+	private ByteBuffer bb = ByteBuffer.allocate(2096000);
 
 	private SheetInfo sheetInfo;
-	private StringBuilder sb = new StringBuilder();
-
 	private SheetDefine sheetDefine;
 	private AttributeDataType[] attrDataTypes;
 	private List<String[]> dataList;
@@ -35,10 +35,11 @@ public class JsonSheetHandler implements ISheetHandler {
 
 		this.start();
 		for (String[] strings : this.dataList) {
-			jsonItemHandler.start();
-			jsonItemHandler.append(indexs, attrDataTypes, attrKeys, strings);
-			jsonItemHandler.finish();
-			this.append(jsonItemHandler.getSerializedData());
+			binaryItemHandler.start();
+			binaryItemHandler.append(indexs, attrDataTypes, attrKeys, strings);
+			binaryItemHandler.finish();
+			byte[] data = (byte[]) binaryItemHandler.getSerializedData();
+			this.append(data);
 		}
 		this.finish();
 		return this.getSerializedData();
@@ -46,31 +47,35 @@ public class JsonSheetHandler implements ISheetHandler {
 
 	@Override
 	public void start() {
-		this.sb.setLength(0);
-		this.sb.append("[");
+		this.bb.clear();
+		return;
 	}
 
 	@Override
 	public void append(Object item) {
-		sb.append(item + ",");
+		if (item instanceof byte[]) {
+			this.bb.put((byte[]) item);
+		} else if (item instanceof Byte) {
+			this.bb.put((Byte) item);
+		}
 	}
 
 	@Override
 	public void append(Object[] items) {
-		for (Object object : items) {
-			this.append(object);
+		for (Object b : items) {
+			this.append(b);
 		}
 	}
 
 	@Override
 	public void finish() {
-		sb.deleteCharAt(sb.length() - 1);
-		sb.append("]");
+		this.bb.flip();
 	}
 
 	@Override
 	public Object getSerializedData() {
-		return sb.toString();
+		byte[] rs = new byte[this.bb.limit()];
+		this.bb.get(rs);
+		return rs;
 	}
-
 }

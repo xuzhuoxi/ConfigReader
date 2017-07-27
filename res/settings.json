@@ -13,6 +13,11 @@
 		"value": ["json", "binary", "sql"],
 		"desc": "支持的数据格式"
 	},
+	"buff": {
+		"token": 512,
+		"item": 1024,
+		"sheet": 2096000
+	},
 	"langs": {
 		"value": ["java", "ts", "c++", "c#"],
 		"desc": "输出数据定义{sql:字段名,java:属性名,ts:属性名,c++属性名,json:key}"

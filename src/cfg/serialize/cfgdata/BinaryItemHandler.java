@@ -1,42 +1,43 @@
 package cfg.serialize.cfgdata;
 
+import java.nio.ByteBuffer;
+
 import cfg.serialize.AttributeDataType;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 
-public class JsonItemHandler implements IItemHandler {
+public class BinaryItemHandler implements IItemHandler {
 
-	private StringBuilder sb = new StringBuilder();
-	private ITokenHandler tokenHandler = new JsonTokenHandler();
+	private ByteBuffer bb = ByteBuffer.allocate(2048);
+	private ITokenHandler tokenHandler = new BinaryTokenHandler();
 
 	@Override
 	public void start() {
-		sb.setLength(0);
-		sb.append("{");
+		this.bb.clear();
 	}
 
 	@Override
 	public void append(AttributeDataType attrDataType, String attrKey, String valueContent) {
-		String data = (String) tokenHandler.serializeContentToken(attrDataType, attrKey, valueContent);
-		sb.append(data + ",");
+		byte[] data = (byte[]) this.tokenHandler.serializeContentToken(attrDataType, attrKey, valueContent);
+		this.bb.put(data);
 	}
 
 	@Override
 	public void append(AttributeDataType attrDataType, String attrKey, Object valueObject) {
-		String data = (String) tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObject);
-		sb.append(data + ",");
+		byte[] data = (byte[]) this.tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObject);
+		this.bb.put(data);
 	}
 
 	@Override
 	public void append(AttributeDataType attrDataType, String attrKey, String[] valueContents) {
-		String data = (String) tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
-		sb.append(data + ",");
+		byte[] data = (byte[]) this.tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
+		this.bb.put(data);
 	}
 
 	@Override
 	public void append(AttributeDataType attrDataType, String attrKey, Object[] valueObjects) {
-		String data = (String) tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
-		sb.append(data + ",");
+		byte[] data = (byte[]) this.tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
+		this.bb.put(data);
 	}
 
 	@Override
@@ -48,18 +49,20 @@ public class JsonItemHandler implements IItemHandler {
 			dataType = attrDataTypes[index];
 			dataHandler = ContentSerializeHandlerMap.getShared().getHandler(dataType);
 			obj = dataHandler.fromString(allContents[index], dataType);
-			sb.append(tokenHandler.serializeObjectToken(dataType, attrKeys[index], obj) + ",");
+			byte[] tokenData = (byte[]) tokenHandler.serializeObjectToken(dataType, attrKeys[index], obj);
+			this.bb.put(tokenData);
 		}
 	}
 
 	@Override
 	public void finish() {
-		sb.deleteCharAt(sb.length() - 1);
-		sb.append("}");
+		this.bb.flip();
 	}
 
 	@Override
 	public Object getSerializedData() {
-		return sb.toString();
+		byte[] rs = new byte[this.bb.limit()];
+		this.bb.get(rs);
+		return rs;
 	}
 }

@@ -48,7 +48,7 @@ public class SheetInfo {
 		int len = define.getMaxColLength();
 		String[] contents;
 		this.dataList = new ArrayList<String[]>();
-		for (int index = settings.getStartRowIndex(); index <= lastRowIndex; index++) {
+		for (int index = settings.getProjectSettings().getStartRowIndex(); index <= lastRowIndex; index++) {
 			contents = WorkbookUtil.getContentArray(sheet, index, len);
 			if (contents[0].length() == 0) {
 				continue;

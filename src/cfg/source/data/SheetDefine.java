@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 import cfg.serialize.AttributeDataType;
 import cfg.serialize.ExportProjectType;
+import cfg.settings.ProjectSettings;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
 
@@ -50,7 +51,7 @@ public class SheetDefine {
 	public int[] getKeys() {
 		return keys;
 	}
-	
+
 	/**
 	 * 取对应字段的名称
 	 * 
@@ -148,18 +149,19 @@ public class SheetDefine {
 
 	public static SheetDefine parse(Sheet sheet, Settings settings) {
 		SheetDefine define = new SheetDefine();
-		Row nameRow = sheet.getRow(settings.getNameRowIndex());
+		ProjectSettings prjectSettings = settings.getProjectSettings();
+		Row nameRow = sheet.getRow(prjectSettings.getNameRowIndex());
 		int len = nameRow.getLastCellNum();
 		define.maxColLength = len;
 		// System.out.println("\nNameRow");
-		define.names = WorkbookUtil.getContentArray(sheet, settings.getNameRowIndex(), len);
+		define.names = WorkbookUtil.getContentArray(sheet, prjectSettings.getNameRowIndex(), len);
 		// System.out.println("\nRemarkRow");
-		define.remarks = WorkbookUtil.getContentArray(sheet, settings.getRemarkRowIndex(), len);
+		define.remarks = WorkbookUtil.getContentArray(sheet, prjectSettings.getRemarkRowIndex(), len);
 
 		// System.out.println("\ntServerOutRow");
-		String[] serverOut = WorkbookUtil.getContentArray(sheet, settings.getServerOutRowIndex(), 5);
+		String[] serverOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getServerOutRowIndex(), 5);
 		// System.out.println("\nClientOutRow");
-		String[] clientOut = WorkbookUtil.getContentArray(sheet, settings.getClientOutRowIndex(), 3);
+		String[] clientOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getClientOutRowIndex(), 3);
 		String serverClassName = serverOut[1].trim();
 		String serverDataFileName = serverOut[2].trim();
 		String sqlTableName = serverOut[3].trim();
@@ -167,19 +169,19 @@ public class SheetDefine {
 		String clientClassName = clientOut[1].trim();
 		String clientDataFileName = clientOut[2].trim();
 		// System.out.println("\nValidRow");
-		int validRowIndex = settings.getValidRowIndex();
+		int validRowIndex = prjectSettings.getValidRowIndex();
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
 		Integer[][] valids = new Integer[2][];// 0为server, 1为client,
-		handleValidData(define, validStrAry, settings.getValidRowIndex(), valids);
+		handleValidData(define, validStrAry, prjectSettings.getValidRowIndex(), valids);
 		define.infoMap.get(ExportProjectType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
 		define.infoMap.get(ExportProjectType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
 		define.infoMap.get(ExportProjectType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
 
-		Map<String, Integer> fieldNameIndexMap = settings.getFieldNameRowNumMap();
+		Map<String, Integer> fieldNameIndexMap = prjectSettings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
 
 		// System.out.println("\nDataTypeRow");
-		define.dataTypes = WorkbookUtil.getContentArray(sheet, settings.getDataTypeRowIndex(), len);
+		define.dataTypes = WorkbookUtil.getContentArray(sheet, prjectSettings.getDataTypeRowIndex(), len);
 		handleDataTypeInstances(define, define.dataTypes);
 		return define;
 	}

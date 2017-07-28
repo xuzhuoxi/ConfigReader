@@ -62,7 +62,7 @@ public class WorkbookInfo {
 	private void loadSheets(Workbook workbook, Settings settings) {
 		if (null != workbook) {
 			int sheetNum = workbook.getNumberOfSheets();
-			String sheetPrefix = settings.getSheetPrefix();
+			String sheetPrefix = settings.getSysSettings().getSheetPrefix();
 			String sheetName;
 			for (int i = 0; i < sheetNum; i++) {
 				sheetName = workbook.getSheetName(i).toLowerCase();

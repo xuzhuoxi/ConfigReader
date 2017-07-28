@@ -10,18 +10,16 @@ import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
+import code.path.BasePathUtils;
 
 public class ModuleGeneraterTest {
 
 	@Test
 	public void testSerialize() {
-		// String settingPath =
-		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
-		String settingPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
-		Settings settings = Settings.parseByPath(settingPath);
-		// String filePath =
-		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
-		String filePath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/configs/cfg_building.xls";
+		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
+		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
 

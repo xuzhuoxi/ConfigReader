@@ -1,6 +1,6 @@
-package cfg.settings;
+package cfg.settings.sys;
 
-public class BuffSettings {
+public class BuffSetting {
 	private int tokenBuffLen;
 	private int itemBuffLen;
 	private int sheetBuffLen;
@@ -23,7 +23,7 @@ public class BuffSettings {
 				+ sheetBuffLen + "]";
 	}
 
-	protected BuffSettings() {
+	protected BuffSetting() {
 		super();
 	}
 
@@ -33,8 +33,8 @@ public class BuffSettings {
 		this.sheetBuffLen = sheetBuffLen;
 	}
 
-	public static BuffSettings create(int tokenBuffLen, int itemBuffLen, int sheetBuffLen) {
-		BuffSettings rs = new BuffSettings();
+	public static BuffSetting create(int tokenBuffLen, int itemBuffLen, int sheetBuffLen) {
+		BuffSetting rs = new BuffSetting();
 		rs.setData(tokenBuffLen, itemBuffLen, sheetBuffLen);
 		return rs;
 	}

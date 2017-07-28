@@ -1,7 +1,6 @@
 package cfg;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -33,18 +32,18 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testLoadSettings() {
-		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
-		Settings settings = Settings.parseByPath(settingPath);
+		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
+		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
 		System.out.println(settings);
 	}
 
 	@Test
 	public void testJsonWorkbook() {
-		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
-		Settings settings = Settings.parseByPath(settingPath);
-		String filePath = "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
-		// String filePath =
-		// "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/configs/cfg_building.xls";
+		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
+		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
 
@@ -59,12 +58,10 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testBinaryWorkbook() {
-		String settingPath = BasePathUtils.getBasePath(this.getClass()) + "/settings.json";
-		System.out.println(settingPath);
-		Settings settings = Settings.parseByPath(settingPath);
-		// String filePath =
-		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/configs/cfg_building.xls";
-		String filePath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/configs/cfg_building.xls";
+		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
+		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
 
@@ -80,10 +77,9 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testSettings() {
-		// String filePath =
-		// "E:/sourcestore/tools/Eclipse_ConfigReader/res/settings.json";
-		String filePath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/settings.json";
-		Settings settings = Settings.parseByPath(filePath);
+		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
+		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
 		System.out.println(settings);
 	}
 

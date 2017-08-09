@@ -1,0 +1,12 @@
+     //${PROPERTY_NAME}
+    private ${DATA_TYPE} ${PROPERTY};
+${SEPARATOR}
+    /**
+     * ${PROPERTY_NAME}
+     *
+     * @remark ${REMARK}
+     * @returns {${DATA_TYPE}}
+     */
+    public ${DATA_TYPE} get${UP_PROPERTY}() {
+        return this.${PROPERTY};
+    }

@@ -15,11 +15,12 @@ import code.path.BasePathUtils;
 public class ModuleGeneraterTest {
 
 	@Test
-	public void testSerialize() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
+	public void testSerializeTS() {
+		String basePath = BasePathUtils.getBasePath(this.getClass());
+		String sysPath = basePath + "/system.json";
+		String proPath = basePath + "/project.json";
 		Settings settings = Settings.parseByPath(sysPath, proPath);
-		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
+		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
 
@@ -27,12 +28,36 @@ public class ModuleGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		String mPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Module.ts.temp";
-		String cPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Class.ts.temp";
-		String pPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
-		String pjpPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/PropertyParseJson.ts.temp";
+		String mPath = basePath + "/template/ts/Module.ts.temp";
+		String cPath = basePath + "/template/ts/Class.ts.temp";
+		String pPath = basePath + "/template/ts/Property.ts.temp";
+		String pjpPath = basePath + "/template/ts/PropertyParseJson.ts.temp";
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
 				ExportLangClassType.TypeScript.getValue());
+		String value = cg.serialize(sheetDefine, ExportProjectType.Server);
+		System.out.println(value);
+	}
+
+	@Test
+	public void testSerializeJava() {
+		String basePath = BasePathUtils.getBasePath(this.getClass());
+		String sysPath = basePath + "/system.json";
+		String proPath = basePath + "/project.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String filePath = basePath + "/configs/cfg_building.xls";
+		WorkbookInfo info = new WorkbookInfo(filePath);
+		info.loadSheetInfos(settings);
+
+		List<SheetInfo> sheets = info.getSheetInfos();
+		SheetInfo sheetInfo = sheets.get(0);
+		SheetDefine sheetDefine = sheetInfo.getDefine();
+
+		String mPath = basePath + "/template/java/Package.java.temp";
+		String cPath = basePath + "/template/java/Class.java.temp";
+		String pPath = basePath + "/template/java/Property.java.temp";
+		String pjpPath = basePath + "/template/java/PropertyParseJson.java.temp";
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
+				ExportLangClassType.Java.getValue());
 		String value = cg.serialize(sheetDefine, ExportProjectType.Server);
 		System.out.println(value);
 	}

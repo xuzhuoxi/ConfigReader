@@ -1,0 +1,11 @@
+/**
+ * @author ${AUTHOR}
+ * Created on ${DATE}.
+ */
+public class ${CLASS} {
+	${PROPERTY_CONTENT}
+
+    public void parse(JSONObject  data) {
+    	${PARSE_JSON_CONTENT}
+    }
+}

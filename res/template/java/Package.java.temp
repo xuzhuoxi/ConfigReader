@@ -1,0 +1,5 @@
+package ${MODULE};
+
+import org.json.JSONObject;
+
+${CLASS_CONTENT}

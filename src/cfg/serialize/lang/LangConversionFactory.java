@@ -22,6 +22,7 @@ public class LangConversionFactory {
 	private LangConversionFactory() {
 		this.langMap = new HashMap<ExportLangClassType, ILangConversion>();
 		this.langMap.put(ExportLangClassType.TypeScript, new TSConversion());
+		this.langMap.put(ExportLangClassType.Java, new JavaConversion());
 	}
 
 	public final ILangConversion getConversion(ExportLangClassType lang) {

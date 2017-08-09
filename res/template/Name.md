@@ -1,10 +1,15 @@
-${module}					=			模块名
-${class}						=			类名
-${property_name}	=			属性名说明
-${property}				=			属性名
-${remark}					=			注释内容
-${Up_property}		=			属性名(首字母大写)
-${return}					＝			返回类型
+${MODULE}								=模块名、包名、命名空间;
+${CLASS}									=类名;
+${PROPERTY_NAME}				=属性名说明;
+${PROPERTY}								=属性名;
+${PROPERTY_JSON}					=Json属性名;
+${UP_PROPERTY}						=属性名(首字母大写);
+${REMARK}								=注释内容;
+${DATA_TYPE}							=数据类型;
+${AUTHOR}								=作者;
+${DATE}										=当前时间;
+${SEPARATOR}							=通用分隔符;
 
-${class_content}					=			类实体
-${property_content}			=			属性实体
+${CLASS_CONTENT}				=类实体;
+${PROPERTY_CONTENT}			=属性实体;
+${PARSE_JSON_CONTENT}		=Json实体解释;

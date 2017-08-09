@@ -5,7 +5,7 @@
 export class ${CLASS} {
    ${PROPERTY_CONTENT}
    
-    public parse(data: any): void {
+    public parseJson(data: any): void {
     	${PARSE_JSON_CONTENT}
     }
 }

@@ -1,29 +1,33 @@
 {
-	"serverOut": {
+	"ServerOut": {
 		"value": 1,
 		"desc": "服务端输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)，D列为数据库表名，E列为数据脚本名(不包含扩展名)"
 	},
-	"clientOut": {
+	"ClientOut": {
 		"value": 2,
 		"desc": "客户输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)"
 	},
-	"keys": {
+	"Keys": {
 		"value": 3,
 		"desc": "主键信息，暂时没用到"
 	},
-	"name": {
+	"Name": {
 		"value": 4,
 		"desc": "数据名称"
 	},
-	"remark": {
+	"Remark": {
 		"value": 5,
 		"desc": "数据注释"
 	},
-	"valid": {
+	"Valid": {
 		"value": 6,
 		"desc": "输出选择，格式: 'a,b'，a和b的格式只能是0或1，a指后，b指前端"
 	},
-	"fieldName": {
+	"DataType": {
+		"value": 8,
+		"desc": "数据格式,支持{uint8,uint16,uint32,int8,int16,int32,boolean,string(*)},其中string中的*代表字节数"
+	},
+	"FieldName": {
 		"value": {
 			"sql": 7,
 			"json": 7,
@@ -35,11 +39,7 @@
 		},
 		"desc": "导出定义时对应的字段名、属性名或key。(sql)为字段名，(json)为key，(java,ts,c++,c#)为属性名"
 	},
-	"dataType": {
-		"value": 8,
-		"desc": "数据格式,支持{uint8,uint16,uint32,int8,int16,int32,boolean,string(*)},其中string中的*代表字节数"
-	},
-	"startRow": {
+	"StartRow": {
 		"value": 9,
 		"desc": "数据开始行号(Excel左则行号)"
 	}

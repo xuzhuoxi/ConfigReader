@@ -15,14 +15,16 @@ public class SysSettings {
 	protected String source;
 	protected String sourceEncoding;
 	protected Charset sourceCharset;
-	
+
 	protected String target;
 	protected String targetEncoding;
 	protected Charset targetCharset;
-	
-	protected String[] dataFormat;
+
 	protected BuffSetting buffSettings;
+
+	protected String[] fileTypes;
 	protected String[] langs;
+	protected String[] dataFormats;
 	protected String sheetPrefix;
 
 	public SysSettings() {
@@ -53,16 +55,20 @@ public class SysSettings {
 		return targetCharset;
 	}
 
-	public String[] getDataFormat() {
-		return dataFormat.clone();
-	}
-
 	public BuffSetting getBuffSettings() {
 		return buffSettings;
 	}
 
+	public String[] getFileTypes() {
+		return fileTypes.clone();
+	}
+
 	public String[] getLangs() {
 		return langs.clone();
+	}
+
+	public String[] getDataFormats() {
+		return dataFormats;
 	}
 
 	public String getSheetPrefix() {
@@ -73,8 +79,9 @@ public class SysSettings {
 	public String toString() {
 		return "SysSettings [source=" + source + ", sourceEncoding=" + sourceEncoding + ", sourceCharset="
 				+ sourceCharset + ", target=" + target + ", targetEncoding=" + targetEncoding + ", targetCharset="
-				+ targetCharset + ", dataFormat=" + Arrays.toString(dataFormat) + ", buffSettings=" + buffSettings
-				+ ", langs=" + Arrays.toString(langs) + ", sheetPrefix=" + sheetPrefix + "]";
+				+ targetCharset + ", buffSettings=" + buffSettings + ", fileTypes=" + Arrays.toString(fileTypes)
+				+ ", langs=" + Arrays.toString(langs) + ", dataFormats=" + Arrays.toString(dataFormats)
+				+ ", sheetPrefix=" + sheetPrefix + "]";
 	}
 
 	public static final SysSettings parseByPath(String filePath) {
@@ -86,26 +93,29 @@ public class SysSettings {
 		JSONObject jsonObj = new JSONObject(json);
 		SysSettings settings = new SysSettings();
 
-		JSONObject sourceObj = jsonObj.getJSONObject("source");
+		JSONObject sourceObj = jsonObj.getJSONObject("Source");
 		String sourcePath = sourceObj.getString("value").trim();
 		settings.source = handPath(sourcePath);
 		settings.sourceEncoding = sourceObj.getString("encoding");
 		settings.sourceCharset = Charset.forName(settings.sourceEncoding);
 		StringContentHandler.CHARSET_SOURCE = settings.sourceCharset;
 
-		JSONObject targetObj = jsonObj.getJSONObject("target");
+		JSONObject targetObj = jsonObj.getJSONObject("Target");
 		String targetPath = targetObj.getString("value").trim();
 		settings.target = handPath(targetPath);
 		settings.targetEncoding = targetObj.getString("encoding");
 		settings.targetCharset = Charset.forName(settings.targetEncoding);
 		StringContentHandler.CHARSET_TARGET = settings.targetCharset;
 
-		settings.dataFormat = getStringArray(jsonObj, "dataFormat", "value");
-		JSONObject buffObject = jsonObj.getJSONObject("buff");
+		JSONObject buffObject = jsonObj.getJSONObject("Buff");
 		settings.buffSettings = BuffSetting.create(buffObject.getInt("token"), buffObject.getInt("item"),
 				buffObject.getInt("sheet"));
-		settings.langs = getStringArray(jsonObj, "langs", "value");
-		settings.sheetPrefix = jsonObj.getJSONObject("sheetPrefix").getString("value").toLowerCase();
+
+		settings.fileTypes = getStringArray(jsonObj, "FileType", "value");
+		settings.langs = getStringArray(jsonObj, "Langs", "value");
+		settings.dataFormats = getStringArray(jsonObj, "DataFormat", "value");
+
+		settings.sheetPrefix = jsonObj.getJSONObject("SheetPrefix").getString("value").toLowerCase();
 		return settings;
 	}
 

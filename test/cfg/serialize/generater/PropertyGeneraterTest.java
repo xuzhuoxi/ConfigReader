@@ -16,9 +16,11 @@ public class PropertyGeneraterTest {
 
 	@Test
 	public void testSerialize() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String basePath = BasePathUtils.getBasePath(this.getClass());
+		String sysPath = basePath + "/system.json";
+		String proPath = basePath + "/project.json";
+		String langsPath = basePath + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);

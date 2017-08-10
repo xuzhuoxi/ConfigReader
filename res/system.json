@@ -1,28 +1,32 @@
 {
-	"source": {
+	"Source": {
 		"value": "E:/sourcestore/tools/Eclipse_ConfigReader/res/cfg_building.xls",
 		"encoding": "UTF-8",
 		"desc": "默认处理的文件或目录"
 	},
-	"target": {
+	"Target": {
 		"value": "E:/sourcestore/tools/Eclipse_ConfigReader/res",
 		"encoding": "UTF-8",
 		"desc": "输出目录,encoding属性只作用于字符文件的输出"
 	},
-	"dataFormat": {
-		"value": ["json", "binary", "sql"],
-		"desc": "支持的数据格式"
-	},
-	"buff": {
+	"Buff": {
 		"token": 512,
 		"item": 1024,
 		"sheet": 2096000
 	},
-	"langs": {
+	"FileType": {
+		"value": ["json", "binary", "sql"],
+		"desc": "支持输出文件格式"
+	},
+	"Langs": {
 		"value": ["java", "ts", "c++", "c#"],
 		"desc": "输出数据定义{sql:字段名,java:属性名,ts:属性名,c++属性名,json:key}"
 	},
-	"sheetPrefix": {
+	"DataFormat": {
+		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "boolean", "string"],
+		"desc": "支持输出文件格式"
+	},
+	"SheetPrefix": {
 		"value": "Data_",
 		"desc": "要求输出的Sheet的名称前缀，只有带这个前缀的Sheet才参与处理"
 	}

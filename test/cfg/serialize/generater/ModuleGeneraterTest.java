@@ -19,7 +19,8 @@ public class ModuleGeneraterTest {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
 		String sysPath = basePath + "/system.json";
 		String proPath = basePath + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = basePath + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
@@ -43,7 +44,8 @@ public class ModuleGeneraterTest {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
 		String sysPath = basePath + "/system.json";
 		String proPath = basePath + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = basePath + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);

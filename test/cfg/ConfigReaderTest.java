@@ -34,7 +34,8 @@ public class ConfigReaderTest {
 	public void testLoadSettings() {
 		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
 		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		System.out.println(settings);
 	}
 
@@ -42,7 +43,8 @@ public class ConfigReaderTest {
 	public void testJsonWorkbook() {
 		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
 		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
@@ -60,7 +62,8 @@ public class ConfigReaderTest {
 	public void testBinaryWorkbook() {
 		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
 		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos(settings);
@@ -79,7 +82,8 @@ public class ConfigReaderTest {
 	public void testSettings() {
 		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
 		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath);
+		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
+		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		System.out.println(settings);
 	}
 

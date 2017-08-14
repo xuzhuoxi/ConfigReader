@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import cfg.serialize.ExportLangClassType;
 import cfg.serialize.ExportProjectType;
-import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -17,13 +16,9 @@ public class ModuleGeneraterTest {
 	@Test
 	public void testSerializeTS() {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
-		String sysPath = basePath + "/system.json";
-		String proPath = basePath + "/project.json";
-		String langsPath = basePath + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos(settings);
+		info.loadSheetInfos();
 
 		List<SheetInfo> sheets = info.getSheetInfos();
 		SheetInfo sheetInfo = sheets.get(0);
@@ -42,13 +37,9 @@ public class ModuleGeneraterTest {
 	@Test
 	public void testSerializeJava() {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
-		String sysPath = basePath + "/system.json";
-		String proPath = basePath + "/project.json";
-		String langsPath = basePath + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos(settings);
+		info.loadSheetInfos();
 
 		List<SheetInfo> sheets = info.getSheetInfos();
 		SheetInfo sheetInfo = sheets.get(0);

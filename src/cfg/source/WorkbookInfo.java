@@ -29,13 +29,13 @@ public class WorkbookInfo {
 		this.filePath = filePath;
 	}
 
-	public void loadSheetInfos(Settings settings) {
+	public void loadSheetInfos() {
 		this.sheetInfos = new ArrayList<SheetInfo>();
 		if (FileUtils.isFolder(filePath)) {
-			loadWorkbooks(settings);
+			loadWorkbooks();
 		} else {
 			Workbook workbook = WorkbookUtil.getWorkbook(filePath);
-			loadSheets(workbook, settings);
+			loadSheets(workbook);
 		}
 	}
 
@@ -44,12 +44,12 @@ public class WorkbookInfo {
 	 * 
 	 * @param settings
 	 */
-	private void loadWorkbooks(Settings settings) {
+	private void loadWorkbooks() {
 		File[] files = FileUtils.getFiles(filePath, new String[] { "xls", "xlsx" }, true);
 		Workbook workbook;
 		for (File file : files) {
 			workbook = WorkbookUtil.getWorkbook(file.getAbsolutePath());
-			loadSheets(workbook, settings);
+			loadSheets(workbook);
 		}
 	}
 
@@ -59,9 +59,10 @@ public class WorkbookInfo {
 	 * @param workbook
 	 * @param settings
 	 */
-	private void loadSheets(Workbook workbook, Settings settings) {
+	private void loadSheets(Workbook workbook) {
 		if (null != workbook) {
 			int sheetNum = workbook.getNumberOfSheets();
+			Settings settings = Settings.getInstance();
 			String sheetPrefix = settings.getSysSettings().getSheetPrefix();
 			String sheetName;
 			for (int i = 0; i < sheetNum; i++) {
@@ -71,7 +72,7 @@ public class WorkbookInfo {
 				}
 				Sheet sheet = workbook.getSheetAt(i);
 				SheetInfo sheetInfo = new SheetInfo(sheetName, sheet);
-				sheetInfo.handleInfo(settings);
+				sheetInfo.handleInfo();
 				this.sheetInfos.add(sheetInfo);
 			}
 		}

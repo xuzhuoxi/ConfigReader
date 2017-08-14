@@ -42,12 +42,13 @@ public class SheetInfo {
 		this.sheet = sheet;
 	}
 
-	public void handleInfo(Settings settings) {
-		this.define = SheetDefine.parse(sheet, settings);
+	public void handleInfo() {
+		this.define = SheetDefine.parse(sheet);
 		int lastRowIndex = sheet.getLastRowNum();
 		int len = define.getMaxColLength();
 		String[] contents;
 		this.dataList = new ArrayList<String[]>();
+		Settings settings = Settings.getInstance();
 		for (int index = settings.getProjectSettings().getStartRowIndex(); index <= lastRowIndex; index++) {
 			contents = WorkbookUtil.getContentArray(sheet, index, len);
 			if (contents[0].length() == 0) {

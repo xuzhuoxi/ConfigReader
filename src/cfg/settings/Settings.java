@@ -1,5 +1,6 @@
 package cfg.settings;
 
+import cfg.AppDefine;
 import code.file.FileUtils;
 
 public class Settings {
@@ -27,6 +28,19 @@ public class Settings {
 	public String toString() {
 		return "Settings [\nsysSettings=" + sysSettings + "\nprojectSettings=" + projectSettings + "\nlangSettings="
 				+ langSettings + "]";
+	}
+
+	private static Settings instance = null;
+
+	public static final Settings getInstance() {
+		if (null == instance) {
+			String basePath = AppDefine.instance.getBasePath();
+			String sysPath = basePath + "/system.json";
+			String proPath = basePath + "/project.json";
+			String langsPath = basePath + "/langs.json";
+			instance = parseByPath(sysPath, proPath, langsPath);
+		}
+		return instance;
 	}
 
 	public static final Settings parseByPath(String sysFilePath, String projectFilePath, String langsFilePath) {

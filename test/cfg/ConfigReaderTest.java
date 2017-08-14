@@ -31,23 +31,11 @@ public class ConfigReaderTest {
 	}
 
 	@Test
-	public void testLoadSettings() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
-		System.out.println(settings);
-	}
-
-	@Test
 	public void testJsonWorkbook() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
-		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
+		String basePath = AppDefine.instance.getBasePath();
+		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos(settings);
+		info.loadSheetInfos();
 
 		List<SheetInfo> sheets = info.getSheetInfos();
 		JsonSheetHandler handler = new JsonSheetHandler();
@@ -60,13 +48,10 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testBinaryWorkbook() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
-		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
+		String basePath = AppDefine.instance.getBasePath();
+		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos(settings);
+		info.loadSheetInfos();
 
 		BinarySheetHandler handler = new BinarySheetHandler();
 		List<SheetInfo> sheets = info.getSheetInfos();
@@ -80,11 +65,7 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testSettings() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
-		System.out.println(settings);
+		System.out.println(Settings.getInstance());
 	}
 
 	@Test

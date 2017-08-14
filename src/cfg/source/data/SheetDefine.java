@@ -147,8 +147,9 @@ public class SheetDefine {
 		return this.infoMap.get(projectType);
 	}
 
-	public static SheetDefine parse(Sheet sheet, Settings settings) {
+	public static SheetDefine parse(Sheet sheet) {
 		SheetDefine define = new SheetDefine();
+		Settings settings = Settings.getInstance();
 		ProjectSettings prjectSettings = settings.getProjectSettings();
 		Row nameRow = sheet.getRow(prjectSettings.getNameRowIndex());
 		int len = nameRow.getLastCellNum();

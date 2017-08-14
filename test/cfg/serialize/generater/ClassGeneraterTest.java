@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import cfg.serialize.ExportLangClassType;
 import cfg.serialize.ExportProjectType;
-import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -16,13 +15,9 @@ public class ClassGeneraterTest {
 
 	@Test
 	public void testSerialize() {
-		String sysPath = BasePathUtils.getBasePath(this.getClass()) + "/system.json";
-		String proPath = BasePathUtils.getBasePath(this.getClass()) + "/project.json";
-		String langsPath = BasePathUtils.getBasePath(this.getClass()) + "/langs.json";
-		Settings settings = Settings.parseByPath(sysPath, proPath, langsPath);
 		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos(settings);
+		info.loadSheetInfos();
 
 		List<SheetInfo> sheets = info.getSheetInfos();
 		SheetInfo sheetInfo = sheets.get(0);

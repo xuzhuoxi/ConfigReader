@@ -2,14 +2,14 @@ package cfg.serialize.cfgcontent;
 
 import java.math.BigInteger;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import code.lang.BigIntegerUtil;
 import code.lang.IntegerUtil;
 
 public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
-	public Object fromString(String valueContent, AttributeDataType attrDataType) {
+	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
 		int dotIndex = valueContent.indexOf(".");
 		String newContent;
 		if (-1 == dotIndex) {
@@ -36,7 +36,7 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public String toJson(Object obj, AttributeDataType attrDataType) {
+	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof BigInteger || obj instanceof Integer) {
 			return obj.toString().trim();
 		} else {
@@ -45,7 +45,7 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
 		boolean typeTrue = (obj instanceof Integer) || (obj instanceof BigInteger);
 		if (!typeTrue) {
 			throw new Error("IntegerDataHandler.toBinary");

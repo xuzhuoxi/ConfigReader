@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import cfg.serialize.AttributeKeyType;
-import cfg.serialize.ExportProjectType;
+import cfg.serialize.FieldKey;
+import cfg.serialize.FieldRangType;
 import cfg.serialize.cfgdata.BinarySheetHandler;
 import cfg.serialize.cfgdata.JsonSheetHandler;
 import cfg.settings.Settings;
@@ -41,7 +41,7 @@ public class ConfigReaderTest {
 		JsonSheetHandler handler = new JsonSheetHandler();
 		for (SheetInfo sheetInfo : sheets) {
 			handler.config(sheetInfo);
-			Object out = handler.serialize(ExportProjectType.Client, AttributeKeyType.Json);
+			Object out = handler.serialize(FieldRangType.Client, FieldKey.Json);
 			System.out.println(out);
 		}
 	}
@@ -57,7 +57,7 @@ public class ConfigReaderTest {
 		List<SheetInfo> sheets = info.getSheetInfos();
 		for (SheetInfo sheetInfo : sheets) {
 			handler.config(sheetInfo);
-			byte[] out = (byte[]) handler.serialize(ExportProjectType.Client, AttributeKeyType.Json);
+			byte[] out = (byte[]) handler.serialize(FieldRangType.Client, FieldKey.Json);
 			System.out.println(sheetInfo);
 			System.out.println(out.length);
 		}

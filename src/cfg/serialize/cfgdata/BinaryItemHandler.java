@@ -2,7 +2,7 @@ package cfg.serialize.cfgdata;
 
 import java.nio.ByteBuffer;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 
@@ -17,32 +17,32 @@ public class BinaryItemHandler implements IItemHandler {
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, String valueContent) {
+	public void append(FieldDataFormat attrDataType, String attrKey, String valueContent) {
 		byte[] data = (byte[]) this.tokenHandler.serializeContentToken(attrDataType, attrKey, valueContent);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, Object valueObject) {
+	public void append(FieldDataFormat attrDataType, String attrKey, Object valueObject) {
 		byte[] data = (byte[]) this.tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObject);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, String[] valueContents) {
+	public void append(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
 		byte[] data = (byte[]) this.tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, Object[] valueObjects) {
+	public void append(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
 		byte[] data = (byte[]) this.tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(Integer[] indexs, AttributeDataType[] attrDataTypes, String[] attrKeys, String[] allContents) {
-		AttributeDataType dataType;
+	public void append(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents) {
+		FieldDataFormat dataType;
 		IContentSerializeHandler dataHandler;
 		Object obj;
 		for (Integer index : indexs) {

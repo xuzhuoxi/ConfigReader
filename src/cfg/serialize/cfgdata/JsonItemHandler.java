@@ -1,6 +1,6 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 
@@ -16,32 +16,32 @@ public class JsonItemHandler implements IItemHandler {
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, String valueContent) {
+	public void append(FieldDataFormat attrDataType, String attrKey, String valueContent) {
 		String data = (String) tokenHandler.serializeContentToken(attrDataType, attrKey, valueContent);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, Object valueObject) {
+	public void append(FieldDataFormat attrDataType, String attrKey, Object valueObject) {
 		String data = (String) tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObject);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, String[] valueContents) {
+	public void append(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
 		String data = (String) tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(AttributeDataType attrDataType, String attrKey, Object[] valueObjects) {
+	public void append(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
 		String data = (String) tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(Integer[] indexs, AttributeDataType[] attrDataTypes, String[] attrKeys, String[] allContents) {
-		AttributeDataType dataType;
+	public void append(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents) {
+		FieldDataFormat dataType;
 		IContentSerializeHandler dataHandler;
 		Object obj;
 		for (Integer index : indexs) {

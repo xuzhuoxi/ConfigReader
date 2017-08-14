@@ -8,8 +8,8 @@ import java.util.Map;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import cfg.serialize.AttributeDataType;
-import cfg.serialize.ExportProjectType;
+import cfg.serialize.FieldDataFormat;
+import cfg.serialize.FieldRangType;
 import cfg.settings.ProjectSettings;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
@@ -19,19 +19,19 @@ public class SheetDefine {
 	private int maxColLength;// 字段个数
 
 	private int[] keys;// 主键索引(未使用)
-	private Map<ExportProjectType, SheetValidInfo> infoMap = new HashMap<ExportProjectType, SheetValidInfo>();
+	private Map<FieldRangType, SheetValidInfo> infoMap = new HashMap<FieldRangType, SheetValidInfo>();
 	private String[] names;// 字段名
 	private String[] remarks;// 字段注释
 	private Map<String, String[]> fieldNameMap;
 	private String[] dataTypes;// 每个字段对应的数据类型
 
-	private AttributeDataType[] dataTypeInstances;
+	private FieldDataFormat[] dataTypeInstances;
 
 	private SheetDefine() {
 		super();
-		this.infoMap.put(ExportProjectType.Server, new SheetValidInfo());
-		this.infoMap.put(ExportProjectType.Client, new SheetValidInfo());
-		this.infoMap.put(ExportProjectType.Sql, new SheetValidInfo());
+		this.infoMap.put(FieldRangType.Server, new SheetValidInfo());
+		this.infoMap.put(FieldRangType.Client, new SheetValidInfo());
+		this.infoMap.put(FieldRangType.Sql, new SheetValidInfo());
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class SheetDefine {
 	 * 取单个字段对应的数据类型
 	 * 
 	 * @param index
-	 * @return
+	 * @return 配置表上原始的数据类型字符串
 	 */
 	public String getDataType(int index) {
 		return dataTypes[index];
@@ -122,7 +122,7 @@ public class SheetDefine {
 	 * 
 	 * @return
 	 */
-	public AttributeDataType[] getDataTypeInstances() {
+	public FieldDataFormat[] getDataTypeInstances() {
 		return dataTypeInstances;
 	}
 
@@ -133,7 +133,7 @@ public class SheetDefine {
 	 *            索引
 	 * @return
 	 */
-	public AttributeDataType getDataTypeInstance(int index) {
+	public FieldDataFormat getDataTypeInstance(int index) {
 		return dataTypeInstances[index];
 	}
 
@@ -143,7 +143,7 @@ public class SheetDefine {
 	 * @param projectType
 	 * @return
 	 */
-	public SheetValidInfo getExportInfo(ExportProjectType projectType) {
+	public SheetValidInfo getExportInfo(FieldRangType projectType) {
 		return this.infoMap.get(projectType);
 	}
 
@@ -174,9 +174,9 @@ public class SheetDefine {
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
 		Integer[][] valids = new Integer[2][];// 0为server, 1为client,
 		handleValidData(define, validStrAry, prjectSettings.getValidRowIndex(), valids);
-		define.infoMap.get(ExportProjectType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
-		define.infoMap.get(ExportProjectType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
-		define.infoMap.get(ExportProjectType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
+		define.infoMap.get(FieldRangType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
+		define.infoMap.get(FieldRangType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
+		define.infoMap.get(FieldRangType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
 
 		Map<String, Integer> fieldNameIndexMap = prjectSettings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
@@ -229,9 +229,9 @@ public class SheetDefine {
 	}
 
 	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) {
-		AttributeDataType[] instances = new AttributeDataType[dataTypes.length];
+		FieldDataFormat[] instances = new FieldDataFormat[dataTypes.length];
 		for (int i = 0; i < dataTypes.length; i++) {
-			instances[i] = AttributeDataType.from(dataTypes[i]);
+			instances[i] = FieldDataFormat.from(dataTypes[i]);
 		}
 		define.dataTypeInstances = instances;
 	}

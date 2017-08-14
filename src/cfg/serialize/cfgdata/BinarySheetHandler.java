@@ -3,9 +3,9 @@ package cfg.serialize.cfgdata;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-import cfg.serialize.AttributeDataType;
-import cfg.serialize.AttributeKeyType;
-import cfg.serialize.ExportProjectType;
+import cfg.serialize.FieldDataFormat;
+import cfg.serialize.FieldKey;
+import cfg.serialize.FieldRangType;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 
@@ -16,7 +16,7 @@ public class BinarySheetHandler implements ISheetHandler {
 
 	private SheetInfo sheetInfo;
 	private SheetDefine sheetDefine;
-	private AttributeDataType[] attrDataTypes;
+	private FieldDataFormat[] attrDataTypes;
 	private List<String[]> dataList;
 
 	@Override
@@ -28,7 +28,7 @@ public class BinarySheetHandler implements ISheetHandler {
 	}
 
 	@Override
-	public Object serialize(ExportProjectType exportType, AttributeKeyType attrKeyType) {
+	public Object serialize(FieldRangType exportType, FieldKey attrKeyType) {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
 		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());

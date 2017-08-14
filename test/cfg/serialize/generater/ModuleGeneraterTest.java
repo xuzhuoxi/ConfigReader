@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import cfg.serialize.ExportLangClassType;
-import cfg.serialize.ExportProjectType;
+import cfg.serialize.ClassLangType;
+import cfg.serialize.FieldRangType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -29,8 +29,8 @@ public class ModuleGeneraterTest {
 		String pPath = basePath + "/template/ts/Property.ts.temp";
 		String pjpPath = basePath + "/template/ts/PropertyParseJson.ts.temp";
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
-				ExportLangClassType.TypeScript.getValue());
-		String value = cg.serialize(sheetDefine, ExportProjectType.Server);
+				ClassLangType.TypeScript, FieldRangType.Server);
+		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}
 
@@ -49,9 +49,9 @@ public class ModuleGeneraterTest {
 		String cPath = basePath + "/template/java/Class.java.temp";
 		String pPath = basePath + "/template/java/Property.java.temp";
 		String pjpPath = basePath + "/template/java/PropertyParseJson.java.temp";
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
-				ExportLangClassType.Java.getValue());
-		String value = cg.serialize(sheetDefine, ExportProjectType.Server);
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath, ClassLangType.Java,
+				FieldRangType.Server);
+		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}
 

@@ -1,7 +1,7 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.ExportProjectType;
-import cfg.serialize.AttributeKeyType;
+import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldKey;
 import cfg.source.data.SheetInfo;
 
 public interface ISheetHandler {
@@ -21,7 +21,7 @@ public interface ISheetHandler {
 	 *            导出语言
 	 * @return
 	 */
-	Object serialize(ExportProjectType exportType, AttributeKeyType attrKeyType);
+	Object serialize(FieldRangType exportType, FieldKey attrKeyType);
 
 	/**
 	 * 开始

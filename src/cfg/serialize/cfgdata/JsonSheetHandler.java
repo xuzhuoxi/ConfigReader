@@ -2,9 +2,9 @@ package cfg.serialize.cfgdata;
 
 import java.util.List;
 
-import cfg.serialize.AttributeDataType;
-import cfg.serialize.ExportProjectType;
-import cfg.serialize.AttributeKeyType;
+import cfg.serialize.FieldDataFormat;
+import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldKey;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 
@@ -16,7 +16,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	private StringBuilder sb = new StringBuilder();
 
 	private SheetDefine sheetDefine;
-	private AttributeDataType[] attrDataTypes;
+	private FieldDataFormat[] attrDataTypes;
 	private List<String[]> dataList;
 
 	@Override
@@ -28,7 +28,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	}
 
 	@Override
-	public Object serialize(ExportProjectType exportType, AttributeKeyType attrKeyType) {
+	public Object serialize(FieldRangType exportType, FieldKey attrKeyType) {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
 		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());

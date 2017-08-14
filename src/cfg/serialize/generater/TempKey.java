@@ -48,6 +48,10 @@ public class TempKey {
 	 * 当前时间
 	 */
 	public static final String KEY_DATE = "${DATE}";
+	/**
+	 * 解释数据方法
+	 */
+	public static final String KEY_LANG_FUNCTION_PARSE = "${LANG_PARSE}";
 
 	/**
 	 * 通用分隔符
@@ -66,6 +70,10 @@ public class TempKey {
 	 * Json实体解释
 	 */
 	public static final String KEY_CONTENT_PARSE_JSON = "${PARSE_JSON_CONTENT}";
+	/**
+	 * Binary实体解释
+	 */
+	public static final String KEY_CONTENT_PARSE_BINARY = "${PARSE_BINARY_CONTENT}";
 
 	private TempKey() {
 		super();

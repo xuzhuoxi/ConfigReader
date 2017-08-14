@@ -2,7 +2,7 @@ package cfg.serialize.cfgdata;
 
 import java.nio.ByteBuffer;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 
@@ -11,19 +11,19 @@ public class BinaryTokenHandler implements ITokenHandler {
 	private ByteBuffer bb = ByteBuffer.allocate(512);
 
 	@Override
-	public Object serializeContentToken(AttributeDataType attrDataType, String attrKey, String valueContent) {
+	public Object serializeContentToken(FieldDataFormat attrDataType, String attrKey, String valueContent) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		return handler.toBinary(valueContent, attrDataType);
 	}
 
 	@Override
-	public Object serializeObjectToken(AttributeDataType attrDataType, String attrKey, Object valueObject) {
+	public Object serializeObjectToken(FieldDataFormat attrDataType, String attrKey, Object valueObject) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		return handler.toBinary(valueObject, attrDataType);
 	}
 
 	@Override
-	public Object serializeContentToken(AttributeDataType attrDataType, String attrKey, String[] valueContents) {
+	public Object serializeContentToken(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		bb.clear();
 		for (String string : valueContents) {
@@ -37,7 +37,7 @@ public class BinaryTokenHandler implements ITokenHandler {
 	}
 
 	@Override
-	public Object serializeObjectToken(AttributeDataType attrDataType, String attrKey, Object[] valueObjects) {
+	public Object serializeObjectToken(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		bb.clear();
 		for (Object obj : valueObjects) {

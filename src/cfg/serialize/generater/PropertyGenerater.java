@@ -3,7 +3,6 @@ package cfg.serialize.generater;
 import java.util.ArrayList;
 import java.util.List;
 
-import cfg.serialize.ExportProjectType;
 import cfg.source.data.SheetDefine;
 
 public class PropertyGenerater extends GeneraterBase implements IContentGenerater {
@@ -27,12 +26,12 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	}
 
 	@Override
-	public String serialize(SheetDefine sheetDefine, ExportProjectType projectType) {
+	public String serialize(SheetDefine sheetDefine) {
 		this.sb.setLength(0);
 		this.defineList.clear();
 		this.getFuncList.clear();
 
-		Integer[] indexs = sheetDefine.getExportInfo(projectType).getValidIndexs();
+		Integer[] indexs = sheetDefine.getExportInfo(this.fieldRange).getValidIndexs();
 		for (Integer index : indexs) {
 			this.cacheSerialize(sheetDefine, index);
 		}
@@ -53,7 +52,7 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	 */
 	protected void cacheSerialize(SheetDefine sheetDefine, Integer index) {
 		String propertyName = sheetDefine.getName(index);
-		String property = sheetDefine.getFieldName(this.lang, index);
+		String property = sheetDefine.getFieldName(this.lang.getValue(), index);
 		String upProperty = property.substring(0, 1).toUpperCase() + property.substring(1);
 		String dataType = this.langConversion.conversionDataType(sheetDefine.getDataTypeInstance(index));
 		String remark = sheetDefine.getRemark(index);

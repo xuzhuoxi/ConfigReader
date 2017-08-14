@@ -1,38 +1,43 @@
 package cfg.serialize;
 
-public class AttributeDataType {
+/**
+ * 字段的数据格式
+ * @author Administrator
+ *
+ */
+public class FieldDataFormat {
 	/**
 	 * 无符号8位整数
 	 */
-	public static final AttributeDataType UInt8 = new AttributeDataType("uint8", 1);
+	public static final FieldDataFormat UInt8 = new FieldDataFormat("uint8", 1);
 	/**
 	 * 无符号16位整数
 	 */
-	public static final AttributeDataType UInt16 = new AttributeDataType("uint16", 2);
+	public static final FieldDataFormat UInt16 = new FieldDataFormat("uint16", 2);
 	/**
 	 * 无符号32位整数
 	 */
-	public static final AttributeDataType UInt32 = new AttributeDataType("uint32", 4);
+	public static final FieldDataFormat UInt32 = new FieldDataFormat("uint32", 4);
 	/**
 	 * 有符号8位整数
 	 */
-	public static final AttributeDataType Int8 = new AttributeDataType("int8", 1);
+	public static final FieldDataFormat Int8 = new FieldDataFormat("int8", 1);
 	/**
 	 * 有符号16位整数
 	 */
-	public static final AttributeDataType Int16 = new AttributeDataType("int16", 2);
+	public static final FieldDataFormat Int16 = new FieldDataFormat("int16", 2);
 	/**
 	 * 有符号8位整数
 	 */
-	public static final AttributeDataType Int32 = new AttributeDataType("int32", 4);
+	public static final FieldDataFormat Int32 = new FieldDataFormat("int32", 4);
 	/**
 	 * 布尔型
 	 */
-	public static final AttributeDataType Boolean = new AttributeDataType("boolean", 1);
+	public static final FieldDataFormat Boolean = new FieldDataFormat("boolean", 1);
 	/**
 	 * 字符型
 	 */
-	public static final AttributeDataType String = new AttributeDataType("string", -1);
+	public static final FieldDataFormat String = new FieldDataFormat("string", -1);
 
 	private static final String StartChar = "(";
 	private static final String EndChar = ")";
@@ -56,7 +61,7 @@ public class AttributeDataType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AttributeDataType other = (AttributeDataType) obj;
+		FieldDataFormat other = (FieldDataFormat) obj;
 		if (byteCount != other.byteCount)
 			return false;
 		if (null == typeName && null == other.typeName)
@@ -83,12 +88,12 @@ public class AttributeDataType {
 		}
 	}
 
-	private AttributeDataType(String value, int dataLen) {
+	private FieldDataFormat(String value, int dataLen) {
 		this.typeName = value;
 		this.byteCount = dataLen;
 	}
 
-	public static AttributeDataType from(String value) {
+	public static FieldDataFormat from(String value) {
 		if (null == value || value.length() == 0) {
 			return null;
 		}
@@ -117,7 +122,7 @@ public class AttributeDataType {
 			}
 			String charLen = value.substring(startIndex, endIndex);
 			int byteCount = Integer.parseInt(charLen);
-			return new AttributeDataType("string", byteCount);
+			return new FieldDataFormat("string", byteCount);
 		}
 	}
 }

@@ -1,14 +1,14 @@
 {
 	"json": {
 		"java": {
-			"boolean": ["getBoolean(*)", "optBoolean(*)"],
-			"int8": ["getInt(*)", "optInt(*)"],
-			"int16": ["getInt(*)", "optInt(*)"],
-			"int32": ["getInt(*)", "optInt(*)"],
-			"uint8": ["getInt(*)", "optInt(*)"],
-			"uint16": ["getInt(*)", "optInt(*)"],
-			"uint32": ["getLong(*)", "optLong(*)"],
-			"string": ["getString(*)", "optString(*)"],
+			"boolean": ["getBoolean", "optBoolean"],
+			"int8": ["getInt", "optInt"],
+			"int16": ["getInt", "optInt"],
+			"int32": ["getInt", "optInt"],
+			"uint8": ["getInt", "optInt"],
+			"uint16": ["getInt", "optInt"],
+			"uint32": ["getLong", "optLong"],
+			"string": ["getString", "optString"],
 			"desc":"数据对象为: org.json.JSONObject"
 		},
 		"ts": {

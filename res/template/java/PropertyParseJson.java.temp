@@ -1,2 +1,2 @@
-this.${PROPERTY} = data.getInt("${PROPERTY_JSON}");
+this.${PROPERTY} = data.${LANG_PARSE}("${PROPERTY_JSON}");
 	

@@ -1,6 +1,7 @@
 package cfg.serialize.generater;
 
-import cfg.serialize.ExportProjectType;
+import cfg.serialize.ClassLangType;
+import cfg.serialize.FieldRangType;
 import cfg.source.data.SheetDefine;
 
 public interface IContentGenerater {
@@ -17,7 +18,14 @@ public interface IContentGenerater {
 	 * 
 	 * @param lang
 	 */
-	public void setLang(String lang);
+	public void setLang(ClassLangType lang);
+
+	/**
+	 * 设置选择的字段范围
+	 * 
+	 * @param fieldRange
+	 */
+	public void setFieldRang(FieldRangType fieldRange);
 
 	/**
 	 * 设置子生成器
@@ -28,10 +36,10 @@ public interface IContentGenerater {
 	public void setSubGenerater(String contentKey, IContentGenerater subGenerater);
 
 	/**
-	 * 序列化类
+	 * 把一个Sheet序列化成实体类定义
 	 * 
 	 * @param sheetInfo
 	 * @return
 	 */
-	public String serialize(SheetDefine sheetDefine, ExportProjectType projectType);
+	public String serialize(SheetDefine sheetDefine);
 }

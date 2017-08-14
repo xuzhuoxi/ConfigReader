@@ -3,7 +3,7 @@ package cfg.serialize.cfgcontent;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import code.array.ArrayUtils;
 import code.lang.IntegerUtil;
 
@@ -15,7 +15,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 	private StringBuilder sb = new StringBuilder();
 
 	@Override
-	public Object fromString(String valueContent, AttributeDataType attrDataType) {
+	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
 		byte[] valueBytes = valueContent.getBytes(StringContentHandler.CHARSET_SOURCE);
 		int cByteCount = valueBytes.length;
 		if (attrDataType.getByteCount() == -1 || cByteCount == attrDataType.getByteCount()) {
@@ -34,7 +34,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public String toJson(Object obj, AttributeDataType attrDataType) {
+	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof String) {
 			return "\"" + obj.toString() + "\"";
 		} else {
@@ -43,7 +43,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
 		String value = (String) obj;
 		byte[] stringBytes = value.getBytes(StringContentHandler.CHARSET_TARGET);
 		int byteCount = attrDataType.getByteCount();

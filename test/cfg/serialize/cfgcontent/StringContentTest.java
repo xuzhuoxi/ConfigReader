@@ -2,7 +2,7 @@ package cfg.serialize.cfgcontent;
 
 import org.junit.Test;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import code.array.ArrayUtils;
 import code.lang.IntegerUtil;
 
@@ -12,7 +12,7 @@ public class StringContentTest {
 	public void testBinary() {
 		String[] strs = new String[] { "顶你个肺", "123456", "abcdef" };
 		StringContentHandler handler = new StringContentHandler();
-		AttributeDataType attType = AttributeDataType.from("string(25)");
+		FieldDataFormat attType = FieldDataFormat.from("string(25)");
 		// AttributeDataType attType = AttributeDataType.String;
 		for (String str : strs) {
 			byte[] bs = handler.toBinary(str, attType);
@@ -29,9 +29,9 @@ public class StringContentTest {
 	@Test
 	public void testFromString() {
 		StringContentHandler handler = new StringContentHandler();
-		AttributeDataType dt0 = AttributeDataType.String;
-		AttributeDataType dt1 = AttributeDataType.from("string(5)");
-		AttributeDataType dt2 = AttributeDataType.from("string(10)");
+		FieldDataFormat dt0 = FieldDataFormat.String;
+		FieldDataFormat dt1 = FieldDataFormat.from("string(5)");
+		FieldDataFormat dt2 = FieldDataFormat.from("string(10)");
 		System.out.println(dt0.toOriginalString());
 		System.out.println(dt0.toString());
 		System.out.println(dt1.toOriginalString());

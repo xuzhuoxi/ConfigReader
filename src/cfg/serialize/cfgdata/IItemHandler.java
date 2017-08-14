@@ -1,6 +1,6 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public interface IItemHandler {
 	/**
@@ -15,7 +15,7 @@ public interface IItemHandler {
 	 * @param attrKey
 	 * @param valueContent
 	 */
-	void append(AttributeDataType attrDataType, String attrKey, String valueContent);
+	void append(FieldDataFormat attrDataType, String attrKey, String valueContent);
 
 	/**
 	 * 追加单个Cell数据
@@ -24,7 +24,7 @@ public interface IItemHandler {
 	 * @param attrKey
 	 * @param valueObject
 	 */
-	void append(AttributeDataType attrDataType, String attrKey, Object valueObject);
+	void append(FieldDataFormat attrDataType, String attrKey, Object valueObject);
 
 	/**
 	 * 追加单个Cell数据
@@ -33,7 +33,7 @@ public interface IItemHandler {
 	 * @param attrKey
 	 * @param valueContents
 	 */
-	void append(AttributeDataType attrDataType, String attrKey, String[] valueContents);
+	void append(FieldDataFormat attrDataType, String attrKey, String[] valueContents);
 
 	/**
 	 * 追加单个Cell数据
@@ -42,7 +42,7 @@ public interface IItemHandler {
 	 * @param attrKey
 	 * @param valueObjects
 	 */
-	void append(AttributeDataType attrDataType, String attrKey, Object[] valueObjects);
+	void append(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects);
 
 	/**
 	 * 追加整条数据
@@ -52,7 +52,7 @@ public interface IItemHandler {
 	 * @param attrKeys
 	 * @param allContents
 	 */
-	void append(Integer[] indexs, AttributeDataType[] attrDataTypes, String[] attrKeys, String[] allContents);
+	void append(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents);
 
 	/**
 	 * 结束

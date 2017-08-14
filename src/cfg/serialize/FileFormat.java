@@ -1,6 +1,6 @@
 package cfg.serialize;
 
-public enum ExportDataType {
+public enum FileFormat {
 
 	Json("json"), Binary("binary"), Sql("sql");
 
@@ -10,12 +10,12 @@ public enum ExportDataType {
 		return value;
 	}
 
-	private ExportDataType(String value) {
+	private FileFormat(String value) {
 		this.value = value;
 	}
 
-	public static ExportDataType from(String value) {
-		for (ExportDataType type : ExportDataType.values()) {
+	public static FileFormat from(String value) {
+		for (FileFormat type : FileFormat.values()) {
 			if (type.value.equals(value)) {
 				return type;
 			}

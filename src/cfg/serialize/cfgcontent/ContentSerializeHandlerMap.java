@@ -3,7 +3,7 @@ package cfg.serialize.cfgcontent;
 import java.util.HashMap;
 import java.util.Map;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public class ContentSerializeHandlerMap {
 	private static ContentSerializeHandlerMap shared = null;
@@ -19,17 +19,17 @@ public class ContentSerializeHandlerMap {
 
 	private ContentSerializeHandlerMap() {
 		this.handlerMap = new HashMap<String, IContentSerializeHandler>();
-		this.handlerMap.put(AttributeDataType.Boolean.getTypeName(), new BooleanContentHandler());
-		this.handlerMap.put(AttributeDataType.UInt8.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.UInt16.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.UInt32.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.Int8.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.Int16.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.Int32.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(AttributeDataType.String.getTypeName(), new StringContentHandler());
+		this.handlerMap.put(FieldDataFormat.Boolean.getTypeName(), new BooleanContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt8.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt16.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt32.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int8.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int16.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int32.getTypeName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.String.getTypeName(), new StringContentHandler());
 	}
 
-	public IContentSerializeHandler getHandler(AttributeDataType dataType) {
+	public IContentSerializeHandler getHandler(FieldDataFormat dataType) {
 		return this.handlerMap.get(dataType.getTypeName());
 	}
 

@@ -1,12 +1,12 @@
 package cfg.serialize.cfgcontent;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import code.lang.BooleanUtil;
 
 public class BooleanContentHandler implements IContentSerializeHandler {
 
 	@Override
-	public Object fromString(String valueContent, AttributeDataType attrDataType) {
+	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
 		return BooleanUtil.fromString(valueContent);
 	}
 
@@ -16,7 +16,7 @@ public class BooleanContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public String toJson(Object obj, AttributeDataType attrDataType) {
+	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof Boolean) {
 			return obj.toString();
 		} else {
@@ -25,8 +25,8 @@ public class BooleanContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
-		if (obj instanceof Boolean && attrDataType.equals(AttributeDataType.Boolean)) {
+	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
+		if (obj instanceof Boolean && attrDataType.equals(FieldDataFormat.Boolean)) {
 			byte b = BooleanUtil.toByte((Boolean) obj);
 			return new byte[] { b };
 		} else {

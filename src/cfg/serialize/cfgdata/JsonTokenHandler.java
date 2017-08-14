@@ -1,6 +1,6 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 
@@ -8,19 +8,19 @@ public class JsonTokenHandler implements ITokenHandler {
 	private StringBuilder sb = new StringBuilder();
 
 	@Override
-	public Object serializeContentToken(AttributeDataType attrDataType, String attrkey, String valueContent) {
+	public Object serializeContentToken(FieldDataFormat attrDataType, String attrkey, String valueContent) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		return "\"" + attrkey + "\":" + handler.toJson(valueContent);
 	}
 
 	@Override
-	public Object serializeObjectToken(AttributeDataType attrDataType, String attrkey, Object valueObject) {
+	public Object serializeObjectToken(FieldDataFormat attrDataType, String attrkey, Object valueObject) {
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		return "\"" + attrkey + "\":" + handler.toJson(valueObject, attrDataType);
 	}
 
 	@Override
-	public Object serializeContentToken(AttributeDataType attrDataType, String attrkey, String[] valueContents) {
+	public Object serializeContentToken(FieldDataFormat attrDataType, String attrkey, String[] valueContents) {
 		sb.setLength(0);
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		for (String string : valueContents) {
@@ -30,7 +30,7 @@ public class JsonTokenHandler implements ITokenHandler {
 	}
 
 	@Override
-	public Object serializeObjectToken(AttributeDataType attrDataType, String attrkey, Object[] valueObjects) {
+	public Object serializeObjectToken(FieldDataFormat attrDataType, String attrkey, Object[] valueObjects) {
 		sb.setLength(0);
 		IContentSerializeHandler handler = ContentSerializeHandlerMap.getShared().getHandler(attrDataType);
 		for (Object obj : valueObjects) {

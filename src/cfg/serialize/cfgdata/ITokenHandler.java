@@ -1,6 +1,6 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public interface ITokenHandler {
 
@@ -11,7 +11,7 @@ public interface ITokenHandler {
 	 * @param valueContent
 	 * @return
 	 */
-	Object serializeContentToken(AttributeDataType attrDataType, String attrKey, String valueContent);
+	Object serializeContentToken(FieldDataFormat attrDataType, String attrKey, String valueContent);
 	
 	/**
 	 * 把文本数组序列化为数据
@@ -20,7 +20,7 @@ public interface ITokenHandler {
 	 * @param valueContent
 	 * @return
 	 */
-	Object serializeContentToken(AttributeDataType attrDataType, String attrKey, String[] valueContents);
+	Object serializeContentToken(FieldDataFormat attrDataType, String attrKey, String[] valueContents);
 	
 	/**
 	 * 把Java对象序列化为数据
@@ -29,7 +29,7 @@ public interface ITokenHandler {
 	 * @param valueContent
 	 * @return
 	 */
-	Object serializeObjectToken(AttributeDataType attrDataType, String attrKey, Object valueObject);
+	Object serializeObjectToken(FieldDataFormat attrDataType, String attrKey, Object valueObject);
 	
 	/**
 	 * 把Java对象数组序列化为数据
@@ -38,6 +38,6 @@ public interface ITokenHandler {
 	 * @param valueContent
 	 * @return
 	 */
-	Object serializeObjectToken(AttributeDataType attrDataType, String attrKey, Object[] valueObjects);
+	Object serializeObjectToken(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects);
 	
 }

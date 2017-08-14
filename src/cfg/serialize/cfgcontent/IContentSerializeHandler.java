@@ -1,6 +1,6 @@
 package cfg.serialize.cfgcontent;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public interface IContentSerializeHandler {
 	/**
@@ -10,7 +10,7 @@ public interface IContentSerializeHandler {
 	 * @param valueContent
 	 * @return
 	 */
-	Object fromString(String valueContent, AttributeDataType attrDataType);
+	Object fromString(String valueContent, FieldDataFormat attrDataType);
 
 	/**
 	 * 把字符串数据转为Json数据
@@ -29,7 +29,7 @@ public interface IContentSerializeHandler {
 	 *            内部包含长度信息
 	 * @return
 	 */
-	String toJson(Object obj, AttributeDataType attrDataType);
+	String toJson(Object obj, FieldDataFormat attrDataType);
 
 	/**
 	 * 把Java对象转为二进制数据
@@ -39,5 +39,5 @@ public interface IContentSerializeHandler {
 	 *            内部包含长度信息
 	 * @return
 	 */
-	byte[] toBinary(Object obj, AttributeDataType attrDataType);
+	byte[] toBinary(Object obj, FieldDataFormat attrDataType);
 }

@@ -3,7 +3,7 @@ package cfg.serialize.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-import cfg.serialize.ExportLangClassType;
+import cfg.serialize.ClassLangType;
 
 public class LangConversionFactory {
 
@@ -17,20 +17,20 @@ public class LangConversionFactory {
 
 	// class 类——————————
 
-	private Map<ExportLangClassType, ILangConversion> langMap = null;
+	private Map<ClassLangType, ILangConversion> langMap = null;
 
 	private LangConversionFactory() {
-		this.langMap = new HashMap<ExportLangClassType, ILangConversion>();
-		this.langMap.put(ExportLangClassType.TypeScript, new TSConversion());
-		this.langMap.put(ExportLangClassType.Java, new JavaConversion());
+		this.langMap = new HashMap<ClassLangType, ILangConversion>();
+		this.langMap.put(ClassLangType.TypeScript, new TSConversion());
+		this.langMap.put(ClassLangType.Java, new JavaConversion());
 	}
 
-	public final ILangConversion getConversion(ExportLangClassType lang) {
+	public final ILangConversion getConversion(ClassLangType lang) {
 		return langMap.get(lang);
 	}
 
 	public final ILangConversion getConversion(String lang) {
-		ExportLangClassType langType = ExportLangClassType.from(lang);
+		ClassLangType langType = ClassLangType.from(lang);
 		return getConversion(langType);
 	}
 }

@@ -1,6 +1,10 @@
 package cfg.serialize;
 
-public enum AttributeKeyType {
+/**
+ * 字段的键类型
+ * @author Administrator
+ */
+public enum FieldKey {
 	Sql("sql"), Java("java"), TypeScript("ts"), CAddAdd("c++"), Json("json"), CSharp("c#");
 
 	private String value;
@@ -9,12 +13,12 @@ public enum AttributeKeyType {
 		return value;
 	}
 
-	private AttributeKeyType(String value) {
+	private FieldKey(String value) {
 		this.value = value;
 	}
 
-	public static AttributeKeyType from(String value) {
-		for (AttributeKeyType lang : AttributeKeyType.values()) {
+	public static FieldKey from(String value) {
+		for (FieldKey lang : FieldKey.values()) {
 			if (lang.value.equals(value)) {
 				return lang;
 			}

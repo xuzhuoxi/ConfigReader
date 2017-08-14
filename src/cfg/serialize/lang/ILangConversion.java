@@ -1,6 +1,6 @@
 package cfg.serialize.lang;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public interface ILangConversion {
 	/**
@@ -9,5 +9,5 @@ public interface ILangConversion {
 	 * @param dataType
 	 * @return
 	 */
-	String conversionDataType(AttributeDataType dataType);
+	String conversionDataType(FieldDataFormat dataType);
 }

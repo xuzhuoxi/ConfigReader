@@ -2,12 +2,12 @@ package cfg.serialize.cfgcontent;
 
 import java.math.BigDecimal;
 
-import cfg.serialize.AttributeDataType;
+import cfg.serialize.FieldDataFormat;
 
 public class DecimalContentHandler implements IContentSerializeHandler {
 
 	@Override
-	public Object fromString(String valueContent, AttributeDataType attrDataType) {
+	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
 		return new BigDecimal(valueContent);
 	}
 
@@ -17,7 +17,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public String toJson(Object obj, AttributeDataType attrDataType) {
+	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof Double || obj instanceof BigDecimal || obj instanceof Float) {
 			return obj.toString().trim();
 		} else {
@@ -26,7 +26,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 	}
 
 	@Override
-	public byte[] toBinary(Object obj, AttributeDataType attrDataType) {
+	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

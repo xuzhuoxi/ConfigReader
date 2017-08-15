@@ -24,7 +24,7 @@ public class PropertyJsonParserGenerater extends GeneraterBase implements IConte
 			String property = sheetDefine.getFieldName(this.lang.getValue(), index);
 			String jsonProperty = sheetDefine.getFieldName("json", index);
 			String dataFormat = sheetDefine.getDataTypeInstance(index).getTypeName();
-			String funcParse = settings.getLangSettings().getFunctionGetDesc("json", langStr, dataFormat);
+			String funcParse = settings.getLangSettings().getFunctionGetDesc(langStr, "json", dataFormat);
 			this.sb.append(this.tempContent.replace(TempKey.KEY_PROPETY, property)
 					.replace(TempKey.KEY_PROPETY_JSON, jsonProperty)
 					.replace(TempKey.KEY_LANG_FUNCTION_PARSE, funcParse));

@@ -54,10 +54,14 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 		String propertyName = sheetDefine.getName(index);
 		String property = sheetDefine.getFieldName(this.lang.getValue(), index);
 		String upProperty = property.substring(0, 1).toUpperCase() + property.substring(1);
-		String dataType = this.langConversion.conversionDataType(sheetDefine.getDataTypeInstance(index));
+
+		String excelDataFormat = sheetDefine.getDataTypeInstance(index).getTypeName();
+		String outputDataFormat = this.langInfo.getDataFormat(excelDataFormat);
+
 		String remark = sheetDefine.getRemark(index);
-		this.defineList.add(this.serializePropertyDefine(propertyName, property, dataType));
-		this.getFuncList.add(this.serializePropertyGet(propertyName, property, upProperty, dataType, remark));
+
+		this.defineList.add(this.serializePropertyDefine(propertyName, property, outputDataFormat));
+		this.getFuncList.add(this.serializePropertyGet(propertyName, property, upProperty, outputDataFormat, remark));
 	}
 
 	/**

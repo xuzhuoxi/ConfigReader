@@ -5,12 +5,17 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import cfg.serialize.ClassLangType;
 import cfg.settings.lang.LangInfo;
 import code.file.FileUtils;
 
 public class LangSettings {
 
 	private Map<String, LangInfo> langMap = new HashMap<String, LangInfo>();
+
+	public LangInfo getLangInfo(ClassLangType lang) {
+		return this.langMap.get(lang.getValue());
+	}
 
 	public String getDataFormat(String lang, String excelDataFormat) {
 		return this.langMap.get(lang).getDataFormat(excelDataFormat);

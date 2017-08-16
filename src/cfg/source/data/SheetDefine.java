@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import cfg.serialize.FieldDataFormat;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.settings.ProjectSettings;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
@@ -19,7 +19,7 @@ public class SheetDefine {
 	private int maxColLength;// 字段个数
 
 	private int[] keys;// 主键索引(未使用)
-	private Map<FieldRangType, SheetValidInfo> infoMap = new HashMap<FieldRangType, SheetValidInfo>();
+	private Map<FieldRangeType, SheetValidInfo> infoMap = new HashMap<FieldRangeType, SheetValidInfo>();
 	private String[] names;// 字段名
 	private String[] remarks;// 字段注释
 	private Map<String, String[]> fieldNameMap;
@@ -29,9 +29,9 @@ public class SheetDefine {
 
 	private SheetDefine() {
 		super();
-		this.infoMap.put(FieldRangType.Server, new SheetValidInfo());
-		this.infoMap.put(FieldRangType.Client, new SheetValidInfo());
-		this.infoMap.put(FieldRangType.Sql, new SheetValidInfo());
+		this.infoMap.put(FieldRangeType.Server, new SheetValidInfo());
+		this.infoMap.put(FieldRangeType.Client, new SheetValidInfo());
+		this.infoMap.put(FieldRangeType.Sql, new SheetValidInfo());
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class SheetDefine {
 	 * @param projectType
 	 * @return
 	 */
-	public SheetValidInfo getExportInfo(FieldRangType projectType) {
+	public SheetValidInfo getExportInfo(FieldRangeType projectType) {
 		return this.infoMap.get(projectType);
 	}
 
@@ -174,9 +174,9 @@ public class SheetDefine {
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
 		Integer[][] valids = new Integer[2][];// 0为server, 1为client,
 		handleValidData(define, validStrAry, prjectSettings.getValidRowIndex(), valids);
-		define.infoMap.get(FieldRangType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
-		define.infoMap.get(FieldRangType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
-		define.infoMap.get(FieldRangType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
+		define.infoMap.get(FieldRangeType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
+		define.infoMap.get(FieldRangeType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
+		define.infoMap.get(FieldRangeType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
 
 		Map<String, Integer> fieldNameIndexMap = prjectSettings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);

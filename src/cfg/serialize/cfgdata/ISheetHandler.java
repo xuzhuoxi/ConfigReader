@@ -1,6 +1,6 @@
 package cfg.serialize.cfgdata;
 
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.serialize.FieldKey;
 import cfg.source.data.SheetInfo;
 
@@ -21,7 +21,7 @@ public interface ISheetHandler {
 	 *            导出语言
 	 * @return
 	 */
-	Object serialize(FieldRangType exportType, FieldKey attrKeyType);
+	Object serialize(FieldRangeType exportType, FieldKey attrKeyType);
 
 	/**
 	 * 开始

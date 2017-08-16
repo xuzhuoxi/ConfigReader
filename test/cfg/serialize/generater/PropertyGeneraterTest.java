@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -26,7 +26,7 @@ public class PropertyGeneraterTest {
 
 		PropertyGenerater pg = new PropertyGenerater();
 		pg.setLang(ClassLangType.TypeScript);
-		pg.setFieldRang(FieldRangType.Client);
+		pg.setFieldRang(FieldRangeType.Client);
 
 		String tempPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
 		pg.setTempPath(tempPath);

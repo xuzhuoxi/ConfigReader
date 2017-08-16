@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -29,7 +29,7 @@ public class ModuleGeneraterTest {
 		String pPath = basePath + "/template/ts/Property.ts.temp";
 		String pjpPath = basePath + "/template/ts/PropertyParseJson.ts.temp";
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
-				ClassLangType.TypeScript, FieldRangType.Server);
+				ClassLangType.TypeScript, FieldRangeType.Server);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}
@@ -50,7 +50,7 @@ public class ModuleGeneraterTest {
 		String pPath = basePath + "/template/java/Property.java.temp";
 		String pjpPath = basePath + "/template/java/PropertyParseJson.java.temp";
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath, ClassLangType.Java,
-				FieldRangType.Server);
+				FieldRangeType.Server);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

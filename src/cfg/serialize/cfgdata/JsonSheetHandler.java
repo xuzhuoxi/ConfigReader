@@ -3,7 +3,7 @@ package cfg.serialize.cfgdata;
 import java.util.List;
 
 import cfg.serialize.FieldDataFormat;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.serialize.FieldKey;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -28,7 +28,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	}
 
 	@Override
-	public Object serialize(FieldRangType exportType, FieldKey attrKeyType) {
+	public Object serialize(FieldRangeType exportType, FieldKey attrKeyType) {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
 		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());

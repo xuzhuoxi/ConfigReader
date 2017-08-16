@@ -1,7 +1,7 @@
 package cfg.serialize.generater;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.source.data.SheetDefine;
 
 public interface IContentGenerater {
@@ -25,7 +25,7 @@ public interface IContentGenerater {
 	 * 
 	 * @param fieldRange
 	 */
-	public void setFieldRang(FieldRangType fieldRange);
+	public void setFieldRang(FieldRangeType fieldRange);
 
 	/**
 	 * 设置子生成器

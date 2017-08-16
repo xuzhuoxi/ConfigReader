@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -27,7 +27,7 @@ public class ClassGeneraterTest {
 		String pPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
 		String pjpPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/PropertyParseJson.ts.temp";
 		IContentGenerater cg = LangFileGenerater.getClassGenerater(cPath, pPath, pjpPath, ClassLangType.TypeScript,
-				FieldRangType.Client);
+				FieldRangeType.Client);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

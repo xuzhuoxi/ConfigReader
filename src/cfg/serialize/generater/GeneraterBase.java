@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 import cfg.settings.Settings;
 import cfg.settings.lang.LangInfo;
 import cfg.source.data.SheetDefine;
@@ -16,7 +16,7 @@ public class GeneraterBase {
 
 	protected ClassLangType lang;
 	protected LangInfo langInfo;
-	protected FieldRangType fieldRange;
+	protected FieldRangeType fieldRange;
 
 	protected Map<String, IContentGenerater> subMap = new HashMap<String, IContentGenerater>();
 
@@ -32,7 +32,7 @@ public class GeneraterBase {
 		this.langInfo = Settings.getInstance().getLangSettings().getLangInfo(lang);
 	}
 
-	public void setFieldRang(FieldRangType fieldRange) {
+	public void setFieldRang(FieldRangeType fieldRange) {
 		this.fieldRange = fieldRange;
 	}
 

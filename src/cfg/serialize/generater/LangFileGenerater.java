@@ -1,12 +1,12 @@
 package cfg.serialize.generater;
 
 import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldRangType;
+import cfg.serialize.FieldRangeType;
 
 public class LangFileGenerater {
 
 	public static IContentGenerater getModuleGenerater(String modulePath, String classPath, String propertyPath,
-			String propertyJsonPath, ClassLangType lang, FieldRangType fieldRange) {
+			String propertyJsonPath, ClassLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater mg = new ModuleGenerater();
 		mg.setTempPath(modulePath);
 		mg.setLang(lang);
@@ -17,7 +17,7 @@ public class LangFileGenerater {
 	}
 
 	public static IContentGenerater getClassGenerater(String classPath, String propertyPath, String propertyJsonPath,
-			ClassLangType lang, FieldRangType fieldRange) {
+			ClassLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater cg = new ClassGenerater();
 		cg.setTempPath(classPath);
 		cg.setLang(lang);
@@ -30,7 +30,7 @@ public class LangFileGenerater {
 	}
 
 	public static IContentGenerater getPropertyGenerater(String propertyPath, ClassLangType lang,
-			FieldRangType fieldRange) {
+			FieldRangeType fieldRange) {
 		IContentGenerater pg = new PropertyGenerater();
 		pg.setTempPath(propertyPath);
 		pg.setLang(lang);
@@ -39,7 +39,7 @@ public class LangFileGenerater {
 	}
 
 	public static IContentGenerater getPropertyParseJsonGenerater(String propertyJsonPath, ClassLangType lang,
-			FieldRangType fieldRange) {
+			FieldRangeType fieldRange) {
 		IContentGenerater pjpg = new PropertyJsonParserGenerater();
 		pjpg.setTempPath(propertyJsonPath);
 		pjpg.setLang(lang);

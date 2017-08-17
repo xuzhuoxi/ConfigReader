@@ -37,17 +37,19 @@ public class LangSettings {
 		return this.langMap.get(lang).getFunctionSetDesc(fileFormat, dataFormat);
 	}
 
-	public static final LangSettings parseByPath(String filePath) {
-		String jsonContent = FileUtils.readFileContent(filePath);
-		return parseByJson(jsonContent);
+	public final void appendLangByPath(String lang, String langSettingFilePath) {
+		String jsonContent = FileUtils.readFileContent(langSettingFilePath);
+		appendLangByJson(lang, jsonContent);
 	}
 
-	public static final LangSettings parseByJson(String json) {
-		LangSettings settings = new LangSettings();
+	public final void appendLangByJson(String lang, String langSettingJosn) {
+		JSONObject jsonObj = new JSONObject(langSettingJosn);
+		LangInfo li = LangInfo.parseByJsonObject(lang, jsonObj);
+		this.langMap.put(lang, li);
+	}
 
-		JSONObject jsonObj = new JSONObject(json);
-		settings.langMap.put("java", LangInfo.parseByJsonObject("java", jsonObj.getJSONObject("java")));
-		settings.langMap.put("ts", LangInfo.parseByJsonObject("ts", jsonObj.getJSONObject("ts")));
-		return settings;
+	@Override
+	public String toString() {
+		return "LangSettings [langMap=" + langMap + "]";
 	}
 }

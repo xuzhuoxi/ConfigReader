@@ -5,7 +5,7 @@
 public class ${CLASS} {
 	${PROPERTY_CONTENT}
 
-    public void parse(JSONObject  data) {
+    public void parseJson(JSONObject  data) {
     	${PARSE_JSON_CONTENT}
     }
 }

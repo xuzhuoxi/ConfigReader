@@ -24,13 +24,7 @@ public class PropertyGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		PropertyGenerater pg = new PropertyGenerater();
-		pg.setLang(ClassLangType.TypeScript);
-		pg.setFieldRang(FieldRangeType.Client);
-
-		String tempPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
-		pg.setTempPath(tempPath);
-
+		IContentGenerater pg = LangFileGenerater.getPropertyGenerater(ClassLangType.TypeScript, FieldRangeType.Client);
 		String value = pg.serialize(sheetDefine);
 		System.out.println(value);
 	}

@@ -3,6 +3,8 @@ package cfg.serialize.generater;
 import java.util.ArrayList;
 import java.util.List;
 
+import cfg.serialize.ClassLangType;
+import cfg.serialize.FieldRangeType;
 import cfg.source.data.SheetDefine;
 
 public class PropertyGenerater extends GeneraterBase implements IContentGenerater {
@@ -13,8 +15,8 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	private List<String> getFuncList = new ArrayList<String>();// get方法内容列表
 
 	@Override
-	public void setTempPath(String tempUrl) {
-		super.setTempPath(tempUrl);
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey) {
+		super.setInfo(lang, fieldRange, tempKey);
 		this.splitTempContent();
 	}
 

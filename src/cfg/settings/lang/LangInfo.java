@@ -6,11 +6,15 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cfg.AppDefine;
+import code.file.FileUtils;
+
 public class LangInfo {
 	private String langNamed;
 	private Map<String, String> mapDataFormat = new HashMap<String, String>();
 	private Map<String, String> mapGetFunc = new HashMap<String, String>();
 	private Map<String, String> mapSetFunc = new HashMap<String, String>();
+	private Map<String, String> mapTemp = new HashMap<String, String>();// 模板映射，value为对应文件的内容
 
 	public String getLangNamed() {
 		return langNamed;
@@ -29,8 +33,9 @@ public class LangInfo {
 	 * @return
 	 */
 	public String getFunctionGetDesc(String param) {
-//		System.out.println(
-//				"name=" + this.langNamed + ",key=" + param + ", containsKey=" + this.mapGetFunc.containsKey(param));
+		// System.out.println(
+		// "name=" + this.langNamed + ",key=" + param + ", containsKey=" +
+		// this.mapGetFunc.containsKey(param));
 		if (this.mapGetFunc.containsKey(param)) {
 			return this.mapGetFunc.get(param);
 		}
@@ -57,6 +62,16 @@ public class LangInfo {
 		return this.getFunctionSetDesc(fileFormat + "_" + dataFormat);
 	}
 
+	/**
+	 * 取模板文件内容
+	 * 
+	 * @param tempKey
+	 * @return
+	 */
+	public String getTempContent(String tempKey) {
+		return this.mapTemp.get(tempKey);
+	}
+
 	@Override
 	public String toString() {
 		return "LangInfo [langNamed=" + langNamed + ", mapDataFormat=" + mapDataFormat + ", mapGetFunc=" + mapGetFunc
@@ -67,6 +82,7 @@ public class LangInfo {
 		this.langNamed = named;
 		this.parseDataFormat(jObj.getJSONObject("DataFormat"));
 		this.parseFunc(this.mapGetFunc, jObj.getJSONObject("Get"));
+		this.parseTemp(this.mapTemp, jObj.getJSONObject("Temp"));
 		if (jObj.has("Set")) {
 			this.parseFunc(this.mapSetFunc, jObj.getJSONObject("Set"));
 		}
@@ -110,6 +126,19 @@ public class LangInfo {
 					// ",value=" + excelDataFormatKey);
 				}
 			}
+		}
+	}
+
+	protected void parseTemp(Map<String, String> map, JSONObject jObj) {
+		String[] keys = JSONObject.getNames(jObj);
+		String basePath = AppDefine.instance.getBasePath();
+		for (String key : keys) {
+			if ("desc".equals(key)) {
+				continue;
+			}
+			String filePath = basePath + "/" + jObj.getString(key);
+			String content = FileUtils.readFileContent(filePath);
+			map.put(key, content);
 		}
 	}
 

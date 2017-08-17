@@ -1,5 +1,6 @@
 package ${MODULE};
 
 import org.json.JSONObject;
+import java.io.DataInputStream;
 
 ${CLASS_CONTENT}

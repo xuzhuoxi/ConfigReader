@@ -23,11 +23,7 @@ public class ClassGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		String cPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Class.ts.temp";
-		String pPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/Property.ts.temp";
-		String pjpPath = "E:/eclipseWorkspaces/Eclipse_ConfigReader/res/template/ts/PropertyParseJson.ts.temp";
-		IContentGenerater cg = LangFileGenerater.getClassGenerater(cPath, pPath, pjpPath, ClassLangType.TypeScript,
-				FieldRangeType.Client);
+		IContentGenerater cg = LangFileGenerater.getClassGenerater(ClassLangType.TypeScript, FieldRangeType.Client);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

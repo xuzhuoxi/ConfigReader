@@ -24,12 +24,7 @@ public class ModuleGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		String mPath = basePath + "/template/ts/Module.ts.temp";
-		String cPath = basePath + "/template/ts/Class.ts.temp";
-		String pPath = basePath + "/template/ts/Property.ts.temp";
-		String pjpPath = basePath + "/template/ts/PropertyParseJson.ts.temp";
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath,
-				ClassLangType.TypeScript, FieldRangeType.Server);
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(ClassLangType.TypeScript, FieldRangeType.Client);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}
@@ -45,12 +40,7 @@ public class ModuleGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		String mPath = basePath + "/template/java/Package.java.temp";
-		String cPath = basePath + "/template/java/Class.java.temp";
-		String pPath = basePath + "/template/java/Property.java.temp";
-		String pjpPath = basePath + "/template/java/PropertyParseJson.java.temp";
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(mPath, cPath, pPath, pjpPath, ClassLangType.Java,
-				FieldRangeType.Server);
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(ClassLangType.Java, FieldRangeType.Server);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

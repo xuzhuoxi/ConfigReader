@@ -8,36 +8,34 @@ import cfg.serialize.FieldRangeType;
 import cfg.settings.Settings;
 import cfg.settings.lang.LangInfo;
 import cfg.source.data.SheetDefine;
-import code.file.FileUtils;
 
 public class GeneraterBase {
-	protected String tempUrl = null;
+	protected ClassLangType lang = null;
+	protected LangInfo langInfo = null;
+	protected FieldRangeType fieldRange = null;;
+	protected String tempKey = null;
 	protected String tempContent = null;
-
-	protected ClassLangType lang;
-	protected LangInfo langInfo;
-	protected FieldRangeType fieldRange;
 
 	protected Map<String, IContentGenerater> subMap = new HashMap<String, IContentGenerater>();
 
 	protected StringBuilder sb = new StringBuilder();
 
-	public void setTempPath(String tempUrl) {
-		this.tempUrl = tempUrl;
-		this.tempContent = FileUtils.readFileContent(tempUrl, "UTF-8");
-	}
-
-	public void setLang(ClassLangType lang) {
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey) {
 		this.lang = lang;
 		this.langInfo = Settings.getInstance().getLangSettings().getLangInfo(lang);
-	}
-
-	public void setFieldRang(FieldRangeType fieldRange) {
 		this.fieldRange = fieldRange;
+		this.tempKey = tempKey;
+		this.tempContent = this.langInfo.getTempContent(this.tempKey);
 	}
 
 	public void setSubGenerater(String contentKey, IContentGenerater subGenerater) {
 		subMap.put(contentKey, subGenerater);
+	}
+
+	@Override
+	public String toString() {
+		return "GeneraterBase [lang=" + lang + ", langInfo=" + langInfo + ", fieldRange=" + fieldRange + ", tempKey="
+				+ tempKey + ", tempContent=" + tempContent + "]";
 	}
 
 	protected String handleContents(String content, SheetDefine sheetDefine) {

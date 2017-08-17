@@ -59,6 +59,11 @@ public class TempKey {
 	public static final String KEY_CONNOM_SEPARATOR = "${SEPARATOR}";
 
 	/**
+	 * 包实体
+	 */
+	public static final String KEY_CONTENT_PACKAGE = "${PACKAGE_CONTENT}";
+
+	/**
 	 * 类实体
 	 */
 	public static final String KEY_CONTENT_CLASS = "${CLASS_CONTENT}";

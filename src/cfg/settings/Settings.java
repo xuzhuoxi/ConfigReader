@@ -37,24 +37,27 @@ public class Settings {
 			String basePath = AppDefine.instance.getBasePath();
 			String sysPath = basePath + "/system.json";
 			String proPath = basePath + "/project.json";
-			String langsPath = basePath + "/langs.json";
-			instance = parseByPath(sysPath, proPath, langsPath);
+			instance = parseByPath(sysPath, proPath);
 		}
 		return instance;
 	}
 
-	public static final Settings parseByPath(String sysFilePath, String projectFilePath, String langsFilePath) {
+	public static final Settings parseByPath(String sysFilePath, String projectFilePath) {
 		String sysJsonContent = FileUtils.readFileContent(sysFilePath);
 		String proJsonContent = FileUtils.readFileContent(projectFilePath);
-		String langJsonContent = FileUtils.readFileContent(langsFilePath);
-		return parseByJson(sysJsonContent, proJsonContent, langJsonContent);
+		return parseByJson(sysJsonContent, proJsonContent);
 	}
 
-	public static final Settings parseByJson(String sysJson, String proJson, String langJson) {
+	public static final Settings parseByJson(String sysJson, String proJson) {
 		Settings settings = new Settings();
 		settings.sysSettings = SysSettings.parseByJson(sysJson);
 		settings.projectSettings = ProjectSettings.parseByJson(proJson);
-		settings.langSettings = LangSettings.parseByJson(langJson);
+		settings.langSettings = new LangSettings();
+		String basePath = AppDefine.instance.getBasePath();
+		for (String lang : settings.sysSettings.getLangs()) {
+			// System.out.println(basePath + "/langs/" + lang + ".json");
+			settings.langSettings.appendLangByPath(lang, basePath + "/langs/" + lang + ".json");
+		}
 		return settings;
 	}
 }

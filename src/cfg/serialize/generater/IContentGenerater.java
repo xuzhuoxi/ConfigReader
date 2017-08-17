@@ -7,25 +7,16 @@ import cfg.source.data.SheetDefine;
 public interface IContentGenerater {
 
 	/**
-	 * 设置模块文件路径
-	 * 
-	 * @param tempUrl
-	 */
-	public void setTempPath(String tempUrl);
-
-	/**
-	 * 设置要生成的编程语言
+	 * 设置
 	 * 
 	 * @param lang
-	 */
-	public void setLang(ClassLangType lang);
-
-	/**
-	 * 设置选择的字段范围
-	 * 
+	 *            设置编程语言
 	 * @param fieldRange
+	 *            设置选择的字段范围
+	 * @param tempKey
+	 *            设置模块键
 	 */
-	public void setFieldRang(FieldRangeType fieldRange);
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey);
 
 	/**
 	 * 设置子生成器

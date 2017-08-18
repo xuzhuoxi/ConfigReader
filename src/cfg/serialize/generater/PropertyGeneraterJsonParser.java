@@ -10,7 +10,11 @@ import cfg.source.data.SheetDefine;
  *         TempKey.KEY_PROPETY、 TempKey.KEY_PROPETY_JSON、
  *         TempKey.KEY_LANG_FUNCTION_PARSE
  */
-public class PropertyJsonParserGenerater extends GeneraterBase implements IContentGenerater {
+public class PropertyGeneraterJsonParser extends GeneraterBase implements IContentGenerater {
+
+	public PropertyGeneraterJsonParser() {
+		super(TempKey.KEY_CONTENT_PARSE_JSON);
+	}
 
 	@Override
 	public String serialize(SheetDefine sheetDefine) {

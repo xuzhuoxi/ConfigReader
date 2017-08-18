@@ -14,9 +14,13 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	private List<String> defineList = new ArrayList<String>(); // 声名内容列表
 	private List<String> getFuncList = new ArrayList<String>();// get方法内容列表
 
+	public PropertyGenerater() {
+		super(TempKey.KEY_CONTENT_PROPERTY);
+	}
+
 	@Override
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey) {
-		super.setInfo(lang, fieldRange, tempKey);
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange) {
+		super.setInfo(lang, fieldRange);
 		this.splitTempContent();
 	}
 

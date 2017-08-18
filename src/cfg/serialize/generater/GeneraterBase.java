@@ -11,20 +11,29 @@ import cfg.source.data.SheetDefine;
 
 public class GeneraterBase {
 	protected ClassLangType lang = null;
-	protected LangInfo langInfo = null;
 	protected FieldRangeType fieldRange = null;;
 	protected String tempKey = null;
+
+	protected LangInfo langInfo = null;
 	protected String tempContent = null;
 
 	protected Map<String, IContentGenerater> subMap = new HashMap<String, IContentGenerater>();
 
 	protected StringBuilder sb = new StringBuilder();
 
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey) {
+	public GeneraterBase(String tempKey) {
+		super();
+		this.tempKey = tempKey;
+	}
+
+	public String getTempKey() {
+		return tempKey;
+	}
+
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange) {
 		this.lang = lang;
 		this.langInfo = Settings.getInstance().getLangSettings().getLangInfo(lang);
 		this.fieldRange = fieldRange;
-		this.tempKey = tempKey;
 		this.tempContent = this.langInfo.getTempContent(this.tempKey);
 	}
 

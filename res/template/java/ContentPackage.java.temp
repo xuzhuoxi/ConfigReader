@@ -1,6 +1,7 @@
 package ${MODULE};
 
 import org.json.JSONObject;
+import xu.BinaryReaderProxy;
 import java.io.DataInputStream;
 
 ${CLASS_CONTENT}

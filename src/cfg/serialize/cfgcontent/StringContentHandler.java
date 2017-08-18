@@ -4,19 +4,17 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import cfg.serialize.FieldDataFormat;
+import cfg.settings.Settings;
 import code.array.ArrayUtils;
 import code.lang.IntegerUtil;
 
 public class StringContentHandler implements IContentSerializeHandler {
-
-	public static Charset CHARSET_SOURCE;
-	public static Charset CHARSET_TARGET;
-
 	private StringBuilder sb = new StringBuilder();
 
 	@Override
 	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
-		byte[] valueBytes = valueContent.getBytes(StringContentHandler.CHARSET_SOURCE);
+		Charset sourceCharset = Settings.getInstance().getSysSettings().getSourceCharset();
+		byte[] valueBytes = valueContent.getBytes(sourceCharset);
 		int cByteCount = valueBytes.length;
 		if (attrDataType.getByteCount() == -1 || cByteCount == attrDataType.getByteCount()) {
 			return valueContent;
@@ -45,10 +43,11 @@ public class StringContentHandler implements IContentSerializeHandler {
 	@Override
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
 		String value = (String) obj;
-		byte[] stringBytes = value.getBytes(StringContentHandler.CHARSET_TARGET);
+		Charset targetCharset = Settings.getInstance().getSysSettings().getTargetCharset();
+		byte[] stringBytes = value.getBytes(targetCharset);
 		int byteCount = attrDataType.getByteCount();
 		int realByteCount = (-1 == byteCount) ? stringBytes.length : byteCount;
-		byte[] lens = IntegerUtil.toByteArray(realByteCount, 2);
+		byte[] lens = IntegerUtil.toByteArray(realByteCount, 2);// 前面两个字节代表余下字符串字节长度
 		byte[] datas = ArrayUtils.mergeArray(lens, stringBytes);
 		return Arrays.copyOf(datas, realByteCount + 2);
 	}

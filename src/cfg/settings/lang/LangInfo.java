@@ -3,7 +3,6 @@ package cfg.settings.lang;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cfg.AppDefine;
@@ -80,27 +79,21 @@ public class LangInfo {
 
 	public void parse(String named, JSONObject jObj) {
 		this.langNamed = named;
-		this.parseDataFormat(jObj.getJSONObject("DataFormat"));
+		this.parseDataFormat(this.mapDataFormat, jObj.getJSONObject("DataFormat"));
 		this.parseFunc(this.mapGetFunc, jObj.getJSONObject("Get"));
-		this.parseTemp(this.mapTemp, jObj.getJSONObject("Temp"));
 		if (jObj.has("Set")) {
 			this.parseFunc(this.mapSetFunc, jObj.getJSONObject("Set"));
 		}
+		this.parseTemp(mapTemp, jObj.getJSONObject("Temp"));
 	}
 
-	protected void parseDataFormat(JSONObject jObj) {
-		String[] keys = JSONObject.getNames(jObj);
-		for (String key : keys) {
-			if ("desc".equals(key)) {
+	protected void parseDataFormat(Map<String, String> map, JSONObject jObj) {
+		String[] dataFormats = JSONObject.getNames(jObj);
+		for (String dataFormat : dataFormats) {
+			if ("desc".equals(dataFormat)) {
 				continue;
 			}
-			JSONArray values = jObj.getJSONArray(key);
-			for (int i = 0; i < values.length(); i++) {
-				String value = values.getString(i);
-				mapDataFormat.put(value, key);
-				// System.out.println("DataFormat: " + "key=" + value +
-				// ",value=" + key);
-			}
+			map.put(dataFormat, jObj.getString(dataFormat));
 		}
 	}
 
@@ -111,27 +104,21 @@ public class LangInfo {
 				continue;
 			}
 			JSONObject fileFormatObj = jObj.getJSONObject(fileFormat);
-			String[] excelDataFormatKeys = JSONObject.getNames(fileFormatObj);
-			for (String excelDataFormatKey : excelDataFormatKeys) {// 如：getBoolean
-				if ("desc".equals(excelDataFormatKey)) {
+			String[] dataFormats = JSONObject.getNames(fileFormatObj);
+			for (String dataFormat : dataFormats) {
+				if ("desc".equals(dataFormat)) {
 					continue;
 				}
-				JSONArray values = fileFormatObj.getJSONArray(excelDataFormatKey);
-				for (int i = 0; i < values.length(); i++) {
-					String value = values.getString(i);
-					String key = fileFormat + "_" + value;
-					map.put(key, excelDataFormatKey);
-					// System.out.println(
-					// "FuncMap[" + this.langNamed + "]: " + "key=" + key +
-					// ",value=" + excelDataFormatKey);
-				}
+				String key = fileFormat + "_" + dataFormat;
+				String value = fileFormatObj.getString(dataFormat);
+				map.put(key, value);
 			}
 		}
 	}
 
 	protected void parseTemp(Map<String, String> map, JSONObject jObj) {
-		String[] keys = JSONObject.getNames(jObj);
 		String basePath = AppDefine.instance.getBasePath();
+		String[] keys = JSONObject.getNames(jObj);
 		for (String key : keys) {
 			if ("desc".equals(key)) {
 				continue;

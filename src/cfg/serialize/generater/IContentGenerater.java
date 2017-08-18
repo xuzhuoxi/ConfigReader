@@ -7,6 +7,13 @@ import cfg.source.data.SheetDefine;
 public interface IContentGenerater {
 
 	/**
+	 * 取模块键
+	 * 
+	 * @return
+	 */
+	public String getTempKey();
+
+	/**
 	 * 设置
 	 * 
 	 * @param lang
@@ -16,7 +23,7 @@ public interface IContentGenerater {
 	 * @param tempKey
 	 *            设置模块键
 	 */
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange, String tempKey);
+	public void setInfo(ClassLangType lang, FieldRangeType fieldRange);
 
 	/**
 	 * 设置子生成器

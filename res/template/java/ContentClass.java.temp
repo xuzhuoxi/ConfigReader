@@ -8,4 +8,8 @@ public class ${CLASS} {
     public void parseJson(JSONObject  data) {
     	${PARSE_JSON_CONTENT}
     }
+    
+    public void parseBinary(BinaryReaderProxy proxy)  throws Exception {
+    	${PARSE_BINARY_CONTENT}
+    }
 }

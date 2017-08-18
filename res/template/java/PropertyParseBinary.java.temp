@@ -1,2 +1,2 @@
-this.${PROPERTY} = dis.${LANG_PARSE}();
+this.${PROPERTY} = proxy.${LANG_PARSE}();
 	

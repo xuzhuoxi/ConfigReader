@@ -1,35 +1,58 @@
 {
 	"DataFormat": {
-		"boolean": ["boolean"],
-		"int": ["int8", "int16", "int32", "uint8", "uint16"],
-		"long": ["uint32"],
-		"String": ["string"],
-		"desc": "Key代表属性类，Value代表字段在Excel中声明的类型"
+		"boolean": "boolean",
+		"int8": "int",
+		"int16": "int",
+		"int32": "int",
+		"uint8": "int",
+		"uint16": "int",
+		"uint32": "long",
+		"string": "String",
+		"desc": "Key字段在Excel中声明的类型，Value代表属性的数据类型"
 	},
 	"Get": {
 		"json": {
-			"getBoolean": ["boolean"],
-			"getInt": ["int8", "int16", "int32", "uint8", "uint16"],
-			"getLong": ["uint32"],
-			"getString": ["string"],
+			"boolean": "getBoolean",
+			"int8": "getInt",
+			"int16": "getInt",
+			"int32": "getInt",
+			"uint8": "getInt",
+			"uint16": "getInt",
+			"uint32": "getLong",
+			"string": "getString",
+			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
+		},
+		"binary": {
+			"boolean": "readBoolean",
+			"int8": "readByte",
+			"int16": "readShort",
+			"int32": "readInt",
+			"uint8": "readByte",
+			"uint16": "readShort",
+			"uint32": "readLong",
+			"string": "readString",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
 		"desc": "以上为各种数据文件格式对应读取数据的方法名称"
 	},
 	"Set": {
 		"json": {
-			"optBoolean": ["boolean"],
-			"optInt": ["int8", "int16", "int32", "uint8", "uint16"],
-			"optLong": ["uint32"],
-			"optString": ["string"],
+			"boolean": "optBoolean",
+			"int8": "optInt",
+			"int16": "optInt",
+			"int32": "optInt",
+			"uint8": "optInt",
+			"uint16": "optInt",
+			"uint32": "optLong",
+			"string": "optString",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"
 	},
 	"Temp": {
-		"${PACKAGE_CONTENT}": "template/java/Package.java.temp",
-		"${CLASS_CONTENT}": "template/java/Class.java.temp",
-		"${PROPERTY_CONTENT}": "template/java/Property.java.temp",
+		"${PACKAGE_CONTENT}": "template/java/ContentPackage.java.temp",
+		"${CLASS_CONTENT}": "template/java/ContentClass.java.temp",
+		"${PROPERTY_CONTENT}": "template/java/ContentProperty.java.temp",
 		"${PARSE_BINARY_CONTENT}": "template/java/PropertyParseBinary.java.temp",
 		"${PARSE_JSON_CONTENT}": "template/java/PropertyParseJson.java.temp",
 		"desc": "以上模板配置映射，key位于源码文件TempKey.java中"

@@ -8,6 +8,10 @@ import code.date.DateUtil;
 
 public class ClassGenerater extends GeneraterBase implements IContentGenerater {
 
+	public ClassGenerater() {
+		super(TempKey.KEY_CONTENT_CLASS);
+	}
+
 	@Override
 	public String serialize(SheetDefine sheetDefine) {
 		String author = "xuzhuoxi";

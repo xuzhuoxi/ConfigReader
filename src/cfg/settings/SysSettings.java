@@ -7,7 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cfg.AppDefine;
-import cfg.serialize.cfgcontent.StringContentHandler;
 import cfg.settings.sys.BuffSetting;
 import code.file.FileUtils;
 
@@ -98,14 +97,12 @@ public class SysSettings {
 		settings.source = handPath(sourcePath);
 		settings.sourceEncoding = sourceObj.getString("encoding");
 		settings.sourceCharset = Charset.forName(settings.sourceEncoding);
-		StringContentHandler.CHARSET_SOURCE = settings.sourceCharset;
 
 		JSONObject targetObj = jsonObj.getJSONObject("Target");
 		String targetPath = targetObj.getString("value").trim();
 		settings.target = handPath(targetPath);
 		settings.targetEncoding = targetObj.getString("encoding");
 		settings.targetCharset = Charset.forName(settings.targetEncoding);
-		StringContentHandler.CHARSET_TARGET = settings.targetCharset;
 
 		JSONObject buffObject = jsonObj.getJSONObject("Buff");
 		settings.buffSettings = BuffSetting.create(buffObject.getInt("token"), buffObject.getInt("item"),

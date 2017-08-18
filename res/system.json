@@ -7,7 +7,7 @@
 	"Target": {
 		"value": "E:/sourcestore/tools/Eclipse_ConfigReader/res",
 		"encoding": "UTF-8",
-		"desc": "输出目录,encoding属性只作用于字符文件的输出"
+		"desc": "输出目录,encoding属性作用于字符文件的输出,和字节文件中字符串的编码"
 	},
 	"Buff": {
 		"token": 512,

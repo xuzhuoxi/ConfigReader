@@ -24,12 +24,12 @@
 		},
 		"binary": {
 			"boolean": "readBoolean",
-			"int8": "readByte",
-			"int16": "readShort",
-			"int32": "readInt",
-			"uint8": "readByte",
-			"uint16": "readShort",
-			"uint32": "readLong",
+			"int8": "readInt8",
+			"int16": "readInt16",
+			"int32": "readInt32",
+			"uint8": "readUInt8",
+			"uint16": "readUInt16",
+			"uint32": "readUInt32",
 			"string": "readString",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},

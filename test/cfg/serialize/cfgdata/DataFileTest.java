@@ -21,6 +21,8 @@ import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
 import code.path.BasePathUtils;
+import xu.BinaryReaderProxy;
+import xu.CfgBuilding;
 
 public class DataFileTest {
 
@@ -96,19 +98,31 @@ public class DataFileTest {
 	@Test
 	public void testBinaryReader() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/dist/client/cfg_building.cb";
+		String filePath = basePath + "/dist/data/server/cfg_building.sj";
 		File file = new File(filePath);
 		DataInputStream dis = null;
 		try {
 			dis = new DataInputStream(new FileInputStream(file));
+			BinaryReaderProxy brp = new BinaryReaderProxy(dis, "UTF-8");
 			while (0 != dis.available()) {
-				// CfgBuilding cfgb = new CfgBuilding();
+				CfgBuilding cfgb = new CfgBuilding();
+				cfgb.parseBinary(brp);
+				System.out.println(cfgb);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void test() {
+		byte b = -11;
+		short s = (short) (b & 0x00ff);
+		System.out.println(s);
 	}
 
 }

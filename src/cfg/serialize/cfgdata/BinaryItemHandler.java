@@ -49,7 +49,7 @@ public class BinaryItemHandler implements IItemHandler {
 			dataType = attrDataTypes[index];
 			dataHandler = ContentSerializeHandlerMap.getShared().getHandler(dataType);
 			obj = dataHandler.fromString(allContents[index], dataType);
-			byte[] tokenData = (byte[]) tokenHandler.serializeObjectToken(dataType, attrKeys[index], obj);
+			byte[] tokenData = (byte[]) tokenHandler.serializeObjectToken(dataType, null, obj);
 			this.bb.put(tokenData);
 		}
 	}

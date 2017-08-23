@@ -13,6 +13,8 @@ import cfg.AppDefine;
 import cfg.serialize.ClassLangType;
 import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
+import cfg.serialize.FileFormat;
+import cfg.serialize.SerializeDataUtil;
 import cfg.serialize.generater.IContentGenerater;
 import cfg.serialize.generater.LangFileGenerater;
 import cfg.settings.Settings;
@@ -27,50 +29,21 @@ import xu.CfgBuilding;
 public class DataFileTest {
 
 	@Test
-	public void testJsonDataFile() {
+	public void testDataFile() {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
-
-		FieldRangeType fieldRange = FieldRangeType.Server;
-		FieldKey fieldKey = FieldKey.Json;
-		String outputFolder = basePath + "/../testres/dist/data";
-
 		List<SheetInfo> sheets = info.getSheetInfos();
-		JsonSheetHandler handler = new JsonSheetHandler();
 		for (SheetInfo sheetInfo : sheets) {
-			handler.config(sheetInfo);
-			Object out = handler.serialize(fieldRange, fieldKey);
-			String outputFilePath = outputFolder + "/server/"
-					+ sheetInfo.getDefine().getExportInfo(fieldRange).getFileName();
-			System.out.println(outputFilePath);
-			FileUtils.writeTextFile(outputFilePath, (String) out);
-		}
-	}
-
-	@Test
-	public void testBinaryDataFile() {
-		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/configs/cfg_building.xls";
-		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos();
-
-		FieldRangeType fieldRange = FieldRangeType.Server;
-		FieldKey fieldKey = FieldKey.Json;
-		String outputFolder = basePath + "/../testres/dist/data";
-
-		BinarySheetHandler handler = new BinarySheetHandler();
-		List<SheetInfo> sheets = info.getSheetInfos();
-
-		for (SheetInfo sheetInfo : sheets) {
-			handler.config(sheetInfo);
-			byte[] out = (byte[]) handler.serialize(fieldRange, fieldKey);
-			System.out.println(sheetInfo);
-			String outputFilePath = outputFolder + "/server/"
-					+ sheetInfo.getDefine().getExportInfo(fieldRange).getFileName();
-			System.out.println(outputFilePath);
-			FileUtils.writeBinaryFile(outputFilePath, out);
+			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Json, FieldRangeType.Server,
+					basePath + "/../testres/dist/data/server", FieldKey.Json);
+			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Binary, FieldRangeType.Server,
+					basePath + "/../testres/dist/data/server", null);
+			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Json, FieldRangeType.Client,
+					basePath + "/../testres/dist/data/client", FieldKey.Json);
+			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Binary, FieldRangeType.Client,
+					basePath + "/../testres/dist/data/client", null);
 		}
 	}
 
@@ -82,17 +55,24 @@ public class DataFileTest {
 		info.loadSheetInfos();
 
 		FieldRangeType fieldRange = FieldRangeType.Server;
-		String outputFolder = basePath + "/../testres/xu";
+		String outputFolder = basePath + "/../test/xu";
 
 		List<SheetInfo> sheets = info.getSheetInfos();
-		SheetInfo sheetInfo = sheets.get(0);
-		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(ClassLangType.Java, fieldRange);
-		String value = cg.serialize(sheetDefine);
-		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getClassName()
-				+ ".java";
-		FileUtils.writeTextFile(outputFilePath, value, Settings.getInstance().getSysSettings().getTargetEncoding());
+		this.serialize2DefineClass(sheets, fieldRange, outputFolder, ClassLangType.Java, "java");
+		this.serialize2DefineClass(sheets, fieldRange, outputFolder, ClassLangType.TypeScript, "ts");
+	}
+
+	private void serialize2DefineClass(List<SheetInfo> sheets, FieldRangeType fieldRange, String outputFolder,
+			ClassLangType lang, String extendName) {
+		for (SheetInfo sheetInfo : sheets) {
+			SheetDefine sheetDefine = sheetInfo.getDefine();
+			IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
+			String value = cg.serialize(sheetDefine);
+			String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getClassName()
+					+ "." + extendName;
+			FileUtils.writeTextFile(outputFilePath, value, Settings.getInstance().getSysSettings().getTargetEncoding());
+		}
 	}
 
 	@Test

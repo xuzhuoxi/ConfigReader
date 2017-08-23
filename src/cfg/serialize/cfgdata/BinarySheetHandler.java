@@ -31,12 +31,11 @@ public class BinarySheetHandler implements ISheetHandler {
 	public Object serialize(FieldRangeType exportType, FieldKey attrKeyType) {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
-		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());
 
 		this.start();
 		for (String[] strings : this.dataList) {
 			binaryItemHandler.start();
-			binaryItemHandler.append(indexs, attrDataTypes, attrKeys, strings);
+			binaryItemHandler.append(indexs, attrDataTypes, null, strings);
 			binaryItemHandler.finish();
 			byte[] data = (byte[]) binaryItemHandler.getSerializedData();
 			this.append(data);

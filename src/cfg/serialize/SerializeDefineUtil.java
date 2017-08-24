@@ -1,6 +1,10 @@
 package cfg.serialize;
 
+import cfg.serialize.generater.IContentGenerater;
+import cfg.serialize.generater.LangFileGenerater;
+import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
+import code.file.FileUtils;
 
 public class SerializeDefineUtil {
 	/**
@@ -12,6 +16,11 @@ public class SerializeDefineUtil {
 	 * @param outputFolder
 	 */
 	public static void serializeDefine(SheetInfo sheetInfo, FieldRangeType fieldRange, ClassLangType lang,
-			String outputFolder) {
+			String outputFolder, String extNamed) {
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
+		String value = cg.serialize(sheetInfo.getDefine());
+		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getClassName()
+				+ "." + extNamed;
+		FileUtils.writeTextFile(outputFilePath, value, Settings.getInstance().getSysSettings().getTargetEncoding());
 	}
 }

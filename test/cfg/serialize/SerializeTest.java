@@ -1,4 +1,4 @@
-package cfg.serialize.cfgdata;
+package cfg.serialize;
 
 import java.io.DataInputStream;
 import java.io.File;
@@ -10,23 +10,12 @@ import java.util.List;
 import org.junit.Test;
 
 import cfg.AppDefine;
-import cfg.serialize.ClassLangType;
-import cfg.serialize.FieldKey;
-import cfg.serialize.FieldRangeType;
-import cfg.serialize.FileFormat;
-import cfg.serialize.SerializeDataUtil;
-import cfg.serialize.generater.IContentGenerater;
-import cfg.serialize.generater.LangFileGenerater;
-import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
-import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
-import code.file.FileUtils;
-import code.path.BasePathUtils;
 import xu.BinaryReaderProxy;
 import xu.CfgBuilding;
 
-public class DataFileTest {
+public class SerializeTest {
 
 	@Test
 	public void testDataFile() {
@@ -48,30 +37,21 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void testSerializeJava() {
-		String basePath = BasePathUtils.getBasePath(this.getClass());
+	public void testSerializeDefine() {
+		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/configs/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
-
-		FieldRangeType fieldRange = FieldRangeType.Server;
-		String outputFolder = basePath + "/../test/xu";
-
 		List<SheetInfo> sheets = info.getSheetInfos();
-
-		this.serialize2DefineClass(sheets, fieldRange, outputFolder, ClassLangType.Java, "java");
-		this.serialize2DefineClass(sheets, fieldRange, outputFolder, ClassLangType.TypeScript, "ts");
-	}
-
-	private void serialize2DefineClass(List<SheetInfo> sheets, FieldRangeType fieldRange, String outputFolder,
-			ClassLangType lang, String extendName) {
 		for (SheetInfo sheetInfo : sheets) {
-			SheetDefine sheetDefine = sheetInfo.getDefine();
-			IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
-			String value = cg.serialize(sheetDefine);
-			String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getClassName()
-					+ "." + extendName;
-			FileUtils.writeTextFile(outputFilePath, value, Settings.getInstance().getSysSettings().getTargetEncoding());
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.Java,
+					basePath + "/../testres/dist/define/server", "java");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.TypeScript,
+					basePath + "/../testres/dist/define/server", "ts");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.Java,
+					basePath + "/../testres/dist/define/client", "java");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.TypeScript,
+					basePath + "/../testres/dist/define/client", "ts");
 		}
 	}
 

@@ -22,6 +22,17 @@
 			"string": "",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
+		"binary": {
+			"boolean": "readBoolean",
+			"int8": "readInt8",
+			"int16": "readInt16",
+			"int32": "readInt32",
+			"uint8": "readUInt8",
+			"uint16": "readUInt16",
+			"uint32": "readUInt32",
+			"string": "readString",
+			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryReaderProxy，注意：ts里读二进制数据字符串在这里只支持utf-8格式"
+		},
 		"desc": "以上为各种数据文件格式对应读取数据的方法名称"
 	},
 	"Set": {
@@ -39,9 +50,9 @@
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"
 	},
 	"Temp": {
-		"${PACKAGE_CONTENT}": "template/ts/Module.ts.temp",
-		"${CLASS_CONTENT}": "template/ts/Class.ts.temp",
-		"${PROPERTY_CONTENT}": "template/ts/Property.ts.temp",
+		"${PACKAGE_CONTENT}": "template/ts/ContentNamespace.ts.temp",
+		"${CLASS_CONTENT}": "template/ts/ContentClass.ts.temp",
+		"${PROPERTY_CONTENT}": "template/ts/ContentProperty.ts.temp",
 		"${PARSE_BINARY_CONTENT}": "template/ts/PropertyParseBinary.ts.temp",
 		"${PARSE_JSON_CONTENT}": "template/ts/PropertyParseJson.ts.temp",
 		"desc": "以上模板配置映射，key位于源码文件TempKey.java中"

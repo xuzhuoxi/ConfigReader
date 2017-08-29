@@ -124,8 +124,12 @@ public class LangInfo {
 				continue;
 			}
 			String filePath = basePath + "/" + jObj.getString(key);
-			String content = FileUtils.readFileContent(filePath);
-			map.put(key, content);
+			if (FileUtils.isExists(filePath)) {
+				String content = FileUtils.readFileContent(filePath);
+				map.put(key, content);
+			} else {
+				map.put(key, "");
+			}
 		}
 	}
 

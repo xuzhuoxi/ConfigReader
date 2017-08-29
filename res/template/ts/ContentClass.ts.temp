@@ -8,4 +8,8 @@ export class ${CLASS} {
     public parseJson(data: any): void {
     	${PARSE_JSON_CONTENT}
     }
+    
+    public parseBinary(proxy: xu.BinaryReaderProxy): void {
+    	${PARSE_BINARY_CONTENT}
+    }
 }

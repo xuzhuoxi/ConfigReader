@@ -1,2 +1,2 @@
-this._${PROPERTY} = data.${PROPERTY_JSON};
+this._${PROPERTY} = proxy.${LANG_PARSE}();
 	

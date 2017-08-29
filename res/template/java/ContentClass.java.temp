@@ -5,23 +5,6 @@
 public class ${CLASS} {
 	${PROPERTY_CONTENT}
 
-	@Override
-	public String toString() {
-		return "CfgBuilding [building_type=" + building_type + ", main_type=" + main_type + ", name=" + name + ", desc="
-				+ desc + ", promotion=" + promotion + ", layoutX=" + layoutX + ", layoutY=" + layoutY + ", gateX="
-				+ gateX + ", gateY=" + gateY + ", type_idx=" + type_idx + ", type=" + type + ", building_order="
-				+ building_order + ", needRoad=" + needRoad + ", terrain_flags=" + terrain_flags + ", isDoor=" + isDoor
-				+ ", supply_type=" + supply_type + ", supply_population_type=" + supply_population_type
-				+ ", environment_level=" + environment_level + ", environment_radiate_range="
-				+ environment_radiate_range + ", official_main_type=" + official_main_type + ", official_min_level="
-				+ official_min_level + ", official_skill_main_type=" + official_skill_main_type + ", name_id=" + name_id
-				+ ", description_id=" + description_id + ", effect_id=" + effect_id + ", explain_id=" + explain_id
-				+ ", details_button=" + details_button + ", upgrade_button=" + upgrade_button + ", skill_button="
-				+ skill_button + ", weapons_button=" + weapons_button + ", officer_button=" + officer_button
-				+ ", dismantle_button=" + dismantle_button + ", is_open=" + is_open + ", is_count=" + is_count
-				+ ", sound=" + sound + ", translucence=" + translucence + "]";
-	}
-
     public void parseJson(JSONObject  data) {
     	${PARSE_JSON_CONTENT}
     }

@@ -48,10 +48,14 @@ public class SerializeTest {
 					basePath + "/../testres/dist/define/server", "java");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.TypeScript,
 					basePath + "/../testres/dist/define/server", "ts");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.CSharp,
+					basePath + "/../testres/dist/define/server", "cs");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.Java,
 					basePath + "/../testres/dist/define/client", "java");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.TypeScript,
 					basePath + "/../testres/dist/define/client", "ts");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.CSharp,
+					basePath + "/../testres/dist/define/client", "cs");
 		}
 	}
 

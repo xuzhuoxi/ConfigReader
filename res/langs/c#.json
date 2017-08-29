@@ -1,12 +1,12 @@
 {
 	"DataFormat": {
-		"boolean": "boolean",
-		"int8": "number",
-		"int16": "number",
-		"int32": "number",
-		"uint8": "number",
-		"uint16": "number",
-		"uint32": "number",
+		"boolean": "bool",
+		"int8": "sbyte",
+		"int16": "short",
+		"int32": "int",
+		"uint8": "byte",
+		"uint16": "ushort",
+		"uint32": "uint",
 		"string": "string",
 		"desc": "Key代表属性类型, Value代表字段在Excel中声明的类型"
 	},

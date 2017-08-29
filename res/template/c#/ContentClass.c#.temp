@@ -1,0 +1,15 @@
+/**
+ * @author ${AUTHOR}
+ * Created on ${DATE}.
+ */
+public class ${CLASS} {
+   ${PROPERTY_CONTENT}
+   
+    public void ParseJson(data: any) {
+    	${PARSE_JSON_CONTENT}
+    }
+    
+    public void ParseBinary(proxy: xu.BinaryReaderProxy) {
+    	${PARSE_BINARY_CONTENT}
+    }
+}

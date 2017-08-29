@@ -1,0 +1,2 @@
+this._${PROPERTY} = proxy.${LANG_PARSE}();
+	

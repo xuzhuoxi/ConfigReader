@@ -1,6 +1,6 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.FieldRangeType;
 import cfg.source.data.SheetDefine;
 
@@ -23,7 +23,7 @@ public interface IContentGenerater {
 	 * @param tempKey
 	 *            设置模块键
 	 */
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange);
+	public void setInfo(OutputDefineLangType lang, FieldRangeType fieldRange);
 
 	/**
 	 * 设置子生成器

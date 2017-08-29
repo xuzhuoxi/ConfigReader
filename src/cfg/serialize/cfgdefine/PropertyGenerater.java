@@ -1,9 +1,9 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.FieldRangeType;
 import cfg.source.data.SheetDefine;
 
@@ -19,7 +19,7 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	}
 
 	@Override
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange) {
+	public void setInfo(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		super.setInfo(lang, fieldRange);
 		this.splitTempContent();
 	}

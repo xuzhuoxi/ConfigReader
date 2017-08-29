@@ -17,17 +17,17 @@ public class SerializeDataUtil {
 	 * @param outputFolder
 	 * @param fieldKey
 	 */
-	public static void serializeData(SheetInfo sheetInfo, FileFormat fileFormat, FieldRangeType fieldRange,
+	public static void serializeData(SheetInfo sheetInfo, OutputDataFormat fileFormat, FieldRangeType fieldRange,
 			String outputFolder, FieldKey fieldKey) {
 		ISheetHandler handler = SheetHandlerFactory.getSheetHandler(fileFormat);
 		handler.config(sheetInfo);
 		Object out = handler.serialize(fieldRange, fieldKey);
 		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getFileName() + "."
 				+ fileFormat.getValue();
-		if (fileFormat == FileFormat.Binary) {
-			FileUtils.writeBinaryFile(outputFilePath, (byte[]) out);
-		} else {
+		if (fileFormat.outputTextFile()) {
 			FileUtils.writeTextFile(outputFilePath, (String) out);
+		} else {
+			FileUtils.writeBinaryFile(outputFilePath, (byte[]) out);
 		}
 	}
 
@@ -40,7 +40,7 @@ public class SerializeDataUtil {
 	 * @param outputFolder
 	 * @param fieldKey
 	 */
-	public static void serializeData(List<SheetInfo> sheetInfos, FileFormat fileFormat, FieldRangeType fieldRange,
+	public static void serializeData(List<SheetInfo> sheetInfos, OutputDataFormat fileFormat, FieldRangeType fieldRange,
 			String outputFolder, FieldKey fieldKey) {
 		for (SheetInfo sheetInfo : sheetInfos) {
 			serializeData(sheetInfo, fileFormat, fieldRange, outputFolder, fieldKey);

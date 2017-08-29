@@ -1,11 +1,11 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.FieldRangeType;
 
 public class LangFileGenerater {
 
-	public static IContentGenerater getModuleGenerater(ClassLangType lang, FieldRangeType fieldRange) {
+	public static IContentGenerater getModuleGenerater(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater mg = new ModuleGenerater();
 		mg.setInfo(lang, fieldRange);
 		// System.out.println(mg);
@@ -15,7 +15,7 @@ public class LangFileGenerater {
 		return mg;
 	}
 
-	public static IContentGenerater getClassGenerater(ClassLangType lang, FieldRangeType fieldRange) {
+	public static IContentGenerater getClassGenerater(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater cg = new ClassGenerater();
 		cg.setInfo(lang, fieldRange);
 		// System.out.println(cg);
@@ -29,21 +29,21 @@ public class LangFileGenerater {
 		return cg;
 	}
 
-	public static IContentGenerater getPropertyGenerater(ClassLangType lang, FieldRangeType fieldRange) {
+	public static IContentGenerater getPropertyGenerater(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater pg = new PropertyGenerater();
 		pg.setInfo(lang, fieldRange);
 		// System.out.println(pg);
 		return pg;
 	}
 
-	public static IContentGenerater getPropertyGeneraterJsonParser(ClassLangType lang, FieldRangeType fieldRange) {
+	public static IContentGenerater getPropertyGeneraterJsonParser(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater pjpg = new PropertyGeneraterJsonParser();
 		pjpg.setInfo(lang, fieldRange);
 		// System.out.println(pjpg);
 		return pjpg;
 	}
 
-	public static IContentGenerater getPropertyGeneraterBinaryParser(ClassLangType lang, FieldRangeType fieldRange) {
+	public static IContentGenerater getPropertyGeneraterBinaryParser(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		IContentGenerater pjpg = new PropertyGeneraterBinaryParser();
 		pjpg.setInfo(lang, fieldRange);
 		// System.out.println(pjpg);

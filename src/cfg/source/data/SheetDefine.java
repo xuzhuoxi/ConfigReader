@@ -29,9 +29,9 @@ public class SheetDefine {
 
 	private SheetDefine() {
 		super();
-		this.infoMap.put(FieldRangeType.Server, new SheetValidInfo());
 		this.infoMap.put(FieldRangeType.Client, new SheetValidInfo());
-		this.infoMap.put(FieldRangeType.Sql, new SheetValidInfo());
+		this.infoMap.put(FieldRangeType.Server, new SheetValidInfo());
+		this.infoMap.put(FieldRangeType.DB, new SheetValidInfo());
 	}
 
 	/**
@@ -159,24 +159,28 @@ public class SheetDefine {
 		// System.out.println("\nRemarkRow");
 		define.remarks = WorkbookUtil.getContentArray(sheet, prjectSettings.getRemarkRowIndex(), len);
 
-		// System.out.println("\ntServerOutRow");
-		String[] serverOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getServerOutRowIndex(), 5);
-		// System.out.println("\nClientOutRow");
+		// System.out.println("\nClientOutRow" +
+		// prjectSettings.getClientOutRowIndex());
 		String[] clientOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getClientOutRowIndex(), 3);
-		String serverClassName = serverOut[1].trim();
-		String serverDataFileName = serverOut[2].trim();
-		String sqlTableName = serverOut[3].trim();
-		String sqlFileName = serverOut[4].trim();
+		// System.out.println("\nServerOutRow" +
+		// prjectSettings.getServerOutRowIndex());
+		String[] serverOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getServerOutRowIndex(), 3);
+		// System.out.println("\nDbOutRow" + prjectSettings.getDbOutRowIndex());
+		String[] dbOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getDbOutRowIndex(), 3);
 		String clientClassName = clientOut[1].trim();
 		String clientDataFileName = clientOut[2].trim();
+		String serverClassName = serverOut[1].trim();
+		String serverDataFileName = serverOut[2].trim();
+		String dbTableName = dbOut[1].trim();
+		String dbFileName = dbOut[2].trim();
 		// System.out.println("\nValidRow");
 		int validRowIndex = prjectSettings.getValidRowIndex();
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
-		Integer[][] valids = new Integer[2][];// 0为server, 1为client,
-		handleValidData(define, validStrAry, prjectSettings.getValidRowIndex(), valids);
-		define.infoMap.get(FieldRangeType.Server).setInfo(serverClassName, serverDataFileName, valids[0]);
-		define.infoMap.get(FieldRangeType.Client).setInfo(clientClassName, clientDataFileName, valids[1]);
-		define.infoMap.get(FieldRangeType.Sql).setInfo(sqlTableName, sqlFileName, valids[0]);
+		Integer[][] valids = new Integer[3][];// 0为client, 1为server, 2为db
+		handleValidData(define, validStrAry, validRowIndex, valids);
+		define.infoMap.get(FieldRangeType.Client).setInfo(clientClassName, clientDataFileName, valids[0]);
+		define.infoMap.get(FieldRangeType.Server).setInfo(serverClassName, serverDataFileName, valids[1]);
+		define.infoMap.get(FieldRangeType.DB).setInfo(dbTableName, dbFileName, valids[2]);
 
 		Map<String, Integer> fieldNameIndexMap = prjectSettings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
@@ -200,8 +204,10 @@ public class SheetDefine {
 	private static void handleValidData(SheetDefine define, String[] validStrAry, int rowIndex, Integer[][] valids) {
 		List<Integer> clientList = new ArrayList<Integer>();
 		List<Integer> serverList = new ArrayList<Integer>();
+		List<Integer> dbList = new ArrayList<Integer>();
 		char client;
 		char server;
+		char db;
 		char nameBaseChar = 'A';
 		int index = 0;
 		for (String str : validStrAry) {
@@ -209,23 +215,29 @@ public class SheetDefine {
 				index++;
 				continue;
 			}
-			if (str.length() != 3) {
+			if (str.length() != 5) {
 				throw new Error("Format Error At : (" + (rowIndex + 1) + "," + (nameBaseChar + index) + ")");
 			}
-			server = str.charAt(0);
-			client = str.charAt(2);
+			client = str.charAt(0);
 			if ('0' != client) {
 				clientList.add(index);
 			}
+			server = str.charAt(2);
 			if ('0' != server) {
 				serverList.add(index);
 			}
+			db = str.charAt(4);
+			if ('0' != db) {
+				dbList.add(index);
+			}
 			index++;
 		}
-		Integer[] s = new Integer[serverList.size()];
-		valids[0] = serverList.toArray(s);
 		Integer[] c = new Integer[clientList.size()];
-		valids[1] = clientList.toArray(c);
+		valids[0] = clientList.toArray(c);
+		Integer[] s = new Integer[serverList.size()];
+		valids[1] = serverList.toArray(s);
+		Integer[] d = new Integer[dbList.size()];
+		valids[2] = dbList.toArray(d);
 	}
 
 	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) {

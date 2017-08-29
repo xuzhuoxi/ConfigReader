@@ -2,8 +2,8 @@ package cfg.serialize;
 
 /**
  * 字段的数据格式
- * @author Administrator
- *
+ * 
+ * @author xuzhuoxi
  */
 public class FieldDataFormat {
 	/**

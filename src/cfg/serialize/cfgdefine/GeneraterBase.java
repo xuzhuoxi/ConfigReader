@@ -1,16 +1,16 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.FieldRangeType;
 import cfg.settings.Settings;
 import cfg.settings.lang.LangInfo;
 import cfg.source.data.SheetDefine;
 
 public class GeneraterBase {
-	protected ClassLangType lang = null;
+	protected OutputDefineLangType lang = null;
 	protected FieldRangeType fieldRange = null;;
 	protected String tempKey = null;
 
@@ -30,7 +30,7 @@ public class GeneraterBase {
 		return tempKey;
 	}
 
-	public void setInfo(ClassLangType lang, FieldRangeType fieldRange) {
+	public void setInfo(OutputDefineLangType lang, FieldRangeType fieldRange) {
 		this.lang = lang;
 		this.langInfo = Settings.getInstance().getLangSettings().getLangInfo(lang);
 		this.fieldRange = fieldRange;

@@ -1,4 +1,4 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
 import java.util.Date;
 

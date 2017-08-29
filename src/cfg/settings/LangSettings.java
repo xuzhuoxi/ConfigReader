@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.settings.lang.LangInfo;
 import code.file.FileUtils;
 
@@ -13,7 +13,7 @@ public class LangSettings {
 
 	private Map<String, LangInfo> langMap = new HashMap<String, LangInfo>();
 
-	public LangInfo getLangInfo(ClassLangType lang) {
+	public LangInfo getLangInfo(OutputDefineLangType lang) {
 		return this.langMap.get(lang.getValue());
 	}
 

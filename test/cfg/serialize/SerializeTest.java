@@ -25,13 +25,13 @@ public class SerializeTest {
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
 		for (SheetInfo sheetInfo : sheets) {
-			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Json, FieldRangeType.Server,
+			SerializeDataUtil.serializeData(sheetInfo, OutputDataFormat.Json, FieldRangeType.Server,
 					basePath + "/../testres/dist/data/server", FieldKey.Json);
-			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Binary, FieldRangeType.Server,
+			SerializeDataUtil.serializeData(sheetInfo, OutputDataFormat.Binary, FieldRangeType.Server,
 					basePath + "/../testres/dist/data/server", null);
-			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Json, FieldRangeType.Client,
+			SerializeDataUtil.serializeData(sheetInfo, OutputDataFormat.Json, FieldRangeType.Client,
 					basePath + "/../testres/dist/data/client", FieldKey.Json);
-			SerializeDataUtil.serializeData(sheetInfo, FileFormat.Binary, FieldRangeType.Client,
+			SerializeDataUtil.serializeData(sheetInfo, OutputDataFormat.Binary, FieldRangeType.Client,
 					basePath + "/../testres/dist/data/client", null);
 		}
 	}
@@ -44,18 +44,24 @@ public class SerializeTest {
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
 		for (SheetInfo sheetInfo : sheets) {
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.Java,
-					basePath + "/../testres/dist/define/server", "java");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.TypeScript,
-					basePath + "/../testres/dist/define/server", "ts");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, ClassLangType.CSharp,
-					basePath + "/../testres/dist/define/server", "cs");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.Java,
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.Java,
 					basePath + "/../testres/dist/define/client", "java");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.TypeScript,
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.TypeScript,
 					basePath + "/../testres/dist/define/client", "ts");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, ClassLangType.CSharp,
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.CSharp,
 					basePath + "/../testres/dist/define/client", "cs");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.Java,
+					basePath + "/../testres/dist/define/server", "java");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.TypeScript,
+					basePath + "/../testres/dist/define/server", "ts");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.CSharp,
+					basePath + "/../testres/dist/define/server", "cs");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.Java,
+					basePath + "/../testres/dist/define/db", "java");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.TypeScript,
+					basePath + "/../testres/dist/define/db", "ts");
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.CSharp,
+					basePath + "/../testres/dist/define/db", "cs");
 		}
 	}
 

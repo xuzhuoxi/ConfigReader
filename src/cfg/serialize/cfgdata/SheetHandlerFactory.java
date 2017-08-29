@@ -3,17 +3,18 @@ package cfg.serialize.cfgdata;
 import java.util.HashMap;
 import java.util.Map;
 
-import cfg.serialize.FileFormat;
+import cfg.serialize.OutputDataFormat;
 
 public class SheetHandlerFactory {
-	private static Map<FileFormat, ISheetHandler> handlerMap = new HashMap<FileFormat, ISheetHandler>();
+	private static Map<OutputDataFormat, ISheetHandler> handlerMap = new HashMap<OutputDataFormat, ISheetHandler>();
 
 	static {
-		handlerMap.put(FileFormat.Json, new JsonSheetHandler());
-		handlerMap.put(FileFormat.Binary, new BinarySheetHandler());
+		handlerMap.put(OutputDataFormat.Json, new JsonSheetHandler());
+		handlerMap.put(OutputDataFormat.Binary, new BinarySheetHandler());
+		handlerMap.put(OutputDataFormat.Sql, null);
 	}
 
-	public static ISheetHandler getSheetHandler(FileFormat fileFormat) {
+	public static ISheetHandler getSheetHandler(OutputDataFormat fileFormat) {
 		if (handlerMap.containsKey(fileFormat)) {
 			return handlerMap.get(fileFormat);
 		}

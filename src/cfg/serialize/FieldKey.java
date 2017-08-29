@@ -2,10 +2,11 @@ package cfg.serialize;
 
 /**
  * 字段的键类型
- * @author Administrator
+ * 
+ * @author xuzhuoxi
  */
 public enum FieldKey {
-	Sql("sql"), Java("java"), TypeScript("ts"), CAddAdd("c++"), Json("json"), CSharp("c#");
+	Sql("sql"), Json("json"), Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#");
 
 	private String value;
 

@@ -1,4 +1,4 @@
-package cfg.serialize.generater;
+package cfg.serialize.cfgdefine;
 
 /**
  * 文件模板中使用的替换定义

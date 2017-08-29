@@ -1,7 +1,7 @@
 package cfg.serialize;
 
-import cfg.serialize.generater.IContentGenerater;
-import cfg.serialize.generater.LangFileGenerater;
+import cfg.serialize.cfgdefine.IContentGenerater;
+import cfg.serialize.cfgdefine.LangFileGenerater;
 import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
@@ -15,7 +15,7 @@ public class SerializeDefineUtil {
 	 * @param lang
 	 * @param outputFolder
 	 */
-	public static void serializeDefine(SheetInfo sheetInfo, FieldRangeType fieldRange, ClassLangType lang,
+	public static void serializeDefine(SheetInfo sheetInfo, FieldRangeType fieldRange, OutputDefineLangType lang,
 			String outputFolder, String extNamed) {
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
 		String value = cg.serialize(sheetInfo.getDefine());

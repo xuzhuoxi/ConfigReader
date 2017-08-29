@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
+import cfg.serialize.cfgdefine.IContentGenerater;
+import cfg.serialize.cfgdefine.LangFileGenerater;
 import cfg.serialize.FieldRangeType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
@@ -24,7 +26,7 @@ public class PropertyGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		IContentGenerater pg = LangFileGenerater.getPropertyGenerater(ClassLangType.TypeScript, FieldRangeType.Client);
+		IContentGenerater pg = LangFileGenerater.getPropertyGenerater(OutputDefineLangType.TypeScript, FieldRangeType.Client);
 		String value = pg.serialize(sheetDefine);
 		System.out.println(value);
 	}

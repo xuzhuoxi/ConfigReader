@@ -11,6 +11,7 @@ import code.file.FileUtils;
 public class ProjectSettings {
 	protected int serverOutRowIndex;
 	protected int clientOutRowIndex;
+	protected int dbOutRowIndex;
 	protected int nameRowIndex;
 	protected int remarkRowIndex;
 	protected int validRowIndex;
@@ -26,6 +27,10 @@ public class ProjectSettings {
 
 	public int getClientOutRowIndex() {
 		return clientOutRowIndex;
+	}
+
+	public int getDbOutRowIndex() {
+		return dbOutRowIndex;
 	}
 
 	public int getNameRowIndex() {
@@ -59,9 +64,9 @@ public class ProjectSettings {
 	@Override
 	public String toString() {
 		return "ProjectSettings [serverOutRowIndex=" + serverOutRowIndex + ", clientOutRowIndex=" + clientOutRowIndex
-				+ ", nameRowIndex=" + nameRowIndex + ", remarkRowIndex=" + remarkRowIndex + ", validRowIndex="
-				+ validRowIndex + ", dataTypeRowIndex=" + dataTypeRowIndex + ", startRowIndex=" + startRowIndex
-				+ ", fieldNameRowIndexMap=" + fieldNameRowIndexMap + "]";
+				+ ", dbOutRowIndex=" + dbOutRowIndex + ", nameRowIndex=" + nameRowIndex + ", remarkRowIndex="
+				+ remarkRowIndex + ", validRowIndex=" + validRowIndex + ", dataTypeRowIndex=" + dataTypeRowIndex
+				+ ", startRowIndex=" + startRowIndex + ", fieldNameRowIndexMap=" + fieldNameRowIndexMap + "]";
 	}
 
 	public static final ProjectSettings parseByPath(String filePath) {
@@ -74,8 +79,9 @@ public class ProjectSettings {
 		JSONObject jsonObj = new JSONObject(json);
 		ProjectSettings settings = new ProjectSettings();
 
-		settings.serverOutRowIndex = jsonObj.getJSONObject("ServerOut").getInt("value") - 1;
 		settings.clientOutRowIndex = jsonObj.getJSONObject("ClientOut").getInt("value") - 1;
+		settings.serverOutRowIndex = jsonObj.getJSONObject("ServerOut").getInt("value") - 1;
+		settings.dbOutRowIndex = jsonObj.getJSONObject("DBOut").getInt("value") - 1;
 		settings.nameRowIndex = jsonObj.getJSONObject("Name").getInt("value") - 1;
 		settings.remarkRowIndex = jsonObj.getJSONObject("Remark").getInt("value") - 1;
 		settings.validRowIndex = jsonObj.getJSONObject("Valid").getInt("value") - 1;

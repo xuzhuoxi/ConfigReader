@@ -2,10 +2,10 @@ package cfg.serialize;
 
 /**
  * 编程语言支持
- * @author Administrator
- *
+ * 
+ * @author xuzhuoxi
  */
-public enum ClassLangType {
+public enum OutputDefineLangType {
 	Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#");
 
 	private String value;
@@ -14,12 +14,12 @@ public enum ClassLangType {
 		return value;
 	}
 
-	private ClassLangType(String value) {
+	private OutputDefineLangType(String value) {
 		this.value = value;
 	}
 
-	public static ClassLangType from(String value) {
-		for (ClassLangType lang : ClassLangType.values()) {
+	public static OutputDefineLangType from(String value) {
+		for (OutputDefineLangType lang : OutputDefineLangType.values()) {
 			if (lang.value.equals(value)) {
 				return lang;
 			}

@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import cfg.serialize.ClassLangType;
+import cfg.serialize.OutputDefineLangType;
+import cfg.serialize.cfgdefine.IContentGenerater;
+import cfg.serialize.cfgdefine.LangFileGenerater;
 import cfg.serialize.FieldRangeType;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
@@ -24,7 +26,7 @@ public class ModuleGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(ClassLangType.TypeScript, FieldRangeType.Client);
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(OutputDefineLangType.TypeScript, FieldRangeType.Client);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}
@@ -40,7 +42,7 @@ public class ModuleGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(ClassLangType.Java, FieldRangeType.Server);
+		IContentGenerater cg = LangFileGenerater.getModuleGenerater(OutputDefineLangType.Java, FieldRangeType.Server);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

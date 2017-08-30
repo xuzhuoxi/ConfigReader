@@ -4,12 +4,13 @@
 	<classpathentry excluding="libs/BinaryReaderProxy.java|libs/" including="configs/|langs/|project.json|system.json|template/" kind="src" path="res"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Eclipse_CodeUtil"/>
 	<classpathentry kind="lib" path="lib/poi-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>
 	<classpathentry kind="lib" path="lib/org.json-bin-20160810.jar" sourcepath="libsrc/org.json-src-20160810.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/codeutil_1.0.jar" sourcepath="libsrc/codeutil-src_1.0.jar"/>
+	<classpathentry kind="lib" path="libtest/junit.jar"/>
+	<classpathentry kind="lib" path="libtest/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

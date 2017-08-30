@@ -3,5 +3,6 @@
 /antbin/
 /libsrc/
 /testres/
+build.log
 
 *.class

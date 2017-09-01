@@ -35,18 +35,19 @@ public class SheetDefine {
 	}
 
 	/**
-	 * 字段总数量
+	 * 字段总数量<br>
+	 * 当前值由表中的字段名称数据决定
 	 * 
-	 * @return
+	 * @return 字段有效索引长度(总数量)
 	 */
 	public int getMaxColLength() {
 		return maxColLength;
 	}
 
 	/**
-	 * 主键索引
+	 * 作为主键字段索引
 	 * 
-	 * @return
+	 * @return 字段索引数组
 	 */
 	public int[] getKeys() {
 		return keys;
@@ -57,7 +58,7 @@ public class SheetDefine {
 	 * 
 	 * @param index
 	 *            索引
-	 * @return
+	 * @return 字段的名称
 	 */
 	public String getName(int index) {
 		return names[index];
@@ -68,7 +69,7 @@ public class SheetDefine {
 	 * 
 	 * @param index
 	 *            索引
-	 * @return
+	 * @return 字段的注释
 	 */
 	public String getRemark(int index) {
 		return remarks[index];
@@ -79,7 +80,7 @@ public class SheetDefine {
 	 * 
 	 * @param lang
 	 *            语言
-	 * @return
+	 * @return 字段属性名数组
 	 */
 	public String[] getFieldNameArray(String lang) {
 		return fieldNameMap.get(lang).clone();
@@ -91,8 +92,8 @@ public class SheetDefine {
 	 * @param lang
 	 *            语言
 	 * @param index
-	 *            索引
-	 * @return
+	 *            字段索引
+	 * @return 字段属性名
 	 */
 	public String getFieldName(String lang, int index) {
 		return fieldNameMap.get(lang)[index];
@@ -101,7 +102,7 @@ public class SheetDefine {
 	/**
 	 * 取每个字段对应的数据类型
 	 * 
-	 * @return
+	 * @return 配置表上全部原始的数据类型字符串
 	 */
 	public String[] getDataTypes() {
 		return dataTypes;
@@ -111,6 +112,7 @@ public class SheetDefine {
 	 * 取单个字段对应的数据类型
 	 * 
 	 * @param index
+	 *            字段索引
 	 * @return 配置表上原始的数据类型字符串
 	 */
 	public String getDataType(int index) {
@@ -120,7 +122,7 @@ public class SheetDefine {
 	/**
 	 * 取每个字段对应的Java类型定义
 	 * 
-	 * @return
+	 * @return 字段的数据格式
 	 */
 	public FieldDataFormat[] getDataTypeInstances() {
 		return dataTypeInstances;
@@ -130,8 +132,8 @@ public class SheetDefine {
 	 * 对单个字段对应的Java类型定义
 	 * 
 	 * @param index
-	 *            索引
-	 * @return
+	 *            字段索引
+	 * @return 字段的数据格式
 	 */
 	public FieldDataFormat getDataTypeInstance(int index) {
 		return dataTypeInstances[index];
@@ -140,11 +142,12 @@ public class SheetDefine {
 	/**
 	 * 取导出数据文件名
 	 * 
-	 * @param projectType
-	 * @return
+	 * @param fieldRange
+	 *            导出的字段范围类型
+	 * @return 导出的字段范围类型有效字段索引数据
 	 */
-	public SheetValidInfo getExportInfo(FieldRangeType projectType) {
-		return this.infoMap.get(projectType);
+	public SheetValidInfo getExportInfo(FieldRangeType fieldRange) {
+		return this.infoMap.get(fieldRange);
 	}
 
 	public static SheetDefine parse(Sheet sheet) {

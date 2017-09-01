@@ -9,11 +9,10 @@ import org.apache.poi.ss.usermodel.CellType;
 
 public class CellUtil {
 	/**
-	 * @获取Excel中某个单元格的值(字符串形式)
+	 * 获取Excel中某个单元格的值(字符串形式)
+	 * 
 	 * @param cell
 	 *            EXCLE单元格对象
-	 * @param evaluator
-	 *            EXCLE单元格公式
 	 * @return 单元格内容
 	 */
 	public static String toStringValue(Cell cell) {

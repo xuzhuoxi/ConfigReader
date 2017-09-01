@@ -9,9 +9,6 @@ public class ConfigReaderMain {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -40,7 +37,7 @@ public class ConfigReaderMain {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton button = new JButton("测试");
 		button.setBounds(170, 211, 93, 23);
 		frame.getContentPane().add(button);

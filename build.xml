@@ -114,8 +114,7 @@
 	<target name="moveconfig" description="复制转移配置文件">
 		<copy todir="${release.dist.dir}">
 			<fileset dir="${res.dir}">
-				<include name="project.json" />
-				<include name="system.json" />
+				<include name="*" />
 				<include name="libs/**" />
 				<include name="template/**" />
 				<include name="langs/**" />

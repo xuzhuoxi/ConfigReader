@@ -12,10 +12,15 @@ public class SerializeDataUtil {
 	 * 导出数据
 	 * 
 	 * @param sheetInfo
+	 *            Excel中的一个sheet数据对象
 	 * @param fileFormat
+	 *            输出文件格式
 	 * @param fieldRange
+	 *            导出的字段范围类型
 	 * @param outputFolder
+	 *            文件输出目录
 	 * @param fieldKey
+	 *            字段使用的键值类型
 	 */
 	public static void serializeData(SheetInfo sheetInfo, OutputDataFormat fileFormat, FieldRangeType fieldRange,
 			String outputFolder, FieldKey fieldKey) {
@@ -35,10 +40,15 @@ public class SerializeDataUtil {
 	 * 批量导出数据
 	 * 
 	 * @param sheetInfos
+	 *            Excel中的一个sheet数据对象组成的数组
 	 * @param fileFormat
+	 *            输出文件格式
 	 * @param fieldRange
+	 *            导出的字段范围类型
 	 * @param outputFolder
+	 *            文件输出目录
 	 * @param fieldKey
+	 *            字段使用的键值类型
 	 */
 	public static void serializeData(List<SheetInfo> sheetInfos, OutputDataFormat fileFormat, FieldRangeType fieldRange,
 			String outputFolder, FieldKey fieldKey) {

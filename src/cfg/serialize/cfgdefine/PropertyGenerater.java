@@ -3,8 +3,8 @@ package cfg.serialize.cfgdefine;
 import java.util.ArrayList;
 import java.util.List;
 
-import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.FieldRangeType;
+import cfg.serialize.OutputDefineLangType;
 import cfg.source.data.SheetDefine;
 
 public class PropertyGenerater extends GeneraterBase implements IContentGenerater {
@@ -54,7 +54,9 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	 * 生成属性定义 和 生成属性对应的Get方法
 	 * 
 	 * @param sheetDefine
+	 *            Excel中的一个sheet表数据定义
 	 * @param index
+	 *            字段索引
 	 */
 	protected void cacheSerialize(SheetDefine sheetDefine, Integer index) {
 		String propertyName = sheetDefine.getName(index);
@@ -71,13 +73,20 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	}
 
 	/**
+	 * 
+	 * @param propertyName
+	 * @param property
+	 */
+	/**
 	 * 生成属性定义
 	 * 
 	 * @param propertyName
 	 *            属性内容说明
 	 * @param property
 	 *            属性内容
-	 * @return
+	 * @param dataType
+	 *            属性对应的数据结构
+	 * @return 字段属性声明文本
 	 */
 	protected String serializePropertyDefine(String propertyName, String property, String dataType) {
 		return this.propertyDefine.replace(TempKey.KEY_DATA_TYPE, dataType).replace(TempKey.KEY_PROPETY, property)
@@ -97,7 +106,7 @@ public class PropertyGenerater extends GeneraterBase implements IContentGenerate
 	 *            返回值内容
 	 * @param remark
 	 *            注释内容
-	 * @return
+	 * @return 字段属性读取文本
 	 */
 	protected String serializePropertyGet(String propertyName, String property, String upProperty, String dataType,
 			String remark) {

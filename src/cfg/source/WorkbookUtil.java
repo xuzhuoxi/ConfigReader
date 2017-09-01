@@ -23,7 +23,8 @@ public class WorkbookUtil {
 	 * 取得Workbook对象(xls,xlsx)
 	 * 
 	 * @param filePath
-	 * @return
+	 *            文件路径
+	 * @return 一个Excel文件对应的数据对象 (Workbook)
 	 */
 	public static Workbook getWorkbook(String filePath) {
 		if (FileUtils.isExists(filePath) && !FileUtils.isFolder(filePath)) {
@@ -37,7 +38,8 @@ public class WorkbookUtil {
 	 * 取得Workbook对象(xls,xlsx)
 	 * 
 	 * @param file
-	 * @return
+	 *            文件
+	 * @return 一个Excel文件对应的数据对象 (Workbook)
 	 */
 	public static Workbook getWorkbook(File file) {
 		if (file.isFile()) {
@@ -51,21 +53,24 @@ public class WorkbookUtil {
 	 * 读取一行数据
 	 * 
 	 * @param sheet
+	 *            Excel中的一个Sheet表
 	 * @param rowNum
+	 *            行索引
 	 * @param len
-	 * @return
+	 *            长度
+	 * @return 一行数据的文本数组
 	 */
 	public static String[] getContentArray(Sheet sheet, int rowNum, int len) {
 		Row row = sheet.getRow(rowNum);
 		String[] contentArray = new String[len];
 		int rowLen = row.getLastCellNum();
-//		System.out.println(rowNum + ": " + rowLen + ": " + len);
+		// System.out.println(rowNum + ": " + rowLen + ": " + len);
 		Cell cell;
 		for (int index = 0; index < len; index++) {
 			if (index < rowLen) {
 				cell = row.getCell(index);
-//				System.out.println(index + "\t" + (null != cell));
-//				System.out.println("\t\t" + CellUtil.toStringValue(cell));
+				// System.out.println(index + "\t" + (null != cell));
+				// System.out.println("\t\t" + CellUtil.toStringValue(cell));
 				contentArray[index] = CellUtil.toStringValue(cell);
 			} else {
 				contentArray[index] = "";
@@ -81,7 +86,7 @@ public class WorkbookUtil {
 	 * 
 	 * @param filePath
 	 *            文件路径
-	 * @return
+	 * @return 一个Excel文件对应的数据对象 (Workbook)
 	 */
 	private static Workbook loadWorkbook(String filePath) {
 		Workbook workbook = null;

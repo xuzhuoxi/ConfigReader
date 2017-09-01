@@ -15,6 +15,11 @@ public class LangInfo {
 	private Map<String, String> mapSetFunc = new HashMap<String, String>();
 	private Map<String, String> mapTemp = new HashMap<String, String>();// 模板映射，value为对应文件的内容
 
+	/**
+	 * 编程语言
+	 * 
+	 * @return 编程语言的字符串值
+	 */
 	public String getLangNamed() {
 		return langNamed;
 	}
@@ -27,28 +32,38 @@ public class LangInfo {
 	}
 
 	/**
+	 * 取字段属性的读取(解释)方法名
+	 * 
 	 * @param param
 	 *            格式如：json_boolean
-	 * @return
+	 * @return 字段属性的读取(解释)方法名
 	 */
 	public String getFunctionGetDesc(String param) {
-		// System.out.println(
-		// "name=" + this.langNamed + ",key=" + param + ", containsKey=" +
-		// this.mapGetFunc.containsKey(param));
 		if (this.mapGetFunc.containsKey(param)) {
 			return this.mapGetFunc.get(param);
 		}
 		return "";
 	}
 
+	/**
+	 * 取字段属性的读取(解释)方法名
+	 * 
+	 * @param fileFormat
+	 *            数据文件格式
+	 * @param dataFormat
+	 *            字段数据类型
+	 * @return 字段属性的读取(解释)方法名
+	 */
 	public String getFunctionGetDesc(String fileFormat, String dataFormat) {
 		return this.getFunctionGetDesc(fileFormat + "_" + dataFormat);
 	}
 
 	/**
+	 * 取字段属性的写入(设置)方法名
+	 * 
 	 * @param param
 	 *            格式如：json_boolean
-	 * @return
+	 * @return 字段属性的写入(设置)方法名
 	 */
 	public String getFunctionSetDesc(String param) {
 		if (this.mapSetFunc.containsKey(param)) {
@@ -57,6 +72,15 @@ public class LangInfo {
 		return "";
 	}
 
+	/**
+	 * 取字段属性的写入(设置)方法名
+	 * 
+	 * @param fileFormat
+	 *            数据文件格式
+	 * @param dataFormat
+	 *            字段数据类型
+	 * @return 字段属性的写入(设置)方法名
+	 */
 	public String getFunctionSetDesc(String fileFormat, String dataFormat) {
 		return this.getFunctionSetDesc(fileFormat + "_" + dataFormat);
 	}
@@ -65,7 +89,8 @@ public class LangInfo {
 	 * 取模板文件内容
 	 * 
 	 * @param tempKey
-	 * @return
+	 *            模板键
+	 * @return 模板的文本内容
 	 */
 	public String getTempContent(String tempKey) {
 		return this.mapTemp.get(tempKey);

@@ -2,7 +2,7 @@
 /dist/
 /antbin/
 /libsrc/
-/testres/*.*
+/testres/
 build.log
 
 *.class

@@ -27,6 +27,8 @@ public class ConfigReaderMain {
 	 */
 	public ConfigReaderMain() {
 		initialize();
+		System.out.println("我要打印当前路径啦");
+		System.out.println(AppDefine.instance.getBasePath());
 	}
 
 	/**

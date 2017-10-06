@@ -1,7 +1,7 @@
 package cfg.serialize;
 
 /**
- * 输出文件格式
+ * 数据文件的输出格式
  * 
  * @author xuzhuoxi
  */
@@ -10,12 +10,39 @@ public enum OutputDataFormat {
 
 	private String value;
 
+	/**
+	 * 枚举的字符串值
+	 * 
+	 * @return 枚举的字符表示
+	 */
 	public String getValue() {
 		return value;
 	}
 
-	public boolean outputTextFile() {
+	/**
+	 * 输出是否为字符文件
+	 * 
+	 * @return true:是字符文件，false:二进制文件
+	 */
+	public boolean isTextFile() {
 		return this != OutputDataFormat.Binary;
+	}
+
+	/**
+	 * 数据文件使用的字段的键类型
+	 * 
+	 * @return 字段的键类型
+	 * @see FieldKey
+	 */
+	public FieldKey getFieldKey() {
+		switch (this) {
+		case Json:
+			return FieldKey.Json;
+		case Sql:
+			return FieldKey.Sql;
+		default:
+			return null;
+		}
 	}
 
 	private OutputDataFormat(String value) {

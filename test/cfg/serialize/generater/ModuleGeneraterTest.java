@@ -18,7 +18,7 @@ public class ModuleGeneraterTest {
 	@Test
 	public void testSerializeTS() {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 
@@ -34,7 +34,7 @@ public class ModuleGeneraterTest {
 	@Test
 	public void testSerializeJava() {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 

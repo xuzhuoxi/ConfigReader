@@ -33,7 +33,7 @@ public class ConfigReaderTest {
 	@Test
 	public void testJsonWorkbook() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 
@@ -49,7 +49,7 @@ public class ConfigReaderTest {
 	@Test
 	public void testBinaryWorkbook() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 

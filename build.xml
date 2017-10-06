@@ -1,20 +1,19 @@
-<project name="ConfigReader" default="all" basedir="./">
+<project name="ConfigReader" default="Default" basedir="./">
 	<!--ANT 1.7 is required                  	-->
 	<property environment="env" />
 	<property name="src.main.dir" value="${basedir}/src" />
 	<property name="src.test.dir" value="${basedir}/test" />
 	<property name="lib.dir" value="${basedir}/lib" />
-	<property name="lib.test..dir" value="${basedir}/libtest" />
+	<property name="lib.test.dir" value="${basedir}/libtest" />
+	<property name="res.dir" value="${basedir}/res" />
 
 	<property name="bin.dir" value="${basedir}/antbin" />
 	<property name="bin.main" value="${bin.dir}/main" />
 	<property name="bin.test" value="${bin.dir}/test" />
 
 	<property name="dist.dir" value="${basedir}/dist" />
-	<property name="docs.dist.dir" value="${dist.dir}/docs" />
-	<property name="release.dist.dir" value="${dist.dir}/release" />
-	<property name="res.dir" value="${basedir}/res" />
-	<property name="version" value="1.0" />
+	<property name="dist.docs.dir" value="${dist.dir}/docs" />
+	<property name="dist.release.dir" value="${dist.dir}/release" />
 
 	<!-- 初始化classpath -->
 	<zipfileset id="jar_lib" dir="${lib.dir}">
@@ -24,19 +23,8 @@
 		<include name="poi-ooxml-schemas-3.16.jar" />
 		<include name="org.json-bin-20160810.jar" />
 		<include name="codeutil_1.0.jar" />
-		<include name="org.eclipse.core.commands_3.5.0.I20090525-2000.jar" />
-		<include name="org.eclipse.core.runtime_3.5.0.v20090525.jar" />
-		<include name="org.eclipse.equinox.common_3.5.0.v20090520-1800.jar" />
-		<include name="org.eclipse.equinox.registry_3.4.100.v20090520-1800.jar" />
-		<include name="org.eclipse.jface_3.5.0.I20090525-2000.jar" />
-		<include name="org.eclipse.jface.text_3.5.0.v20090602.jar" />
-		<include name="org.eclipse.osgi_3.5.0.v20090520.jar" />
-		<include name="org.eclipse.swt.win32.win32.x86_3.5.0.v3550b.jar" />
-		<include name="org.eclipse.text_3.5.0.v20090513-2000.jar" />
-		<include name="org.eclipse.ui.forms_3.4.0.v20090526.jar" />
-		<include name="org.eclipse.ui.workbench_3.5.0.I20090603-2000.jar" />
 	</zipfileset>
-	<zipfileset id="jar_test_lib" dir="${lib.test..dir}">
+	<zipfileset id="jar_test_lib" dir="${lib.test.dir}">
 		<include name="junit.jar" />
 		<include name="org.hamcrest.core_1.3.0.v201303031735.jar" />
 	</zipfileset>
@@ -45,43 +33,44 @@
 		<fileset refid="jar_test_lib" />
 	</path>
 	<!-- 默认构建入口 -->
-	<target name="all" description="默认构建入口">
-		<antcall target="init" />
-		<antcall target="compile" />
-		<antcall target="jar" />
-		<antcall target="moveconfig" />
-		<antcall target="javadoc" />
+	<target name="Default" description="默认构建入口">
+		<antcall target="Init" />
+		<antcall target="Compile" />
+		<antcall target="GenJar" />
+		<antcall target="InitReleaseFolder" />
+		<antcall target="ZipRelease" />
+		<antcall target="GenJavadoc" />
 		<!--
 		 -->
 	</target>
 	<!-- 初始化环境-->
-	<target name="init" description="初始化环境">
-		<antcall target="clean" />
-		<antcall target="initdir" />
+	<target name="Init" description="初始化环境">
+		<antcall target="Clean" />
+		<antcall target="Initdir" />
 	</target>
-	<target name="clean">
+	<target name="Clean">
 		<delete dir="${bin.dir}" />
-		<delete dir="${docs.dist.dir}" />
-		<delete dir="${release.dist.dir}" />
+		<delete dir="${dist.docs.dir}" />
+		<delete dir="${dist.release.dir}" />
 	</target>
-	<target name="initdir">
+	<target name="Initdir">
 		<mkdir dir="${bin.dir}" />
-		<mkdir dir="${docs.dist.dir}" />
-		<mkdir dir="${release.dist.dir}" />
+		<mkdir dir="${dist.docs.dir}" />
+		<mkdir dir="${dist.release.dir}" />
 	</target>
 	<!-- 编译文件-->
-	<target name="compile" description="编译文件">
-		<antcall target="compile.main" />
-		<antcall target="compile.test" />
+	<target name="Compile" description="编译文件">
+		<antcall target="CompileMain" />
+		<antcall target="CompileTest" />
 	</target>
-	<target name="compile.main">
+	<target name="CompileMain">
 		<delete dir="${bin.main}" />
 		<mkdir dir="${bin.main}" />
 		<javac srcdir="${src.main.dir}" destdir="${bin.main}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.6" target="1.6">
 			<classpath refid="id_classpath" />
 		</javac>
 	</target>
-	<target name="compile.test">
+	<target name="CompileTest">
 		<delete dir="${bin.test}" />
 		<mkdir dir="${bin.test}" />
 		<javac srcdir="${src.test.dir}" destdir="${bin.test}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.6" target="1.6">
@@ -90,36 +79,67 @@
 		</javac>
 	</target>
 	<!-- 打包成可执行文件jar -->
-	<target name="jar" description="打包成可执行文件jar">
-		<property name="jarName" value="ConfigReader" />
-		<jar destfile="${release.dist.dir}/ConfigReader_${version}.jar" update="false">
-			<manifest>
-				<attribute name="Manifest-Version" value="1.0" />
-				<attribute name="Class-Path" value="." />
-				<attribute name="Main-Class" value="cfg.ConfigCMDHandler" />
+	<target name="GenJar" description="打包成可执行文件jar">
+		<property name="version" value="1.0" />
+		<tstamp />
+		<property name="jarName" value="ConfigReader_${DSTAMP}.jar" />
+		<!-- 
+		<path id="mf_classpath">
+			<fileset refid="jar_lib" />
+		</path>
+		<pathconvert property="mf.classpath" pathsep=" ">
+			<path refid="mf_classpath"></path>
+		</pathconvert>
+		-->
+		<jar destfile="${dist.release.dir}/${jarName}" update="false">
+			<manifest id="">
 				<attribute name="Project-Version" value="${version}" />
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Class-Path" value=". lib/poi-3.16.jar lib/log4j-1.2.17.jar lib/poi-ooxml-3.16.jar lib/poi-ooxml-schemas-3.16.jar lib/org.json-bin-20160810.jar lib/codeutil_1.0.jar" />
+				<attribute name="Main-Class" value="cfg.ConfigReaderMain" />
+
+				<!-- JarInJar打包配置
+				<attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader" />
+				<attribute name="Rsrc-Class-Path" value="./ poi-3.16.jar log4j-1.2.17.jar poi-ooxml-3.16.jar poi-ooxml-schemas-3.16.jar org.json-bin-20160810.jar codeutil_1.0.jar" />
+				<attribute name="Rsrc-Main-Class" value="cfg.ConfigReaderMain" />
+				-->
 			</manifest>
 			<fileset dir="${bin.main}" />
+			<!-- 
+			<zipfileset src="${lib.dir}/jar-in-jar-loader.zip"/>
 			<zipfileset refid="jar_lib" />
+			-->
 		</jar>
 	</target>
+	<!-- 初始化Release目录结构及文件 -->
+	<target name="InitReleaseFolder" description="初始化Release目录结构及文件">
+		<!-- res目录 -->
+		<copy todir="${dist.release.dir}">
+			<fileset dir="${res.dir}">
+				<include name="*" />
+				<include name="langs/**" />
+				<include name="template/**" />
+				<include name="proxy/**" />
+				<include name="source/**" />
+			</fileset>
+		</copy>
+		<!-- lib目录 -->
+		<copy todir="${dist.release.dir}/lib">
+			<fileset dir="${lib.dir}">
+				<exclude name="jar-in-jar-loader.zip" />
+			</fileset>
+		</copy>
+	</target>
+	<!-- 打包release.zip -->
+	<target name="ZipRelease" description="打包release.zip">
+		<zip destfile="${dist.dir}/release.zip" basedir="${dist.release.dir}" includes="**">
+		</zip>
+	</target>
 	<!-- 生成API -->
-	<target name="javadoc" description="生成API">
-		<javadoc sourcepath="${src.main.dir}" destdir="${docs.dist.dir}" author="true" version="true" use="true" charset="UTF-8" encoding="UTF-8" docencoding="UTF-8">
+	<target name="GenJavadoc" description="生成API">
+		<javadoc sourcepath="${src.main.dir}" destdir="${dist.docs.dir}" author="true" version="true" use="true" charset="UTF-8" encoding="UTF-8" docencoding="UTF-8">
 			<classpath refid="id_classpath" />
 			<package name="cfg.*" />
 		</javadoc>
-	</target>
-	<!-- 复制转移配置文件 -->
-	<target name="moveconfig" description="复制转移配置文件">
-		<copy todir="${release.dist.dir}">
-			<fileset dir="${res.dir}">
-				<include name="*" />
-				<include name="libs/**" />
-				<include name="template/**" />
-				<include name="langs/**" />
-				<include name="configs/**" />
-			</fileset>
-		</copy>
 	</target>
 </project>

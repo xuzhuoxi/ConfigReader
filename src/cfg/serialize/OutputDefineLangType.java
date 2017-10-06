@@ -14,6 +14,21 @@ public enum OutputDefineLangType {
 		return value;
 	}
 
+	public String getExtensionName() {
+		switch (this) {
+		case Java:
+			return "java";
+		case TypeScript:
+			return "ts";
+		case CAddAdd:
+			return "cpp";
+		case CSharp:
+			return "cs";
+		default:
+			return "";
+		}
+	}
+
 	private OutputDefineLangType(String value) {
 		this.value = value;
 	}

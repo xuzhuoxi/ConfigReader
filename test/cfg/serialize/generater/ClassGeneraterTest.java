@@ -17,7 +17,7 @@ public class ClassGeneraterTest {
 
 	@Test
 	public void testSerialize() {
-		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/configs/cfg_building.xls";
+		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 

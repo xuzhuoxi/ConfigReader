@@ -29,7 +29,7 @@ public class SerializeDataUtil {
 		Object out = handler.serialize(fieldRange, fieldKey);
 		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getFileName() + "."
 				+ fileFormat.getValue();
-		if (fileFormat.outputTextFile()) {
+		if (fileFormat.isTextFile()) {
 			FileUtils.writeTextFile(outputFilePath, (String) out);
 		} else {
 			FileUtils.writeBinaryFile(outputFilePath, (byte[]) out);

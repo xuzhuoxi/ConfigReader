@@ -20,7 +20,7 @@ public class SerializeTest {
 	@Test
 	public void testDataFile() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
@@ -39,7 +39,7 @@ public class SerializeTest {
 	@Test
 	public void testSerializeDefine() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();

@@ -18,7 +18,7 @@ public class PropertyGeneraterTest {
 	@Test
 	public void testSerialize() {
 		String basePath = BasePathUtils.getBasePath(this.getClass());
-		String filePath = basePath + "/configs/cfg_building.xls";
+		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 

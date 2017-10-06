@@ -6,8 +6,8 @@ import java.util.Arrays;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import cfg.AppDefine;
 import cfg.settings.sys.BuffSetting;
+import cfg.util.PathUtil;
 import code.file.FileUtils;
 
 public class SysSettings {
@@ -127,12 +127,6 @@ public class SysSettings {
 	}
 
 	private static String handPath(String path) {
-		if (path.indexOf("./") == 0) {
-			return AppDefine.instance.getBasePath() + "/" + path;
-		}
-		if (path.indexOf("/") == 0) {
-			return AppDefine.instance.getBasePath() + path;
-		}
-		return path;
+		return PathUtil.handPath(path);
 	}
 }

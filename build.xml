@@ -80,9 +80,9 @@
 	</target>
 	<!-- 打包成可执行文件jar -->
 	<target name="GenJar" description="打包成可执行文件jar">
-		<property name="version" value="1.0" />
 		<tstamp />
-		<property name="jarName" value="ConfigReader_${DSTAMP}.jar" />
+		<property name="jarName" value="ConfigReader.jar" />
+		<property name="version" value="${DSTAMP}" />
 		<!-- 
 		<path id="mf_classpath">
 			<fileset refid="jar_lib" />

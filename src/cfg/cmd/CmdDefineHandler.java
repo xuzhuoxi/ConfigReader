@@ -1,11 +1,10 @@
 package cfg.cmd;
 
 import java.util.List;
-import java.util.Map;
 
-import cfg.AppDefine;
 import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDefineLangType;
+import cfg.serialize.OutputType;
 import cfg.serialize.SerializeDefineUtil;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
@@ -18,10 +17,17 @@ import cfg.source.data.SheetInfo;
  */
 public class CmdDefineHandler extends CmdHandlerBase {
 
-	private OutputDefineLangType[] defineLangs = null;
+	public CmdDefineHandler(CmdArgsRuntime cmdArgs) {
+		super(cmdArgs);
+	}
 
-	public CmdDefineHandler(Map<String, String> argsMap) {
-		super(argsMap);
+	@Override
+	protected void handleArgs() {
+		super.handleArgs();
+		String[] defineOut = this.splitArg(CmdArgKeys.KEY_DEFINEOUT);
+		for (int i = 0; i < defineOut.length; i++) {
+			this.runtimeArgs.getDefineLangs().add(OutputDefineLangType.from(defineOut[i]));
+		}
 	}
 
 	@Override
@@ -29,7 +35,7 @@ public class CmdDefineHandler extends CmdHandlerBase {
 		if (!super.argsVerify()) {
 			return false;
 		}
-		if (!this.hasArg(CmdArgs.KEY_DEFINEOUT)) {
+		if (!this.runtimeArgs.hasOutputDefineLangType()) {
 			System.err.println("Params \"-DefineOut\"  is must.");
 			return false;
 		}
@@ -37,46 +43,19 @@ public class CmdDefineHandler extends CmdHandlerBase {
 	}
 
 	@Override
-	protected void handleArgs() {
-		super.handleArgs();
-		String[] defineOut = this.splitArg(CmdArgs.KEY_DATAOUT);
-		OutputDefineLangType[] defineOutObjArr = new OutputDefineLangType[defineOut.length];
-		for (int i = 0; i < defineOut.length; i++) {
-			defineOutObjArr[i] = OutputDefineLangType.from(defineOut[i]);
-		}
-		this.defineLangs = defineOutObjArr;
-	}
-
-	@Override
 	protected void doExecute() {
-		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + this.sourcePath;
+		String filePath = this.runtimeArgs.getSourcePath();
+		String targetFolder = this.runtimeArgs.getTargetPath();
+		List<OutputDefineLangType> defineLangs = this.runtimeArgs.getDefineLangs();
+		FieldRangeType fieldRangeType = this.runtimeArgs.getFieldRangeType();
+
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
 
-		for (SheetInfo sheetInfo : sheets) {
-			for (OutputDefineLangType defineLang : defineLangs) {
-				SerializeDefineUtil.serializeDefine(sheetInfo, this.fieldRangeType, defineLang,
-						this.targetPath + "/define/" + this.fieldRangeType.getValue(), defineLang.getExtensionName());
-			}
-
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.TypeScript,
-					basePath + "/../testres/dist/define/client", "ts");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.CSharp,
-					basePath + "/../testres/dist/define/client", "cs");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.Java,
-					basePath + "/../testres/dist/define/server", "java");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.TypeScript,
-					basePath + "/../testres/dist/define/server", "ts");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Server, OutputDefineLangType.CSharp,
-					basePath + "/../testres/dist/define/server", "cs");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.Java,
-					basePath + "/../testres/dist/define/db", "java");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.TypeScript,
-					basePath + "/../testres/dist/define/db", "ts");
-			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.CSharp,
-					basePath + "/../testres/dist/define/db", "cs");
+		for (OutputDefineLangType defineLang : defineLangs) {
+			SerializeDefineUtil.serializeDefine(sheets, fieldRangeType, defineLang,
+					targetFolder + "/define/" + fieldRangeType.getValue(), defineLang.getExtensionName());
 		}
 	}
 
@@ -88,14 +67,15 @@ public class CmdDefineHandler extends CmdHandlerBase {
 	 *            -Target (非必要，可以直接在project.json中配置)<br>
 	 *            输出文件夹路径，支持文件夹<br>
 	 * 
-	 *            -Field(必要)<br>
+	 *            -Field (必要)<br>
 	 *            配置字段选择输出数据，支持client，server，db<br>
 	 * 
-	 *            -DefineOut(当OutType＝define时)<br>
+	 *            -DefineOut (当OutType＝define时)<br>
 	 *            定义语言选择，支持java，ts，多个间用英文逗号(,)分隔 <br>
 	 */
 	public static void main(String[] args) {
-		Map<String, String> argsMap = CmdArgs.createArgsMap(args);
-		new CmdDefineHandler(argsMap).execute();
+		CmdArgsRuntime cmdArgsRuntime = CmdArgsRuntime.createArgsMap(args);
+		cmdArgsRuntime.setOutType(OutputType.Define);
+		new CmdDefineHandler(cmdArgsRuntime).execute();
 	}
 }

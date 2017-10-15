@@ -1,7 +1,7 @@
 package cfg.serialize;
 
 /**
- * 输入类型
+ * 输出类型
  * 
  * @author xuzhuoxi
  */

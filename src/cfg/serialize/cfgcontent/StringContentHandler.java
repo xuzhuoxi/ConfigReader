@@ -21,7 +21,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 		} else {
 			byte[] newStringBytes = Arrays.copyOf(valueBytes, attrDataType.getByteCount());
 			sb.setLength(0);
-			sb.append(new String(newStringBytes));
+			sb.append(new String(newStringBytes, sourceCharset));
 			return sb.toString();
 		}
 	}

@@ -54,6 +54,10 @@ public class SysSettings {
 		return targetCharset;
 	}
 
+	public boolean isEncodingConsistent() {
+		return sourceCharset == targetCharset;
+	}
+
 	public BuffSetting getBuffSettings() {
 		return buffSettings;
 	}

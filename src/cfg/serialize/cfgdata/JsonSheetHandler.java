@@ -3,8 +3,8 @@ package cfg.serialize.cfgdata;
 import java.util.List;
 
 import cfg.serialize.FieldDataFormat;
-import cfg.serialize.FieldRangeType;
 import cfg.serialize.FieldKey;
+import cfg.serialize.FieldRangeType;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 

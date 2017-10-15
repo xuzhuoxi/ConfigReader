@@ -1,10 +1,10 @@
 package cfg.cmd;
 
 import java.util.List;
-import java.util.Map;
 
-import cfg.AppDefine;
+import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDataFormat;
+import cfg.serialize.OutputType;
 import cfg.serialize.SerializeDataUtil;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
@@ -17,10 +17,17 @@ import cfg.source.data.SheetInfo;
  */
 public class CmdDataHandler extends CmdHandlerBase {
 
-	private OutputDataFormat[] dataFormats = null;
+	public CmdDataHandler(CmdArgsRuntime cmdArgs) {
+		super(cmdArgs);
+	}
 
-	public CmdDataHandler(Map<String, String> argsMap) {
-		super(argsMap);
+	@Override
+	protected void handleArgs() {
+		super.handleArgs();
+		String[] dataOut = this.splitArg(CmdArgKeys.KEY_DATAOUT);
+		for (int i = 0; i < dataOut.length; i++) {
+			this.runtimeArgs.getDataFormats().add(OutputDataFormat.from(dataOut[i]));
+		}
 	}
 
 	@Override
@@ -28,7 +35,7 @@ public class CmdDataHandler extends CmdHandlerBase {
 		if (!super.argsVerify()) {
 			return false;
 		}
-		if (!this.hasArg(CmdArgs.KEY_DATAOUT)) {
+		if (!this.runtimeArgs.hasOutputDataFormat()) {
 			System.err.println("Params \"-DataOut\"  is must.");
 			return false;
 		}
@@ -36,28 +43,18 @@ public class CmdDataHandler extends CmdHandlerBase {
 	}
 
 	@Override
-	protected void handleArgs() {
-		super.handleArgs();
-		String[] dataOut = this.splitArg(CmdArgs.KEY_DATAOUT);
-		OutputDataFormat[] dataOutObjArr = new OutputDataFormat[dataOut.length];
-		for (int i = 0; i < dataOut.length; i++) {
-			dataOutObjArr[i] = OutputDataFormat.from(dataOut[i]);
-		}
-		this.dataFormats = dataOutObjArr;
-	}
-
-	@Override
 	protected void doExecute() {
-		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + this.sourcePath;
+		String filePath = this.runtimeArgs.getSourcePath();
+		String targetFolder = this.runtimeArgs.getTargetPath();
+		List<OutputDataFormat> dataFormats = this.runtimeArgs.getDataFormats();
+		FieldRangeType fieldRangeType = this.runtimeArgs.getFieldRangeType();
+
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
-		for (SheetInfo sheetInfo : sheets) {
-			for (OutputDataFormat dataFormat : dataFormats) {
-				SerializeDataUtil.serializeData(sheetInfo, dataFormat, this.fieldRangeType,
-						this.targetPath + "/data/" + this.fieldRangeType.getValue(), dataFormat.getFieldKey());
-			}
+		for (OutputDataFormat dataFormat : dataFormats) {
+			SerializeDataUtil.serializeData(sheets, dataFormat, fieldRangeType,
+					targetFolder + "/data/" + fieldRangeType.getValue(), dataFormat.getFieldKey());
 		}
 	}
 
@@ -69,15 +66,16 @@ public class CmdDataHandler extends CmdHandlerBase {
 	 *            -Target (非必要，可以直接在project.json中配置)<br>
 	 *            输出文件夹路径，支持文件夹<br>
 	 * 
-	 *            -Field(必要)<br>
+	 *            -Field (必要)<br>
 	 *            配置字段选择输出数据，支持client，server，db<br>
 	 * 
-	 *            -DataOut(当OutType＝data时)<br>
+	 *            -DataOut (当OutType＝data时)<br>
 	 *            输出数据，支持json，binary，sql，多个间用英文逗号(,)分隔 <br>
 	 */
 	public static void main(String[] args) {
-		Map<String, String> argsMap = CmdArgs.createArgsMap(args);
-		new CmdDataHandler(argsMap).execute();
+		CmdArgsRuntime cmdArgsRuntime = CmdArgsRuntime.createArgsMap(args);
+		cmdArgsRuntime.setOutType(OutputType.Data);
+		new CmdDataHandler(cmdArgsRuntime).execute();
 	}
 
 }

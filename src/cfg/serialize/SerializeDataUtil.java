@@ -1,11 +1,14 @@
 package cfg.serialize;
 
+import java.nio.charset.Charset;
 import java.util.List;
 
 import cfg.serialize.cfgdata.ISheetHandler;
 import cfg.serialize.cfgdata.SheetHandlerFactory;
+import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
+import code.lang.StringUtil;
 
 public class SerializeDataUtil {
 	/**
@@ -30,8 +33,20 @@ public class SerializeDataUtil {
 		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getFileName() + "."
 				+ fileFormat.getValue();
 		if (fileFormat.isTextFile()) {
-			FileUtils.writeTextFile(outputFilePath, (String) out);
+			System.out.println("输出数据文件(字符)(" + Settings.getInstance().getSysSettings().getTargetEncoding() + ")："
+					+ outputFilePath);
+			Charset outputCharset = Settings.getInstance().getSysSettings().getTargetCharset();
+			String outJsonStr = (String) out;
+			if (!Settings.getInstance().getSysSettings().isEncodingConsistent()) {
+				outJsonStr = StringUtil.changeCharset(outJsonStr,
+						Settings.getInstance().getSysSettings().getSourceCharset(), outputCharset);
+			}
+			FileUtils.writeTextFile(outputFilePath, outJsonStr, outputCharset);
+			// FileUtils.writeTextFile(outputFilePath, (String) out,
+			// outputCharset);
+			// System.out.println(out);
 		} else {
+			System.out.println("输出数据文件(字节):" + outputFilePath);
 			FileUtils.writeBinaryFile(outputFilePath, (byte[]) out);
 		}
 	}

@@ -1,5 +1,8 @@
 package cfg.cmd;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDataFormat;
 import cfg.serialize.OutputDefineLangType;
@@ -44,4 +47,35 @@ public class CmdArgKeys {
 	 * @see OutputDefineLangType
 	 */
 	public static String KEY_DEFINEOUT = "-DefineOut";
+
+	@SuppressWarnings("serial")
+	private final static Map<String, String> argKeyMap = new HashMap<String, String>() {
+		{
+			put("-Source", KEY_SOURCE);
+			put("-source", KEY_SOURCE);
+			put("-s", KEY_SOURCE);
+			put("-S", KEY_SOURCE);
+			put("-Target", KEY_TARGET);
+			put("-target", KEY_TARGET);
+			put("-t", KEY_TARGET);
+			put("-T", KEY_TARGET);
+			put("-Field", KEY_FIELD);
+			put("-field", KEY_FIELD);
+			put("-f", KEY_FIELD);
+			put("-F", KEY_FIELD);
+			put("-OutType", KEY_OUTTYPE);
+			put("-ot", KEY_OUTTYPE);
+			put("-OT", KEY_OUTTYPE);
+			put("-DataOut", KEY_DATAOUT);
+			put("-DefineOut", KEY_DEFINEOUT);
+		}
+	};
+
+	public static String handleArgKey(String argKey) {
+		if (argKeyMap.containsKey(argKey)) {
+			return argKeyMap.get(argKey);
+		} else {
+			return argKey;
+		}
+	}
 }

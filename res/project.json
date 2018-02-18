@@ -1,35 +1,35 @@
 {
 	"ClientOut": {
 		"value": 1,
-		"desc": "客户端输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)"
+		"desc": "客户端输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)，从1开始。"
 	},
 	"ServerOut": {
 		"value": 2,
-		"desc": "服务端输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)"
+		"desc": "服务端输出信息，B列为数据结构名，C列为单独数据文件名(不包含扩展名)，从1开始。"
 	},
 	"DBOut": {
 		"value": 3,
-		"desc": "数据库输出信息，B列为表名，C列为单独数据文件名(不包含扩展名)"
+		"desc": "数据库输出信息，B列为表名，C列为单独数据文件名(不包含扩展名)，从1开始。"
 	},
 	"Keys": {
 		"value": 4,
-		"desc": "主键信息，暂时没用到"
+		"desc": "主键信息，暂时没用到，从1开始。"
 	},
 	"Name": {
 		"value": 5,
-		"desc": "数据名称"
+		"desc": "数据名称，从1开始。"
 	},
 	"Remark": {
 		"value": 6,
-		"desc": "数据注释"
+		"desc": "数据注释，从1开始。"
 	},
 	"Valid": {
 		"value": 7,
-		"desc": "输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒"
+		"desc": "输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒。从1开始。"
 	},
 	"DataType": {
 		"value": 8,
-		"desc": "数据格式,支持{uint8,uint16,uint32,int8,int16,int32,boolean,string(*)},其中string中的*代表字节数"
+		"desc": "数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,boolean,string,string(*)},其中string中的*代表字节数，从1开始。"
 	},
 	"FieldName": {
 		"value": {
@@ -41,10 +41,10 @@
 			"c++": 9,
 			"c#": 9
 		},
-		"desc": "导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名"
+		"desc": "导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名，从1开始。"
 	},
 	"StartRow": {
 		"value": 10,
-		"desc": "数据开始行号(Excel左则行号)"
+		"desc": "数据开始行号(Excel左则行号)，从1开始。"
 	}
 }

@@ -40,13 +40,13 @@ public class CmdArgsOrigin {
 	 * @return 参数映射表
 	 */
 	public static CmdArgsOrigin createArgsMap(String[] args) {
-//		System.out.println("打印，Len=" + args.length);
+		// System.out.println("打印，Len=" + args.length);
 		Map<String, String> argsMap = new HashMap<String, String>();
 		for (int index = 0; index < args.length; index += 2) {
-			argsMap.put(args[index], args[index + 1]);
-//			System.out.println(args[index] + "=" + args[index + 1]);
+			argsMap.put(CmdArgKeys.handleArgKey(args[index]), args[index + 1]);
+			// System.out.println(args[index] + "=" + args[index + 1]);
 		}
-//		System.out.println("打印结束");
+		// System.out.println("打印结束");
 		Settings settings = Settings.getInstance();
 		if (!argsMap.containsKey(CmdArgKeys.KEY_SOURCE)) {
 			argsMap.put(CmdArgKeys.KEY_SOURCE, settings.getSysSettings().getSource());

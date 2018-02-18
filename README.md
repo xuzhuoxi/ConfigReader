@@ -93,6 +93,7 @@
 命令行功能基于Java命令行格式
 
 + 生成数据文件
+
 `java -cp ConfigReader.jar cfg.cmd.CmdDataHandler -Field client -DataOut json,binary`
 	+ `java -cp ConfigReader.jar cfg.cmd.CmdDataHandler`是基本的Java命令行。
 	+ 参数```-Field```用于选择Excel表单的数据有效性(必要)。
@@ -106,6 +107,7 @@
 	+ 可选参数`-Source`，`-Target`，可用于指定Excel配置表来源位置和指定输出文件位置。
 
 + 生成定义文件
+
 `java -cp ConfigReader.jar cfg.cmd.CmdDefineHandler -Field server -DefineOut java,ts`
 
 	+ 参数```-Field```用于选择Excel表单的数据有效性(必要)。

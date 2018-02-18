@@ -69,7 +69,7 @@
 	+ SheetPrefix：Excel配置表中sheet名称前缀，包含当前前缀的sheet表单才会被处理。
 
 ### 功能扩展与定制
-##### 新增编程语言支持(假设新语言为：abc)
+#### 新增编程语言支持(假设新语言为：abc)
 1. 修改[system.json](/res/system.json)文件，在Langs.value值补充新语言定义标识（自定义即可，当前为`"abc"`）。
 2. 修改OutputDefineLangType.java文件，增加对应枚举`Abc("abc")`，以及补充getExtensionName方法：`case Abc: return "abc";`。
 3. 修改FieldKey.java文件，增加对应枚举`Abc("abc")`。
@@ -79,11 +79,11 @@
 	配置说明请参考langs/说明。
 6. 执行build.bat文件重新打包(非Windows用户自行使用Ant命令)。
 
-##### 新增数据文件格式扩展
+#### 新增数据文件格式扩展
 1. 修改OutputDataFormat.java文件，增加新枚举。
 2. 执行build.bat文件重新打包(非Windows用户自行使用Ant命令)。
 
-##### 新增数据字段格式扩展
+#### 新增数据字段格式扩展
 1. 修改FieldDataFormat.java文件，增加新的FieldDataFormat常量定义；补充FieldDataFormat.from方法。
 2. 修改[system.json](/res/system.json)文件，补充DataFormat.value值。
 3. 修改lang/下使用到的语言配置，分别补充DataFormat、Get、Set下的对应数据结构或方法对应的名称。
@@ -92,7 +92,7 @@
 ### 命令行运行
 命令行功能基于Java命令行格式
 
-##### 生成数据文件
+#### 生成数据文件
 命令行格式： `java -cp ConfigReader.jar cfg.cmd.CmdDataHandler -Field client -DataOut json,binary`<br>
 + `java -cp ConfigReader.jar cfg.cmd.CmdDataHandler`是基本的Java命令行。
 + 参数`-Field`用于选择Excel表单的数据有效性(必要)。
@@ -105,7 +105,7 @@
 	+ 支持多种数据文件同时输出，中间以英文逗号(`,`)相隔。
 + 可选参数`-Source`，`-Target`，可用于指定Excel配置表来源位置和指定输出文件位置。
 
-##### 生成定义文件
+#### 生成定义文件
 命令行格式： `java -cp ConfigReader.jar cfg.cmd.CmdDefineHandler -Field server -DefineOut java,ts`<br>
 + 参数`-Field`用于选择Excel表单的数据有效性(必要)。
 	+ 有效值为`client`、`server`、`db`，在FieldRangeType.java文件中有枚举定义。

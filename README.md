@@ -85,7 +85,7 @@
 
 #### 新增数据字段格式扩展
 1. 修改FieldDataFormat.java文件，增加新的FieldDataFormat常量定义；补充FieldDataFormat.from方法。
-2. ContentSerializeHandlerMap.java文件，在构造方法中增加handlerMap映射。
+2. 修改ContentSerializeHandlerMap.java文件，在构造方法中增加handlerMap映射。
 3. 修改[system.json](/res/system.json)文件，补充DataFormat.value值。
 4. 修改lang/下使用到的语言配置，分别补充DataFormat、Get、Set下的对应数据结构或方法对应的名称。
 5. 执行build.bat文件重新打包(非Windows用户自行使用Ant命令)。

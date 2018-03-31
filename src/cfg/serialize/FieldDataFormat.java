@@ -27,9 +27,13 @@ public class FieldDataFormat {
 	 */
 	public static final FieldDataFormat Int16 = new FieldDataFormat("int16", 2);
 	/**
-	 * 有符号8位整数
+	 * 有符号32位整数
 	 */
 	public static final FieldDataFormat Int32 = new FieldDataFormat("int32", 4);
+	/**
+	 * 有符号32位浮点数
+	 */
+	public static final FieldDataFormat Float32 = new FieldDataFormat("float32", 4);
 	/**
 	 * 布尔型
 	 */
@@ -110,6 +114,8 @@ public class FieldDataFormat {
 			return Int16;
 		} else if (stringValue.equals(Int32.typeName)) {
 			return Int32;
+		} else if (stringValue.equals(Float32.typeName)) {
+			return Float32;
 		} else if (stringValue.equals(Boolean.typeName)) {
 			return Boolean;
 		} else if (stringValue.equals(String.typeName)) {

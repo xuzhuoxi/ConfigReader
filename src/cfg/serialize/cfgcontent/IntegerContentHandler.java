@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 import cfg.serialize.FieldDataFormat;
 import code.lang.BigIntegerUtil;
-import code.lang.IntegerUtil;
+import code.lang.NumberUtil;
 
 public class IntegerContentHandler implements IContentSerializeHandler {
 
@@ -46,12 +46,17 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
-		boolean typeTrue = (obj instanceof Integer) || (obj instanceof BigInteger);
+		boolean typeTrue = (obj instanceof Integer) || (obj instanceof Long) || (obj instanceof BigInteger);
 		if (!typeTrue) {
 			throw new Error("IntegerDataHandler.toBinary");
 		}
+		int count = attrDataType.getByteCount();
 		if (obj instanceof Integer) {
-			return IntegerUtil.toByteArray((Integer) obj, attrDataType.getByteCount());
+			int val = (Integer) obj;
+			return NumberUtil.toByteArray(val, count);
+		} else if (obj instanceof Long) {
+			long val = (Long) obj;
+			return NumberUtil.toByteArray(val);
 		} else {
 			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getByteCount());
 		}

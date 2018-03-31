@@ -1,14 +1,23 @@
 package cfg.serialize.cfgcontent;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import cfg.serialize.FieldDataFormat;
+import code.lang.BigIntegerUtil;
+import code.lang.NumberUtil;
 
 public class DecimalContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
-		return new BigDecimal(valueContent);
+		int bCount = attrDataType.getByteCount();
+		switch (bCount) {
+		case 4:
+			return Float.parseFloat(valueContent);
+		default:
+			return new BigDecimal(valueContent);
+		}
 	}
 
 	@Override
@@ -27,7 +36,16 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean typeTrue = (obj instanceof Float) || (obj instanceof Double) || (obj instanceof BigDecimal);
+		if (!typeTrue) {
+			throw new Error("IntegerDataHandler.toBinary");
+		}
+		if (obj instanceof Float) {
+			return NumberUtil.toByteArray((Float) obj);
+		} else if (obj instanceof Double) {
+			return NumberUtil.toByteArray((Double) obj);
+		} else {
+			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getByteCount());
+		}
 	}
 }

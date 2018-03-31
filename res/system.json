@@ -2,7 +2,7 @@
 	"Source": {
 		"value": "./source",
 		"encoding": "UTF-8",
-		"desc": "默认处理的文件或目录,以':'开关，或路径中包含':'的，视为绝对路径", 
+		"desc": "默认处理的文件或目录,以':'开关，或路径中包含':'的，视为绝对路径",
 	},
 	"Target": {
 		"value": "./target",
@@ -23,7 +23,7 @@
 		"desc": "输出数据定义{sql:字段名,java:属性名,ts:属性名,c++属性名,json:key}"
 	},
 	"DataFormat": {
-		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "boolean", "string"],
+		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "float32", "boolean", "string"],
 		"desc": "支持输出文件格式"
 	},
 	"SheetPrefix": {

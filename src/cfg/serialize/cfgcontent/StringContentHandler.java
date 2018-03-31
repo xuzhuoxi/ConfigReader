@@ -6,7 +6,7 @@ import java.util.Arrays;
 import cfg.serialize.FieldDataFormat;
 import cfg.settings.Settings;
 import code.array.ArrayUtils;
-import code.lang.IntegerUtil;
+import code.lang.NumberUtil;
 
 public class StringContentHandler implements IContentSerializeHandler {
 	private StringBuilder sb = new StringBuilder();
@@ -46,8 +46,8 @@ public class StringContentHandler implements IContentSerializeHandler {
 		Charset targetCharset = Settings.getInstance().getSysSettings().getTargetCharset();
 		byte[] stringBytes = value.getBytes(targetCharset);
 		int byteCount = attrDataType.getByteCount();
-		int realByteCount = (-1 == byteCount) ? stringBytes.length : byteCount;
-		byte[] lens = IntegerUtil.toByteArray(realByteCount, 2);// 前面两个字节代表余下字符串字节长度
+		short realByteCount = (-1 == byteCount) ? (short) stringBytes.length : (short) byteCount;
+		byte[] lens = NumberUtil.toByteArray(realByteCount);// 前面两个字节代表余下字符串字节长度
 		byte[] datas = ArrayUtils.mergeArray(lens, stringBytes);
 		return Arrays.copyOf(datas, realByteCount + 2);
 	}

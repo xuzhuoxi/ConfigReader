@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import cfg.serialize.FieldDataFormat;
 import code.array.ArrayUtils;
-import code.lang.IntegerUtil;
+import code.lang.NumberUtil;
 
 public class StringContentTest {
 
@@ -16,7 +16,7 @@ public class StringContentTest {
 		// AttributeDataType attType = AttributeDataType.String;
 		for (String str : strs) {
 			byte[] bs = handler.toBinary(str, attType);
-			int len = IntegerUtil.toInt(new byte[] { bs[0], bs[1] });
+			int len = NumberUtil.toShort(new byte[] { bs[0], bs[1] });
 			String newStr = new String(ArrayUtils.subArray(bs, 2));
 			System.out.println(bs.length);
 			System.out.println(len);

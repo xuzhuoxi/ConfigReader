@@ -1,2 +1,2 @@
-this.${PROPERTY} = proxy.${LANG_PARSE}();
+this.${PROPERTY} = (${DATA_TYPE})proxy.${LANG_PARSE}();
 	

@@ -28,8 +28,11 @@ public class PropertyGeneraterBinaryParser extends GeneraterBase implements ICon
 			String property = sheetDefine.getFieldName(this.lang.getValue(), index);
 			String dataFormat = sheetDefine.getDataTypeInstance(index).getTypeName();
 			String funcParse = settings.getLangSettings().getFunctionGetDesc(langStr, "binary", dataFormat);
-//			System.out.println(TempKey.KEY_LANG_FUNCTION_PARSE + "，" + funcParse);
+			String langDataFormat = this.langInfo.getDataFormat(dataFormat);
+			// System.out.println(TempKey.KEY_LANG_FUNCTION_PARSE + "，" +
+			// funcParse);
 			this.sb.append(this.tempContent.replace(TempKey.KEY_PROPETY, property)
+					.replace(TempKey.KEY_DATA_TYPE, langDataFormat)
 					.replace(TempKey.KEY_LANG_FUNCTION_PARSE, funcParse));
 		}
 		return this.sb.toString();

@@ -23,8 +23,11 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 		if (null == attrDataType) {
 			return new BigInteger(newContent);
 		}
-		if (attrDataType.getByteCount() <= 4) {
+		int bc = attrDataType.getByteCount();
+		if (bc < 4) {
 			return Integer.parseInt(newContent);
+		} else if (bc < 8) {
+			return Long.parseLong(newContent);
 		} else {
 			return new BigInteger(newContent);
 		}
@@ -37,7 +40,7 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public String toJson(Object obj, FieldDataFormat attrDataType) {
-		if (obj instanceof BigInteger || obj instanceof Integer) {
+		if (obj instanceof BigInteger || obj instanceof Integer || obj instanceof Long) {
 			return obj.toString().trim();
 		} else {
 			throw new Error("IntegerDataHandler.toJson");
@@ -51,14 +54,15 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 			throw new Error("IntegerDataHandler.toBinary");
 		}
 		int count = attrDataType.getByteCount();
+
 		if (obj instanceof Integer) {
 			int val = (Integer) obj;
 			return NumberUtil.toByteArray(val, count);
 		} else if (obj instanceof Long) {
 			long val = (Long) obj;
-			return NumberUtil.toByteArray(val);
+			return NumberUtil.toByteArray(val, count);
 		} else {
-			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getByteCount());
+			return BigIntegerUtil.toByteArray((BigInteger) obj, count);
 		}
 	}
 

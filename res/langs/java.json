@@ -20,7 +20,7 @@
 			"uint8": "getInt",
 			"uint16": "getInt",
 			"uint32": "getLong",
-			"float32": "getFloat",
+			"float32": "getDouble",
 			"string": "getString",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为ang"
 		},

@@ -27,10 +27,13 @@ public class PropertyGeneraterJsonParser extends GeneraterBase implements IConte
 		for (Integer index : indexs) {
 			String property = sheetDefine.getFieldName(this.lang.getValue(), index);
 			String jsonProperty = sheetDefine.getFieldName("json", index);
-			String dataFormat = sheetDefine.getDataTypeInstance(index).getTypeName();
+			String dataFormat = sheetDefine.getDataTypeInstance(index).getTypeName();// 如float32
 			String funcParse = settings.getLangSettings().getFunctionGetDesc(langStr, "json", dataFormat);
+			String langDataFormat = this.langInfo.getDataFormat(dataFormat);
+//			System.out
+//					.println(property + " " + jsonProperty + " " + dataFormat + " " + funcParse + " " + langDataFormat);
 			this.sb.append(this.tempContent.replace(TempKey.KEY_PROPETY, property)
-					.replace(TempKey.KEY_PROPETY_JSON, jsonProperty)
+					.replace(TempKey.KEY_DATA_TYPE, langDataFormat).replace(TempKey.KEY_PROPETY_JSON, jsonProperty)
 					.replace(TempKey.KEY_LANG_FUNCTION_PARSE, funcParse));
 		}
 		return this.sb.toString();

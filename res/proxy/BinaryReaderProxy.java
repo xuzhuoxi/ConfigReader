@@ -31,17 +31,34 @@ public class BinaryReaderProxy {
 	}
 
 	public short readUInt8() throws Exception {
-		short value = (short) (dis.readByte() & (short) 0x00ff);
-		return value;
+		byte val = dis.readByte();
+		if (val < 0) {
+			return (short) (val + ((short) Byte.MAX_VALUE + 1) * 2);
+		} else {
+			return (short) val;
+		}
 	}
 
 	public int readUInt16() throws Exception {
-		int value = (int) (dis.readShort() & 0x0000ffff);
-		return value;
+		short val = dis.readShort();
+		if (val < 0) {
+			return (int) (val + ((int) Short.MAX_VALUE + 1) * 2);
+		} else {
+			return (int) val;
+		}
 	}
 
 	public long readUInt32() throws Exception {
-		long value = (long) (dis.readInt() & 0x000000ffffffff);
+		int val = dis.readInt();
+		if (val < 0) {
+			return (long) (val + ((long) Long.MAX_VALUE + 1) * 2);
+		} else {
+			return (long) val;
+		}
+	}
+
+	public float readFloat32() throws Exception {
+		float value = dis.readFloat();
 		return value;
 	}
 

@@ -1,8 +1,15 @@
 package cfg;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import cfg.serialize.FieldKey;
@@ -12,7 +19,11 @@ import cfg.serialize.cfgdata.JsonSheetHandler;
 import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
+import code.file.FileUtils;
+import code.lang.NumberUtil;
 import code.path.BasePathUtils;
+import xu.BinaryReaderProxy;
+import xu.CfgBuilding;
 
 public class ConfigReaderTest {
 
@@ -31,9 +42,10 @@ public class ConfigReaderTest {
 	}
 
 	@Test
-	public void testJsonWorkbook() {
+	public void testWorkbook2Json() {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
+		System.out.println("FilePaht:" + filePath);
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 
@@ -47,9 +59,28 @@ public class ConfigReaderTest {
 	}
 
 	@Test
-	public void testBinaryWorkbook() {
+	public void testJson2Objects() {
+		String basePath = AppDefine.instance.getBasePath();
+		String filePath = basePath + "/target/data/client/cfg_building_c.json";
+		System.out.println("FilePaht:" + filePath);
+		String jsonContent = FileUtils.readFileContent(filePath);
+		System.out.println("JsonContent:" + jsonContent);
+		JSONArray ary = new JSONArray(jsonContent);
+		int len = ary.length();
+		System.out.println("Length:" + len);
+		for (int i = 0; i < len; i++) {
+			JSONObject jObj = ary.getJSONObject(i);
+			CfgBuilding obj = new CfgBuilding();
+			obj.parseJson(jObj);
+			System.out.println(obj);
+		}
+	}
+
+	@Test
+	public void testWorkbook2Binary() {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
+		System.out.println("FilePaht:" + filePath);
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 
@@ -61,6 +92,50 @@ public class ConfigReaderTest {
 			System.out.println(sheetInfo);
 			System.out.println(out.length);
 		}
+	}
+
+	@Test
+	public void testBinary2Objects() {
+		String basePath = AppDefine.instance.getBasePath();
+		String filePath = basePath + "/target/data/client/cfg_building_c.binary";
+		System.out.println("FilePaht:" + filePath);
+
+		InputStream is;
+		DataInputStream dis;
+		try {
+			is = new FileInputStream(filePath);
+			dis = new DataInputStream(is);
+			BinaryReaderProxy proxy = new BinaryReaderProxy(dis, "utf-8");
+			while (true) {
+				CfgBuilding obj = new CfgBuilding();
+				obj.parseBinary(proxy);
+				System.out.println(obj);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testOverflow() {
+		System.out.println(Integer.MAX_VALUE);
+		String uintMax = "4294967295";
+		int i = NumberUtil.intFromString(uintMax);
+		System.out.println(i + "----------");
+
+		long i2 = Long.parseLong(uintMax);
+		System.out.println(i2);
+		int i3 = (int) (i2);
+		System.out.println(i3 + " " + (long) i3);
+		long i4 = i3 + ((long) (Integer.MAX_VALUE) + 1) * 2;
+		System.out.println(i4);
 	}
 
 	@Test

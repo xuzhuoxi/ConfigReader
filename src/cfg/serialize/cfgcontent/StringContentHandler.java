@@ -9,20 +9,24 @@ import code.array.ArrayUtils;
 import code.lang.NumberUtil;
 
 public class StringContentHandler implements IContentSerializeHandler {
-	private StringBuilder sb = new StringBuilder();
 
 	@Override
 	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
-		Charset sourceCharset = Settings.getInstance().getSysSettings().getSourceCharset();
-		byte[] valueBytes = valueContent.getBytes(sourceCharset);
-		int cByteCount = valueBytes.length;
-		if (attrDataType.getByteCount() == -1 || cByteCount == attrDataType.getByteCount()) {
+		int dataLen = attrDataType.getDataLen();
+		int currentLen = valueContent.length();
+		if (-1 == dataLen || dataLen == currentLen) {
 			return valueContent;
 		} else {
-			byte[] newStringBytes = Arrays.copyOf(valueBytes, attrDataType.getByteCount());
-			sb.setLength(0);
-			sb.append(new String(newStringBytes, sourceCharset));
-			return sb.toString();
+			String content = valueContent;
+			if (currentLen < dataLen) {
+				int add = dataLen - currentLen;
+				for (int i = 0; i < add; i++) {
+					content = content + " ";
+				}
+			} else {
+				content = valueContent.substring(0, dataLen);
+			}
+			return content;
 		}
 	}
 
@@ -45,7 +49,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 		String value = (String) obj;
 		Charset targetCharset = Settings.getInstance().getSysSettings().getTargetCharset();
 		byte[] stringBytes = value.getBytes(targetCharset);
-		int byteCount = attrDataType.getByteCount();
+		int byteCount = attrDataType.getDataLen();
 		short realByteCount = (-1 == byteCount) ? (short) stringBytes.length : (short) byteCount;
 		byte[] lens = NumberUtil.toByteArray(realByteCount);// 前面两个字节代表余下字符串字节长度
 		byte[] datas = ArrayUtils.mergeArray(lens, stringBytes);

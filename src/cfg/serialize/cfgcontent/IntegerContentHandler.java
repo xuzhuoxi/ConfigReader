@@ -23,7 +23,7 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 		if (null == attrDataType) {
 			return new BigInteger(newContent);
 		}
-		int bc = attrDataType.getByteCount();
+		int bc = attrDataType.getDataLen();
 		if (bc < 4) {
 			return Integer.parseInt(newContent);
 		} else if (bc < 8) {
@@ -53,7 +53,7 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 		if (!typeTrue) {
 			throw new Error("IntegerDataHandler.toBinary");
 		}
-		int count = attrDataType.getByteCount();
+		int count = attrDataType.getDataLen();
 
 		if (obj instanceof Integer) {
 			int val = (Integer) obj;

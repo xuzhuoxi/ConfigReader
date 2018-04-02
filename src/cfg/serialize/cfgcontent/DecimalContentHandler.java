@@ -11,7 +11,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
-		int bCount = attrDataType.getByteCount();
+		int bCount = attrDataType.getDataLen();
 		switch (bCount) {
 		case 4:
 			return Float.parseFloat(valueContent);
@@ -45,7 +45,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 		} else if (obj instanceof Double) {
 			return NumberUtil.toByteArray((Double) obj);
 		} else {
-			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getByteCount());
+			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getDataLen());
 		}
 	}
 }

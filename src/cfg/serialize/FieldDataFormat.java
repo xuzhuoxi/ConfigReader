@@ -47,10 +47,16 @@ public class FieldDataFormat {
 	private static final String EndChar = ")";
 
 	private String typeName;
-	private int byteCount;
+	private int dataLen;
 
-	public int getByteCount() {
-		return byteCount;
+	/**
+	 * 数据类型的存储长度
+	 * 
+	 * @return 当数据类型为String时，返回字符长度<br>
+	 *         其它返回字节长度<br>
+	 */
+	public int getDataLen() {
+		return dataLen;
 	}
 
 	public String getTypeName() {
@@ -66,7 +72,7 @@ public class FieldDataFormat {
 		if (getClass() != obj.getClass())
 			return false;
 		FieldDataFormat other = (FieldDataFormat) obj;
-		if (byteCount != other.byteCount)
+		if (dataLen != other.dataLen)
 			return false;
 		if (null == typeName && null == other.typeName)
 			return true;
@@ -77,15 +83,15 @@ public class FieldDataFormat {
 
 	@Override
 	public String toString() {
-		return "DataType [typeName=" + typeName + ", byteCount=" + byteCount + "]";
+		return "DataType [typeName=" + typeName + ", byteCount=" + dataLen + "]";
 	}
 
 	public String toOriginalString() {
 		if ("string".equals(typeName)) {
-			if (-1 == byteCount) {
-				return typeName + "(" + byteCount + ")";
+			if (-1 == dataLen) {
+				return typeName + "(" + dataLen + ")";
 			} else {
-				return typeName + "(" + (byteCount >> 1) + ")";
+				return typeName + "(" + (dataLen >> 1) + ")";
 			}
 		} else {
 			return typeName;
@@ -94,7 +100,7 @@ public class FieldDataFormat {
 
 	private FieldDataFormat(String value, int dataLen) {
 		this.typeName = value;
-		this.byteCount = dataLen;
+		this.dataLen = dataLen;
 	}
 
 	public static FieldDataFormat from(String value) {

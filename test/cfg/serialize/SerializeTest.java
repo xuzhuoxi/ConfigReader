@@ -115,6 +115,7 @@ public class SerializeTest {
 				cfgb.parseBinary(brp);
 				System.out.println(cfgb);
 			}
+			dis.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -127,7 +128,7 @@ public class SerializeTest {
 	@Test
 	public void testJson2Objects() {
 		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/target/data/client/cfg_building_c.json";
+		String filePath = basePath + "/../testres/dist/data/client/cfg_building_c.json";
 		System.out.println("FilePath:" + filePath);
 		String jsonContent = FileUtils.readFileContent(filePath);
 		System.out.println("JsonContent:" + jsonContent);

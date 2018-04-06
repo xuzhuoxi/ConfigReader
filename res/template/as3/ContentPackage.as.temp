@@ -1,0 +1,5 @@
+package ${MODULE}{
+	import xu.BinaryReaderProxy;
+	
+	${CLASS_CONTENT}
+}

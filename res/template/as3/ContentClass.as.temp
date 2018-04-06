@@ -1,0 +1,15 @@
+	/**
+	 * @author ${AUTHOR}
+	 * Created on ${DATE}.
+	 */
+	public class ${CLASS} {
+		${PROPERTY_CONTENT}
+	
+	    public function parseJson(data: Object): void {
+	    	${PARSE_JSON_CONTENT}
+	    }
+	    
+	    public function parseBinary(proxy: BinaryReaderProxy): void {
+	    	${PARSE_BINARY_CONTENT}
+	    }
+	}

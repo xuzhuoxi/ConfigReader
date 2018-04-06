@@ -6,7 +6,7 @@ package cfg.serialize;
  * @author xuzhuoxi
  */
 public enum FieldKey {
-	Sql("sql"), Json("json"), Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#");
+	Sql("sql"), Json("json"), Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#"), AS3("as3");
 
 	private String value;
 

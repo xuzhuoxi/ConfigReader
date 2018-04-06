@@ -20,6 +20,10 @@ public class ConfigReaderTest {
 	public void testIntegerObject() {
 		BigInteger bi0 = new BigInteger("1");
 		System.out.println(bi0);
+
+		System.out.println(((int) Byte.MAX_VALUE + 1) * 2);
+		System.out.println(((int) Short.MAX_VALUE + 1) * 2);
+		System.out.println((Long.MAX_VALUE + 1) * 2);
 	}
 
 	@Test

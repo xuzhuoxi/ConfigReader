@@ -1,6 +1,5 @@
 package cfg;
 
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -39,13 +38,13 @@ public class ConfigReaderTest {
 		// System.out.println(String.valueOf(l));
 		// System.out.println();
 
-//		String str = "2.147483647E9";
-////		long l = Long.parseLong(str);
-//		long l = (long)Double.parseDouble(str);
-//		System.out.println(str + "," + l);
-//		System.out.println((Long)l);
-//		System.out.println(new BigInteger("3.14"));
-		
+		// String str = "2.147483647E9";
+		//// long l = Long.parseLong(str);
+		// long l = (long)Double.parseDouble(str);
+		// System.out.println(str + "," + l);
+		// System.out.println((Long)l);
+		// System.out.println(new BigInteger("3.14"));
+
 		String str = "-214740000";
 		float f = Float.parseFloat(str);
 		System.out.println(f + "," + new DecimalFormat("#").format(f));

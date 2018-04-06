@@ -77,7 +77,7 @@ public class WorkbookUtil {
 				contentArray[index] = "";
 			}
 		}
-		System.out.println("WorkbookUtil.getContentArray(" + rowNum + "):" + Arrays.toString(contentArray));
+//		System.out.println("WorkbookUtil.getContentArray(" + rowNum + "):" + Arrays.toString(contentArray));
 		return contentArray;
 	}
 

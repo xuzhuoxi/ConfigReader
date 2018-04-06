@@ -24,7 +24,9 @@
 	},
 	"DataFormat": {
 		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "float32", "boolean", "string"],
-		"desc": "支持输出文件格式"
+		"desc": "支持输出文件格式",
+		"注意1":"其中string中的*代表字符数，从1开始。",
+		"注意2":"浮点数最多支持6位小数，而且当数值越大，精度就越低，反之亦然"
 	},
 	"SheetPrefix": {
 		"value": "Data_",

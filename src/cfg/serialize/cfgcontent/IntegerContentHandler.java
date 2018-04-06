@@ -1,6 +1,7 @@
 package cfg.serialize.cfgcontent;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 
 import cfg.serialize.FieldDataFormat;
 import code.lang.BigIntegerUtil;
@@ -8,28 +9,47 @@ import code.lang.NumberUtil;
 
 public class IntegerContentHandler implements IContentSerializeHandler {
 
+	private DecimalFormat format = new DecimalFormat("#");
+
 	@Override
 	public Object fromString(String valueContent, FieldDataFormat attrDataType) {
-		int dotIndex = valueContent.indexOf(".");
-		String newContent;
-		if (-1 == dotIndex) {
-			newContent = valueContent;
-		} else {
-			if (0 == dotIndex)
-				newContent = "0";
-			else
-				newContent = valueContent.substring(0, dotIndex);
-		}
 		if (null == attrDataType) {
-			return new BigInteger(newContent);
+			return new BigInteger(valueContent);
 		}
+		int dotIndex = valueContent.indexOf(".");
 		int bc = attrDataType.getDataLen();
-		if (bc < 4) {
-			return Integer.parseInt(newContent);
-		} else if (bc < 8) {
-			return Long.parseLong(newContent);
+		if (-1 == dotIndex) {// 纯数字
+			if (bc < 4) {
+				return Integer.parseInt(valueContent);
+			} else if (bc < 8) {
+				return Long.parseLong(valueContent);
+			} else {
+				return new BigInteger(valueContent);
+			}
 		} else {
-			return new BigInteger(newContent);
+			if (0 == dotIndex) {// 小数点开头
+				return 0;
+			}
+			int eIndex = Math.max(valueContent.indexOf("E"), valueContent.indexOf("e"));
+			if (eIndex >= 1) {// 科学记数法
+				double d = Double.parseDouble(valueContent);
+				if (bc < 4) {
+					return (int) d;
+				} else if (bc < 8) {
+					return (long) d;
+				} else {
+					return new BigInteger(valueContent);
+				}
+			} else {
+				String subStr = valueContent.substring(0, dotIndex);// 截掉小数点以后
+				if (bc < 4) {
+					return Integer.parseInt(subStr);
+				} else if (bc < 8) {
+					return Long.parseLong(subStr);
+				} else {
+					return new BigInteger(subStr);
+				}
+			}
 		}
 	}
 
@@ -40,8 +60,10 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public String toJson(Object obj, FieldDataFormat attrDataType) {
-		if (obj instanceof BigInteger || obj instanceof Integer || obj instanceof Long) {
+		if (obj instanceof BigInteger) {
 			return obj.toString().trim();
+		} else if (obj instanceof Integer || obj instanceof Long) {
+			return format.format(obj);
 		} else {
 			throw new Error("IntegerDataHandler.toJson");
 		}

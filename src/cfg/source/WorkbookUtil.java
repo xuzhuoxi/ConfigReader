@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -76,6 +77,7 @@ public class WorkbookUtil {
 				contentArray[index] = "";
 			}
 		}
+		System.out.println("WorkbookUtil.getContentArray(" + rowNum + "):" + Arrays.toString(contentArray));
 		return contentArray;
 	}
 

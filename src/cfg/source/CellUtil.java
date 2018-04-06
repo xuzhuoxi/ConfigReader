@@ -1,5 +1,6 @@
 package cfg.source;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,6 +9,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 
 public class CellUtil {
+	private static DecimalFormat format = new DecimalFormat("#.########");
+
 	/**
 	 * 获取Excel中某个单元格的值(字符串形式)
 	 * 
@@ -28,7 +31,8 @@ public class CellUtil {
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				value = format.format(cell.getDateCellValue());
 			} else { // 纯数字
-				value = String.valueOf(cell.getNumericCellValue());
+				// value = String.valueOf(cell.getNumericCellValue());
+				value = format.format(cell.getNumericCellValue());// 禁止科学计数法输出
 			}
 			break;
 		case STRING: // 字符串型

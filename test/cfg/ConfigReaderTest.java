@@ -1,6 +1,7 @@
 package cfg;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,12 +19,36 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testIntegerObject() {
-		BigInteger bi0 = new BigInteger("1");
-		System.out.println(bi0);
+		// BigInteger bi0 = new BigInteger("1");
+		// System.out.println(bi0);
+		//
+		// System.out.println(((int) Byte.MAX_VALUE + 1) * 2);
+		// System.out.println(((int) Short.MAX_VALUE + 1) * 2);
+		// System.out.println((Long.MAX_VALUE + 1) * 2);
+		// System.out.println();
+		//
+		// System.out.println(Float.MAX_VALUE);
+		// System.out.println(new DecimalFormat("#").format(Float.MAX_VALUE));
+		// System.out.println(Float.MIN_VALUE);
+		// System.out.println(new DecimalFormat("#.#").format(Float.MIN_VALUE));
+		// System.out.println();
+		//
+		// float l = 2147483647;
+		// System.out.println(l);
+		// System.out.println(l + "");
+		// System.out.println(String.valueOf(l));
+		// System.out.println();
 
-		System.out.println(((int) Byte.MAX_VALUE + 1) * 2);
-		System.out.println(((int) Short.MAX_VALUE + 1) * 2);
-		System.out.println((Long.MAX_VALUE + 1) * 2);
+//		String str = "2.147483647E9";
+////		long l = Long.parseLong(str);
+//		long l = (long)Double.parseDouble(str);
+//		System.out.println(str + "," + l);
+//		System.out.println((Long)l);
+//		System.out.println(new BigInteger("3.14"));
+		
+		String str = "-214740000";
+		float f = Float.parseFloat(str);
+		System.out.println(f + "," + new DecimalFormat("#").format(f));
 	}
 
 	@Test

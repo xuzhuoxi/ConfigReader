@@ -3,13 +3,11 @@ package xu;
 import org.json.JSONObject;
 
 /**
- * @author xuzhuoxi Created on 2018-04-01.
+ * @author xuzhuoxi Created on 2018-04-06.
  */
 public class CfgBuilding {
 	// ID
 	private int building_type;
-	// 后端类型
-	private int main_type;
 	// 建筑
 	private String name;
 	// 是否可以升级
@@ -39,16 +37,6 @@ public class CfgBuilding {
 	 */
 	public int getBuilding_type() {
 		return this.building_type;
-	}
-
-	/**
-	 * 后端类型
-	 *
-	 * @remark 特效type50仅为前端用到，后端无用，更改需告知前后端
-	 * @returns {int}
-	 */
-	public int getMain_type() {
-		return this.main_type;
 	}
 
 	/**
@@ -114,7 +102,7 @@ public class CfgBuilding {
 	/**
 	 * 地形
 	 *
-	 * @remark 4.0
+	 * @remark 4
 	 * @returns {int}
 	 */
 	public int getTerrain_flags() {
@@ -154,15 +142,14 @@ public class CfgBuilding {
 
 	@Override
 	public String toString() {
-		return "CfgBuilding [building_type=" + building_type + ", main_type=" + main_type + ", name=" + name
-				+ ", promotion=" + promotion + ", layoutX=" + layoutX + ", type_idx=" + type_idx + ", gateX=" + gateX
-				+ ", gateY=" + gateY + ", terrain_flags=" + terrain_flags + ", supply_population_type="
-				+ supply_population_type + ", isDoor=" + isDoor + ", desc=" + desc + "]";
+		return "CfgBuilding [building_type=" + building_type + ", name=" + name + ", promotion=" + promotion
+				+ ", layoutX=" + layoutX + ", type_idx=" + type_idx + ", gateX=" + gateX + ", gateY=" + gateY
+				+ ", terrain_flags=" + terrain_flags + ", supply_population_type=" + supply_population_type
+				+ ", isDoor=" + isDoor + ", desc=" + desc + "]";
 	}
 
 	public void parseJson(JSONObject data) {
 		this.building_type = (int) data.getInt("building_type");
-		this.main_type = (int) data.getInt("main_type");
 		this.name = (String) data.getString("name");
 		this.promotion = (int) data.getInt("promotion");
 		this.layoutX = (int) data.getInt("layoutX");
@@ -178,7 +165,6 @@ public class CfgBuilding {
 
 	public void parseBinary(BinaryReaderProxy proxy) throws Exception {
 		this.building_type = (int) proxy.readUInt16();
-		this.main_type = (int) proxy.readUInt8();
 		this.name = (String) proxy.readString();
 		this.promotion = (int) proxy.readUInt8();
 		this.layoutX = (int) proxy.readUInt16();

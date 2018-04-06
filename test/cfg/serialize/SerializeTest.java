@@ -39,6 +39,7 @@ public class SerializeTest {
 	public void testDataFile() {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
+		System.out.println(filePath);
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();

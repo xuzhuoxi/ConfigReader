@@ -29,9 +29,7 @@
 	},
 	"DataType": {
 		"value": 8,
-		"desc": "数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(*)}",
-		"注意1":"其中string中的*代表字符数，从1开始。",
-		"注意2":"浮点数最多支持6位小数，而且当数值越大，精度就越低，反之亦然"
+		"desc": "数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(*)}"
 	},
 	"FieldName": {
 		"value": {

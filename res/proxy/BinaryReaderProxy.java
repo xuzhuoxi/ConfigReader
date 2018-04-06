@@ -33,7 +33,7 @@ public class BinaryReaderProxy {
 	public short readUInt8() throws Exception {
 		byte val = dis.readByte();
 		if (val < 0) {
-			return (short) (val + ((short) Byte.MAX_VALUE + 1) * 2);
+			return (short) (val + 256);
 		} else {
 			return (short) val;
 		}
@@ -42,7 +42,7 @@ public class BinaryReaderProxy {
 	public int readUInt16() throws Exception {
 		short val = dis.readShort();
 		if (val < 0) {
-			return (int) (val + ((int) Short.MAX_VALUE + 1) * 2);
+			return (int) (val + 65536);
 		} else {
 			return (int) val;
 		}
@@ -51,7 +51,7 @@ public class BinaryReaderProxy {
 	public long readUInt32() throws Exception {
 		int val = dis.readInt();
 		if (val < 0) {
-			return (long) (val + ((long) Long.MAX_VALUE + 1) * 2);
+			return (long) (val + 4294967296);
 		} else {
 			return (long) val;
 		}

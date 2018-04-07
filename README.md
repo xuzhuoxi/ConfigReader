@@ -54,7 +54,7 @@
 	+ Name：数据名称
 	+ Remark：数据注释
 	+ Valid：输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒
-	+ DataType：数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,boolean,string,string(\*)},其中string中的*代表字符数
+	+ DataType：数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(\*)},其中string中的*代表字符数
 	+ FieldName：导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名
 	+ StartRow：数据开始行号(Excel左则行号)
 	**注意**：以前配置的数据值从1开始，例如数据注释行为表单的第六行，那Remark.value应该配置为6。

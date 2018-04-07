@@ -104,10 +104,10 @@ return (byte) (b ? 0x01 : 0x00);
 ```
 
 + string & string(\*)
-1.读入时，string(\*)格式使用多除少补策略。
-2.根据编码格式把字符串转为Byte数组。
-3.写入一个uint16记录Byte数组长度。
-4.写入Byte数组。
+	1.读入时，string(\*)格式使用多除少补策略。
+	2.根据编码格式把字符串转为Byte数组。
+	3.写入一个uint16记录Byte数组长度。
+	4.写入Byte数组。
 
 + float32
 java代码：

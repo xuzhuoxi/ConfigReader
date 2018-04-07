@@ -69,16 +69,17 @@
 	+ SheetPrefix：Excel配置表中sheet名称前缀，包含当前前缀的sheet表单才会被处理。
 
 ### 二进制序列化说明
-	由于Java中没有无符号数，所以在读表时使用了高倍精度存储无符号数，即uint32读入时是用long存储的。
-	在序列化时，直接序列化溢出数，即把long直接强转为int，然后调用ByteBuff.putInt方法序列化为Byte数组。也就是-2等于是uint32中的4294967294、uint16中的65534、uint8中的254。
-	在反序列化时，无符号数同样使用高倍精度读入，如果得到为负数，加上对应精度的最大值即可。
-+ uint8 & int8:
+	1. 由于Java中没有无符号数，所以在读表时使用了高倍精度存储无符号数，即uint32读入时是用long存储的。
+	2. 在序列化时，直接序列化溢出数，即把long直接强转为int，然后调用ByteBuff.putInt方法序列化为Byte数组。也就是-2等于是uint32中的4294967294、uint16中的65534、uint8中的254。
+	3. 在反序列化时，无符号数同样使用高倍精度读入，如果得到为负数，加上对应精度的最大值即可。
+
++ uint8 & int8
 java代码：
 ```java
 return new byte[] { (byte) value };
 ```
 
-+ uint16 & int16:
++ uint16 & int16
 java代码：
 ```java
 ByteBuffer buffer2 = ByteBuffer.allocate(2);
@@ -87,9 +88,9 @@ buffer2.putShort(0, value);
 return buffer2.array();
 ```
 
-+ uint32 & int32:
++ uint32 & int32
 java代码：
-	```java
+```java
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();
 buffer4.putInt(0, value);
@@ -98,7 +99,7 @@ return buffer2.array();
 
 + boolean
 java代码：
-	```java
+```java
 return (byte) (b ? 0x01 : 0x00);
 ```
 
@@ -110,7 +111,7 @@ return (byte) (b ? 0x01 : 0x00);
 
 + float32
 java代码：
-	```java
+```java
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();
 buffer4.putFloat(0, value);
@@ -166,3 +167,5 @@ return buffer2.array();
 	+ 有效值由为`java`, `ts`, `c++`, `c#`，在system.json文件中Langs.value中定义。
 	+ 支持多种数据文件同时输出，中间以英文逗号(`,`)相隔。
 + 可选参数`-Source`，`-Target`，可用于指定Excel配置表来源位置和指定输出文件位置。
+
+

@@ -74,13 +74,11 @@
 	3. 在反序列化时，无符号数同样使用高倍精度读入，如果得到为负数，加上对应精度的最大值即可。
 
 + uint8 & int8
-java代码：
 ```java
 return new byte[] { (byte) value };
 ```
 
 + uint16 & int16
-java代码：
 ```java
 ByteBuffer buffer2 = ByteBuffer.allocate(2);
 buffer2.clear();
@@ -89,7 +87,6 @@ return buffer2.array();
 ```
 
 + uint32 & int32
-java代码：
 ```java
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();
@@ -98,19 +95,18 @@ return buffer2.array();
 ```
 
 + boolean
-java代码：
 ```java
 return (byte) (b ? 0x01 : 0x00);
 ```
 
 + string & string(\*)
+
 	1.读入时，string(\*)格式使用多除少补策略。
 	2.根据编码格式把字符串转为Byte数组。
 	3.写入一个uint16记录Byte数组长度。
 	4.写入Byte数组。
 
 + float32
-java代码：
 ```java
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();

@@ -38,7 +38,13 @@ public class StringContentHandler implements IContentSerializeHandler {
 	@Override
 	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof String) {
-			return "\"" + obj.toString() + "\"";
+			String str = obj.toString();
+			int index = str.indexOf("\"");
+			if (-1 == index) {
+				return "\"" + obj.toString() + "\"";
+			} else {
+				return "\"" + str.replaceAll("\"", "\\\"") + "\"";// 替换双引号
+			}
 		} else {
 			throw new Error("StringDataHandler.toJson");
 		}

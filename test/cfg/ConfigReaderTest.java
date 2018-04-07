@@ -1,14 +1,11 @@
 package cfg;
 
-import java.nio.ByteBuffer;
 import java.util.List;
 
 import org.junit.Test;
 
-import cfg.serialize.FieldDataFormat;
 import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
-import cfg.serialize.cfgcontent.DecimalContentHandler;
 import cfg.serialize.cfgdata.JsonSheetHandler;
 import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
@@ -20,6 +17,10 @@ public class ConfigReaderTest {
 
 	@Test
 	public void testIntegerObject() {
+		int iv = 65534;
+		short sv = (short) iv;
+		System.out.println(iv + "," + sv);
+
 		// BigInteger bi0 = new BigInteger("1");
 		// System.out.println(bi0);
 		//
@@ -53,22 +54,22 @@ public class ConfigReaderTest {
 		// System.out.println(f + "," + new DecimalFormat("#").format(f));
 		// System.out.println();
 
-		String str = "-2.3";
-		DecimalContentHandler handler = new DecimalContentHandler();
-		Object o = handler.fromString(str, FieldDataFormat.Float32);
-		System.out.println(o);
-		System.out.println(o.getClass());
-		System.out.println(handler.toJson(o, FieldDataFormat.Float32));
+		// String str = "-2.3";
+		// DecimalContentHandler handler = new DecimalContentHandler();
+		// Object o = handler.fromString(str, FieldDataFormat.Float32);
+		// System.out.println(o);
+		// System.out.println(o.getClass());
+		// System.out.println(handler.toJson(o, FieldDataFormat.Float32));
 
-		byte[] bs = handler.toBinary(o, FieldDataFormat.Float32);
-		for (byte b : bs) {
-			System.out.println(b);
-		}
-		ByteBuffer bb = ByteBuffer.allocate(4);
-		bb.put(bs);
-		bb.flip();
-		float f = bb.getFloat();
-		System.out.println(f);
+		// byte[] bs = handler.toBinary(o, FieldDataFormat.Float32);
+		// for (byte b : bs) {
+		// System.out.println(b);
+		// }
+		// ByteBuffer bb = ByteBuffer.allocate(4);
+		// bb.put(bs);
+		// bb.flip();
+		// float f = bb.getFloat();
+		// System.out.println(f);
 	}
 
 	@Test

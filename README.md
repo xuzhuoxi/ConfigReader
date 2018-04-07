@@ -54,7 +54,7 @@
 	+ Name：数据名称
 	+ Remark：数据注释
 	+ Valid：输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒
-	+ DataType：数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,boolean,string,string(\*)},其中string中的*代表字节数
+	+ DataType：数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,boolean,string,string(\*)},其中string中的*代表字符数
 	+ FieldName：导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名
 	+ StartRow：数据开始行号(Excel左则行号)
 	**注意**：以前配置的数据值从1开始，例如数据注释行为表单的第六行，那Remark.value应该配置为6。
@@ -68,6 +68,55 @@
 	+ DataFormat：支持输出的数据格式。**注意**：string包含了`string`和`string(*)`两种数据格式。
 	+ SheetPrefix：Excel配置表中sheet名称前缀，包含当前前缀的sheet表单才会被处理。
 
+### 二进制序列化说明
+	由于Java中没有无符号数，所以在读表时使用了高倍精度存储无符号数，即uint32读入时是用long存储的。
+	在序列化时，直接序列化溢出数，即把long直接强转为int，然后调用ByteBuff.putInt方法序列化为Byte数组。也就是-2等于是uint32中的4294967294、uint16中的65534、uint8中的254。
+	在反序列化时，无符号数同样使用高倍精度读入，如果得到为负数，加上对应精度的最大值即可。
++ uint8 & int8:
+java代码：
+```java
+return new byte[] { (byte) value };
+```
+
++ uint16 & int16:
+java代码：
+```java
+ByteBuffer buffer2 = ByteBuffer.allocate(2);
+buffer2.clear();
+buffer2.putShort(0, value);
+return buffer2.array();
+```
+
++ uint32 & int32:
+java代码：
+	```java
+ByteBuffer buffer4 = ByteBuffer.allocate(4);
+buffer4.clear();
+buffer4.putInt(0, value);
+return buffer2.array();
+```
+
++ boolean
+java代码：
+	```java
+return (byte) (b ? 0x01 : 0x00);
+```
+
++ string & string(\*)
+1.读入时，string(\*)格式使用多除少补策略。
+2.根据编码格式把字符串转为Byte数组。
+3.写入一个uint16记录Byte数组长度。
+4.写入Byte数组。
+
++ float32
+java代码：
+	```java
+ByteBuffer buffer4 = ByteBuffer.allocate(4);
+buffer4.clear();
+buffer4.putFloat(0, value);
+return buffer2.array();
+```
+	
 ### 功能扩展与定制
 #### 新增编程语言支持(假设新语言为：abc)
 1. 修改[system.json](/res/system.json)文件，在Langs.value值补充新语言定义标识（自定义即可，当前为`"abc"`）。

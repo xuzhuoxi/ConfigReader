@@ -17,7 +17,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 		int bCount = attrDataType.getDataLen();
 		switch (bCount) {
 		case 4:
-			return (float) Double.parseDouble(valueContent);
+			return (float) Double.parseDouble(valueContent);// 兼容科学计数法
 		case 8:
 			return Double.parseDouble(valueContent);
 		default:
@@ -36,7 +36,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 			return obj.toString().trim();
 		} else if (obj instanceof Double || obj instanceof Float) {
 			String rs = obj.toString().trim();
-			if (rs.indexOf("E") != -1) {// 科学记数格式
+			if (rs.indexOf("E") != -1 || rs.indexOf("e") != -1) {// 科学记数格式
 				return format.format(obj);
 			} else {// 普通格式输出
 				return rs;
@@ -50,7 +50,7 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
 		boolean typeTrue = (obj instanceof Float) || (obj instanceof Double) || (obj instanceof BigDecimal);
 		if (!typeTrue) {
-			throw new Error("IntegerDataHandler.toBinary");
+			throw new Error("DecimalDataHandler.toBinary");
 		}
 		if (obj instanceof Float) {
 			return NumberUtil.toByteArray((Float) obj);

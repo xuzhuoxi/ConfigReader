@@ -62,7 +62,7 @@ package xu {
 		}
 
 		public function readString():String {
-			const len=data.readShort();
+			const len:uint=data.readUnsignedShort();
 			var str:String=data.readMultiByte(len, charsetName);
 			return str;
 		}

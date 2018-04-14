@@ -6,6 +6,7 @@ import java.util.List;
 import cfg.serialize.cfgdata.ISheetHandler;
 import cfg.serialize.cfgdata.SheetHandlerFactory;
 import cfg.serialize.exceptions.SheetDataException;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
@@ -37,8 +38,13 @@ public class SerializeDataUtil {
 		ISheetHandler handler = SheetHandlerFactory.getSheetHandler(fileFormat);
 		handler.config(sheetInfo);
 		Object out = handler.serialize(fieldRange, fieldKey);
-		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getFileName() + "."
-				+ fileFormat.getValue();
+		String fileName = sheetInfo.getDefine().getExportInfo(fieldRange).getFileName();
+		if (fileName.length() == 0) {
+			Exception e = new SheetDefineException("FileName is Empty: " + sheetInfo.getSheetNamed());
+			e.printStackTrace();
+			System.exit(1);
+		}
+		String outputFilePath = outputFolder + "/" + fileName + "." + fileFormat.getValue();
 		if (fileFormat.isTextFile()) {
 			System.out.println("\t输出数据文件(字符)(" + Settings.getInstance().getSysSettings().getTargetEncoding() + ")："
 					+ outputFilePath);

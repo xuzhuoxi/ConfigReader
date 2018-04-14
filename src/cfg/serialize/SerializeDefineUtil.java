@@ -4,6 +4,7 @@ import java.util.List;
 
 import cfg.serialize.cfgdefine.IContentGenerater;
 import cfg.serialize.cfgdefine.LangFileGenerater;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
@@ -30,8 +31,13 @@ public class SerializeDefineUtil {
 		}
 		IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
 		String value = cg.serialize(sheetInfo.getDefine());
-		String outputFilePath = outputFolder + "/" + sheetInfo.getDefine().getExportInfo(fieldRange).getClassName()
-				+ "." + extNamed;
+		String className = sheetInfo.getDefine().getExportInfo(fieldRange).getClassName();
+		if (className.length() == 0) {
+			Exception e = new SheetDefineException("ClassName is Empty: " + sheetInfo.getSheetNamed());
+			e.printStackTrace();
+			System.exit(1);
+		}
+		String outputFilePath = outputFolder + "/" + className + "." + extNamed;
 		System.out.println(
 				"\t输出定义文件(" + Settings.getInstance().getSysSettings().getTargetEncoding() + ")：" + outputFilePath);
 		FileUtils.writeTextFile(outputFilePath, value, Settings.getInstance().getSysSettings().getTargetCharset());

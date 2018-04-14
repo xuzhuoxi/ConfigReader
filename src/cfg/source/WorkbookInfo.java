@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
@@ -29,7 +30,7 @@ public class WorkbookInfo {
 		this.filePath = filePath;
 	}
 
-	public void loadSheetInfos() {
+	public void loadSheetInfos() throws SheetDefineException {
 		this.sheetInfos = new ArrayList<SheetInfo>();
 		if (FileUtils.isFolder(filePath)) {
 			loadWorkbooks();
@@ -43,8 +44,9 @@ public class WorkbookInfo {
 	 * 加载一个目录下全部Excel文件中的全部符合规范的Sheet
 	 * 
 	 * @param settings
+	 * @throws SheetDefineException
 	 */
-	private void loadWorkbooks() {
+	private void loadWorkbooks() throws SheetDefineException {
 		File[] files = FileUtils.getFiles(filePath, new String[] { "xls", "xlsx" }, true);
 		Workbook workbook;
 		for (File file : files) {
@@ -58,8 +60,9 @@ public class WorkbookInfo {
 	 * 
 	 * @param workbook
 	 * @param settings
+	 * @throws SheetDefineException
 	 */
-	private void loadSheets(Workbook workbook) {
+	private void loadSheets(Workbook workbook) throws SheetDefineException {
 		if (null != workbook) {
 			int sheetNum = workbook.getNumberOfSheets();
 			Settings settings = Settings.getInstance();

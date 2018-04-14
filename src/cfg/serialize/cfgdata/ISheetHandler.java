@@ -2,6 +2,7 @@ package cfg.serialize.cfgdata;
 
 import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
+import cfg.serialize.exceptions.SheetDataException;
 import cfg.source.data.SheetInfo;
 
 public interface ISheetHandler {
@@ -14,6 +15,7 @@ public interface ISheetHandler {
 	void config(SheetInfo sheetInfo);
 
 	/**
+	 * 
 	 * 默认序列化过程，包括了start,append,finish过程，并返回了结果数据
 	 * 
 	 * @param fieldRange
@@ -21,8 +23,10 @@ public interface ISheetHandler {
 	 * @param fieldKey
 	 *            字段使用的键值类型
 	 * @return 序列化结果数据
+	 * @throws SheetDataException
+	 *             错误信息
 	 */
-	Object serialize(FieldRangeType fieldRange, FieldKey fieldKey);
+	Object serialize(FieldRangeType fieldRange, FieldKey fieldKey) throws SheetDataException;
 
 	/**
 	 * 开始

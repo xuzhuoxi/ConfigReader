@@ -103,7 +103,7 @@ public class FieldDataFormat {
 		this.dataLen = dataLen;
 	}
 
-	public static FieldDataFormat from(String value) {
+	public static FieldDataFormat from(String value) throws Exception {
 		if (null == value || value.length() == 0) {
 			return null;
 		}
@@ -127,10 +127,13 @@ public class FieldDataFormat {
 		} else if (stringValue.equals(String.typeName)) {
 			return String;
 		} else {// 字符串
+			if (!stringValue.startsWith(String.typeName)) {
+				throw new Exception(value);
+			}
 			int startIndex = stringValue.indexOf(StartChar) + 1;
 			int endIndex = stringValue.indexOf(EndChar);
 			if (startIndex == -1 || endIndex == -1 || endIndex <= startIndex) {
-				return null;
+				throw new Exception(value);
 			}
 			String charLen = value.substring(startIndex, endIndex);
 			int byteCount = Integer.parseInt(charLen);

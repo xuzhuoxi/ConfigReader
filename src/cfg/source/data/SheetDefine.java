@@ -10,12 +10,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 import cfg.serialize.FieldDataFormat;
 import cfg.serialize.FieldRangeType;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.ProjectSettings;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
 
 public class SheetDefine {
-
+	private String sheetNamed;
 	private int maxColLength;// 字段个数
 
 	private int[] keys;// 主键索引(未使用)
@@ -27,11 +28,33 @@ public class SheetDefine {
 
 	private FieldDataFormat[] dataTypeInstances;
 
-	private SheetDefine() {
+	private SheetDefine(String sheetNamed) {
 		super();
+		this.sheetNamed = sheetNamed;
 		this.infoMap.put(FieldRangeType.Client, new SheetValidInfo());
 		this.infoMap.put(FieldRangeType.Server, new SheetValidInfo());
 		this.infoMap.put(FieldRangeType.DB, new SheetValidInfo());
+	}
+
+	/**
+	 * Excel表格的Sheet名称
+	 * 
+	 * @return 表上Sheet的名称
+	 */
+	public String getSheetNamed() {
+		return this.sheetNamed;
+	}
+
+	/**
+	 * 检查有效字段的数量是否大于0
+	 * 
+	 * @param fieldRangeType
+	 *            字段范围类型
+	 * @see FieldRangeType
+	 * @return 大于0返回true，否则返回false
+	 */
+	public boolean isFieldRangeEmpty(FieldRangeType fieldRangeType) {
+		return infoMap.get(fieldRangeType).getValidIndexCount() <= 0;
 	}
 
 	/**
@@ -150,8 +173,8 @@ public class SheetDefine {
 		return this.infoMap.get(fieldRange);
 	}
 
-	public static SheetDefine parse(Sheet sheet) {
-		SheetDefine define = new SheetDefine();
+	public static SheetDefine parse(Sheet sheet) throws SheetDefineException {
+		SheetDefine define = new SheetDefine(sheet.getSheetName());
 		Settings settings = Settings.getInstance();
 		ProjectSettings prjectSettings = settings.getProjectSettings();
 		Row nameRow = sheet.getRow(prjectSettings.getNameRowIndex());
@@ -243,10 +266,16 @@ public class SheetDefine {
 		valids[2] = dbList.toArray(d);
 	}
 
-	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) {
+	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) throws SheetDefineException {
 		FieldDataFormat[] instances = new FieldDataFormat[dataTypes.length];
-		for (int i = 0; i < dataTypes.length; i++) {
-			instances[i] = FieldDataFormat.from(dataTypes[i]);
+		int i = 0;
+		for (i = 0; i < dataTypes.length; i++) {
+			try {
+				instances[i] = FieldDataFormat.from(dataTypes[i]);
+			} catch (Exception e) {
+				throw new SheetDefineException("Sheet(\"" + define.sheetNamed + "\") DataType Define Error In Column: "
+						+ i + ". Value is \"" + dataTypes[i] + "\".");
+			}
 		}
 		define.dataTypeInstances = instances;
 	}

@@ -6,6 +6,8 @@ import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDataFormat;
 import cfg.serialize.OutputType;
 import cfg.serialize.SerializeDataUtil;
+import cfg.serialize.exceptions.SheetDataException;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
 
@@ -50,11 +52,22 @@ public class CmdDataHandler extends CmdHandlerBase {
 		FieldRangeType fieldRangeType = this.runtimeArgs.getFieldRangeType();
 
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos();
+		try {
+			info.loadSheetInfos();
+		} catch (SheetDefineException e1) {
+			e1.printStackTrace();
+			System.exit(1);
+		}
 		List<SheetInfo> sheets = info.getSheetInfos();
-		for (OutputDataFormat dataFormat : dataFormats) {
-			SerializeDataUtil.serializeData(sheets, dataFormat, fieldRangeType,
-					targetFolder + "/data/" + fieldRangeType.getValue(), dataFormat.getFieldKey());
+		try {
+			for (OutputDataFormat dataFormat : dataFormats) {
+				SerializeDataUtil.serializeData(sheets, dataFormat, fieldRangeType,
+						targetFolder + "/data/" + fieldRangeType.getValue(), dataFormat.getFieldKey());
+			}
+		} catch (SheetDataException e) {
+			System.out.println("Data Format Error: " + e.getLoc());
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
@@ -75,6 +88,7 @@ public class CmdDataHandler extends CmdHandlerBase {
 	public static void main(String[] args) {
 		CmdArgsRuntime cmdArgsRuntime = CmdArgsRuntime.createArgsMap(args);
 		cmdArgsRuntime.setOutType(OutputType.Data);
+		// System.out.println("Handle Data Task：" + cmdArgsRuntime.toString());
 		new CmdDataHandler(cmdArgsRuntime).execute();
 	}
 

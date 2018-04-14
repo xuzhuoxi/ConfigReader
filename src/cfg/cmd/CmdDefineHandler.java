@@ -6,6 +6,7 @@ import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.OutputType;
 import cfg.serialize.SerializeDefineUtil;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
 
@@ -50,7 +51,12 @@ public class CmdDefineHandler extends CmdHandlerBase {
 		FieldRangeType fieldRangeType = this.runtimeArgs.getFieldRangeType();
 
 		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos();
+		try {
+			info.loadSheetInfos();
+		} catch (SheetDefineException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		List<SheetInfo> sheets = info.getSheetInfos();
 
 		for (OutputDefineLangType defineLang : defineLangs) {
@@ -76,6 +82,8 @@ public class CmdDefineHandler extends CmdHandlerBase {
 	public static void main(String[] args) {
 		CmdArgsRuntime cmdArgsRuntime = CmdArgsRuntime.createArgsMap(args);
 		cmdArgsRuntime.setOutType(OutputType.Define);
+		// System.out.println("Handle Define Task：" +
+		// cmdArgsRuntime.toString());
 		new CmdDefineHandler(cmdArgsRuntime).execute();
 	}
 }

@@ -7,6 +7,8 @@ import org.junit.Test;
 import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
 import cfg.serialize.cfgdata.JsonSheetHandler;
+import cfg.serialize.exceptions.SheetDataException;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
@@ -81,7 +83,7 @@ public class ConfigReaderTest {
 	}
 
 	@Test
-	public void testWorkbook2Json() {
+	public void testWorkbook2Json() throws SheetDefineException, SheetDataException {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
 		System.out.println("FilePaht:" + filePath);

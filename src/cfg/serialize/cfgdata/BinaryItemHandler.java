@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
+import cfg.serialize.exceptions.SheetDataException;
 
 public class BinaryItemHandler implements IItemHandler {
 
@@ -29,26 +30,33 @@ public class BinaryItemHandler implements IItemHandler {
 	}
 
 	@Override
-	public void append(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
+	public void appends(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
 		byte[] data = (byte[]) this.tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
+	public void appends(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
 		byte[] data = (byte[]) this.tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
 		this.bb.put(data);
 	}
 
 	@Override
-	public void append(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents) {
+	public void appends(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents)
+			throws SheetDataException {
 		FieldDataFormat dataType;
 		IContentSerializeHandler dataHandler;
 		Object obj;
 		for (Integer index : indexs) {
 			dataType = attrDataTypes[index];
 			dataHandler = ContentSerializeHandlerMap.getShared().getHandler(dataType);
-			obj = dataHandler.fromString(allContents[index], dataType);
+			try {
+				obj = dataHandler.fromString(allContents[index], dataType);
+			} catch (Exception e) {
+				SheetDataException sde = new SheetDataException("FromString Error!");
+				sde.setCol(index);
+				throw sde;
+			}
 			byte[] tokenData = (byte[]) tokenHandler.serializeObjectToken(dataType, null, obj);
 			this.bb.put(tokenData);
 		}

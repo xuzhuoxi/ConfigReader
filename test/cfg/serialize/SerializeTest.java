@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import cfg.AppDefine;
 import cfg.serialize.cfgdata.BinarySheetHandler;
+import cfg.serialize.exceptions.SheetDataException;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetInfo;
 import code.file.FileUtils;
@@ -36,7 +38,7 @@ public class SerializeTest {
 	}
 
 	@Test
-	public void testDataFile() {
+	public void testDataFile() throws SheetDefineException, SheetDataException {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
 		System.out.println(filePath);
@@ -56,7 +58,7 @@ public class SerializeTest {
 	}
 
 	@Test
-	public void testWorkbook2Binary() {
+	public void testWorkbook2Binary() throws SheetDefineException, SheetDataException {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
 		System.out.println("FilePaht:" + filePath);
@@ -74,7 +76,7 @@ public class SerializeTest {
 	}
 
 	@Test
-	public void testSerializeDefine() {
+	public void testSerializeDefine() throws SheetDefineException {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);

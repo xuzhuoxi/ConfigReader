@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import cfg.serialize.FieldRangeType;
 import cfg.serialize.OutputDefineLangType;
 import cfg.serialize.cfgdefine.IContentGenerater;
 import cfg.serialize.cfgdefine.LangFileGenerater;
-import cfg.serialize.FieldRangeType;
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.source.WorkbookInfo;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
@@ -16,7 +17,7 @@ import code.path.BasePathUtils;
 public class ClassGeneraterTest {
 
 	@Test
-	public void testSerialize() {
+	public void testSerialize() throws SheetDefineException {
 		String filePath = BasePathUtils.getBasePath(this.getClass()) + "/source/cfg_building.xls";
 		WorkbookInfo info = new WorkbookInfo(filePath);
 		info.loadSheetInfos();
@@ -25,7 +26,8 @@ public class ClassGeneraterTest {
 		SheetInfo sheetInfo = sheets.get(0);
 		SheetDefine sheetDefine = sheetInfo.getDefine();
 
-		IContentGenerater cg = LangFileGenerater.getClassGenerater(OutputDefineLangType.TypeScript, FieldRangeType.Client);
+		IContentGenerater cg = LangFileGenerater.getClassGenerater(OutputDefineLangType.TypeScript,
+				FieldRangeType.Client);
 		String value = cg.serialize(sheetDefine);
 		System.out.println(value);
 	}

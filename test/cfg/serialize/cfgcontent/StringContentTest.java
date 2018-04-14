@@ -9,7 +9,7 @@ import code.lang.NumberUtil;
 public class StringContentTest {
 
 	@Test
-	public void testBinary() {
+	public void testBinary() throws Exception {
 		String[] strs = new String[] { "顶你个肺", "123456", "abcdef" };
 		StringContentHandler handler = new StringContentHandler();
 		FieldDataFormat attType = FieldDataFormat.from("string(25)");
@@ -27,7 +27,7 @@ public class StringContentTest {
 	}
 
 	@Test
-	public void testFromString() {
+	public void testFromString() throws Exception {
 		StringContentHandler handler = new StringContentHandler();
 		FieldDataFormat dt0 = FieldDataFormat.String;
 		FieldDataFormat dt1 = FieldDataFormat.from("string(5)");

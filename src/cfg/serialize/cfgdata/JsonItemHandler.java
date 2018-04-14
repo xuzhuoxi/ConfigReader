@@ -3,6 +3,7 @@ package cfg.serialize.cfgdata;
 import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
+import cfg.serialize.exceptions.SheetDataException;
 
 public class JsonItemHandler implements IItemHandler {
 
@@ -28,26 +29,33 @@ public class JsonItemHandler implements IItemHandler {
 	}
 
 	@Override
-	public void append(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
+	public void appends(FieldDataFormat attrDataType, String attrKey, String[] valueContents) {
 		String data = (String) tokenHandler.serializeContentToken(attrDataType, attrKey, valueContents);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
+	public void appends(FieldDataFormat attrDataType, String attrKey, Object[] valueObjects) {
 		String data = (String) tokenHandler.serializeObjectToken(attrDataType, attrKey, valueObjects);
 		sb.append(data + ",");
 	}
 
 	@Override
-	public void append(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents) {
+	public void appends(Integer[] indexs, FieldDataFormat[] attrDataTypes, String[] attrKeys, String[] allContents)
+			throws SheetDataException {
 		FieldDataFormat dataType;
 		IContentSerializeHandler dataHandler;
-		Object obj;
+		Object obj = null;
 		for (Integer index : indexs) {
 			dataType = attrDataTypes[index];
 			dataHandler = ContentSerializeHandlerMap.getShared().getHandler(dataType);
-			obj = dataHandler.fromString(allContents[index], dataType);
+			try {
+				obj = dataHandler.fromString(allContents[index], dataType);
+			} catch (Exception e) {
+				SheetDataException sde = new SheetDataException("FromString Error!");
+				sde.setCol(index);
+				throw sde;
+			}
 			sb.append(tokenHandler.serializeObjectToken(dataType, attrKeys[index], obj) + ",");
 		}
 	}

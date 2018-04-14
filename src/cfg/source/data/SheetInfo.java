@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
+import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.WorkbookUtil;
 
@@ -42,7 +43,7 @@ public class SheetInfo {
 		this.sheet = sheet;
 	}
 
-	public void handleInfo() {
+	public void handleInfo() throws SheetDefineException {
 		this.define = SheetDefine.parse(sheet);
 		int lastRowIndex = sheet.getLastRowNum();
 		int len = define.getMaxColLength();
@@ -51,7 +52,7 @@ public class SheetInfo {
 		Settings settings = Settings.getInstance();
 		for (int index = settings.getProjectSettings().getStartRowIndex(); index <= lastRowIndex; index++) {
 			contents = WorkbookUtil.getContentArray(sheet, index, len);
-			if (contents[0].length() == 0) {
+			if (null == contents || contents[0].length() == 0) {// 空行，第一个数据为空
 				continue;
 			}
 			dataList.add(contents);

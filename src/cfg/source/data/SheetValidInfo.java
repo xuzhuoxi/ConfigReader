@@ -44,6 +44,15 @@ public class SheetValidInfo {
 	}
 
 	/**
+	 * 取有效字段索引数量
+	 * 
+	 * @return 有效字段索引数量
+	 */
+	public int getValidIndexCount() {
+		return null == validIndexs ? 0 : validIndexs.length;
+	}
+
+	/**
 	 * 保存数据
 	 * 
 	 * @param className

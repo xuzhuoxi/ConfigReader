@@ -1,6 +1,7 @@
 package cfg.serialize.cfgdata;
 
 import cfg.serialize.FieldDataFormat;
+import cfg.serialize.exceptions.SheetDataException;
 
 public interface IItemHandler {
 	/**
@@ -42,7 +43,7 @@ public interface IItemHandler {
 	 * @param valueContents
 	 *            字段内容组成的数组
 	 */
-	void append(FieldDataFormat fieldDataFormat, String filedKey, String[] valueContents);
+	void appends(FieldDataFormat fieldDataFormat, String filedKey, String[] valueContents);
 
 	/**
 	 * 追加单个Cell数据
@@ -54,10 +55,10 @@ public interface IItemHandler {
 	 * @param valueObjects
 	 *            字段对象组成的数组
 	 */
-	void append(FieldDataFormat fieldDataFormat, String filedKey, Object[] valueObjects);
+	void appends(FieldDataFormat fieldDataFormat, String filedKey, Object[] valueObjects);
 
 	/**
-	 * 追加整条数据
+	 * 追加一组数据
 	 * 
 	 * @param indexs
 	 *            字段的索引数组，由0开始
@@ -67,8 +68,11 @@ public interface IItemHandler {
 	 *            字段的键类型数组
 	 * @param valueContents
 	 *            字段内容组成的数组
+	 * @throws SheetDataException
+	 *             数据异常信息
 	 */
-	void append(Integer[] indexs, FieldDataFormat[] fieldDataFormats, String[] filedKeys, String[] valueContents);
+	void appends(Integer[] indexs, FieldDataFormat[] fieldDataFormats, String[] filedKeys, String[] valueContents)
+			throws SheetDataException;
 
 	/**
 	 * 结束

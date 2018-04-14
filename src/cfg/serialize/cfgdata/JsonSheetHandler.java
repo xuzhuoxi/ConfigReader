@@ -5,6 +5,8 @@ import java.util.List;
 import cfg.serialize.FieldDataFormat;
 import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
+import cfg.serialize.exceptions.SheetDataException;
+import cfg.settings.Settings;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 
@@ -28,17 +30,24 @@ public class JsonSheetHandler implements ISheetHandler {
 	}
 
 	@Override
-	public Object serialize(FieldRangeType exportType, FieldKey attrKeyType) {
+	public Object serialize(FieldRangeType exportType, FieldKey attrKeyType) throws SheetDataException {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
 		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());
 
 		this.start();
-		for (String[] strings : this.dataList) {
-			jsonItemHandler.start();
-			jsonItemHandler.append(indexs, attrDataTypes, attrKeys, strings);
-			jsonItemHandler.finish();
-			this.append(jsonItemHandler.getSerializedData());
+		int i = 0;
+		try {
+			for (i = 0; i < this.dataList.size(); i++) {
+				String[] strings = this.dataList.get(i);
+				jsonItemHandler.start();
+				jsonItemHandler.appends(indexs, attrDataTypes, attrKeys, strings);
+				jsonItemHandler.finish();
+				this.append(jsonItemHandler.getSerializedData());
+			}
+		} catch (SheetDataException e) {
+			e.setRow(i + Settings.getInstance().getProjectSettings().getStartRowIndex());
+			throw e;
 		}
 		this.finish();
 		return this.getSerializedData();

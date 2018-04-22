@@ -7,9 +7,11 @@ import java.util.Date;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class CellUtil {
-	private static DecimalFormat format = new DecimalFormat("#.########");
+	private static DecimalFormat decimalFormat = new DecimalFormat("#.########");
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
 	 * 获取Excel中某个单元格的值(字符串形式)
@@ -28,18 +30,17 @@ public class CellUtil {
 		switch (cellType) {
 		case NUMERIC: // 数值型
 			if (HSSFDateUtil.isCellDateFormatted(cell)) { // 如果是时间类型
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				value = format.format(cell.getDateCellValue());
+				value = dateFormat.format(cell.getDateCellValue());
 			} else { // 纯数字
 				// value = String.valueOf(cell.getNumericCellValue());
-				value = format.format(cell.getNumericCellValue());// 禁止科学计数法输出
+				value = decimalFormat.format(cell.getNumericCellValue());// 禁止科学计数法输出
 			}
 			break;
 		case STRING: // 字符串型
 			value = cell.getStringCellValue();
 			break;
 		case BOOLEAN: // 布尔
-			value = " " + cell.getBooleanCellValue();
+			value = "" + cell.getBooleanCellValue();
 			break;
 		case FORMULA: // 公式型
 			try {
@@ -50,8 +51,7 @@ public class CellUtil {
 				 */
 				if (HSSFDateUtil.isCellDateFormatted(cell)) {
 					Date date = cell.getDateCellValue();
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					value = format.format(date);
+					value = dateFormat.format(date);
 					break;
 				} else {
 					value = String.valueOf(cell.getNumericCellValue());

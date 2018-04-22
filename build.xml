@@ -17,12 +17,22 @@
 
 	<!-- 初始化classpath -->
 	<zipfileset id="jar_lib" dir="${lib.dir}">
-		<include name="poi-3.16.jar" />
+		<include name="codeutil_1.0.jar" />
+		<include name="org.json-bin-20160810.jar" />
+		
+		<include name="curvesapi-1.04.jar" />
+		<include name="xmlbeans-2.6.0.jar" />
+		
+		<include name="commons-codec-1.10.jar" />
+		<include name="commons-collections4-4.1.jar" />
+		<include name="commons-logging-1.2.jar" />
 		<include name="log4j-1.2.17.jar" />
+		
+		<include name="poi-3.16.jar" />
+		<include name="poi-excelant-3.16.jar" />
 		<include name="poi-ooxml-3.16.jar" />
 		<include name="poi-ooxml-schemas-3.16.jar" />
-		<include name="org.json-bin-20160810.jar" />
-		<include name="codeutil_1.0.jar" />
+		<include name="poi-scratchpad-3.16.jar" />
 	</zipfileset>
 	<zipfileset id="jar_test_lib" dir="${lib.test.dir}">
 		<include name="junit.jar" />
@@ -95,7 +105,7 @@
 			<manifest id="">
 				<attribute name="Project-Version" value="${version}" />
 				<attribute name="Manifest-Version" value="1.0" />
-				<attribute name="Class-Path" value=". lib/poi-3.16.jar lib/log4j-1.2.17.jar lib/poi-ooxml-3.16.jar lib/poi-ooxml-schemas-3.16.jar lib/org.json-bin-20160810.jar lib/codeutil_1.0.jar" />
+				<attribute name="Class-Path" value=". lib/codeutil_1.0.jar lib/org.json-bin-20160810.jar lib/curvesapi-1.04.jar lib/xmlbeans-2.6.0.jar lib/commons-codec-1.10.jar lib/commons-collections4-4.1.jar lib/commons-logging-1.2.jar lib/log4j-1.2.17.jar lib/poi-3.16.jar lib/poi-excelant-3.16.jar lib/poi-ooxml-3.16.jar lib/poi-ooxml-schemas-3.16.jar lib/poi-scratchpad-3.16.jar" />
 				<attribute name="Main-Class" value="cfg.ConfigReaderMain" />
 
 				<!-- JarInJar打包配置
@@ -126,6 +136,7 @@
 		<!-- lib目录 -->
 		<copy todir="${dist.release.dir}/lib">
 			<fileset dir="${lib.dir}">
+				<exclude name="libs" />
 				<exclude name="jar-in-jar-loader.zip" />
 			</fileset>
 		</copy>

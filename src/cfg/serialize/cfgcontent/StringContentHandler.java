@@ -32,7 +32,7 @@ public class StringContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public String toJson(String valueContent) {
-		return "\"" + valueContent + "\"";
+		return this.toJson(valueContent, null);
 	}
 
 	@Override
@@ -41,9 +41,9 @@ public class StringContentHandler implements IContentSerializeHandler {
 			String str = obj.toString();
 			int index = str.indexOf("\"");
 			if (-1 == index) {
-				return "\"" + obj.toString() + "\"";
+				return "\"" + str + "\"";
 			} else {
-				return "\"" + str.replaceAll("\"", "\\\"") + "\"";// 替换双引号
+				return "\"" + str.replaceAll("\"", "\\\\\"") + "\"";// 替换双引号
 			}
 		} else {
 			throw new Error("StringDataHandler.toJson");

@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="libs/|libs/BinaryReaderProxy.java" including="langs/|project.json|source/|system.json|target/|template/|test.bat" kind="src" path="res"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/poi-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.16.jar" sourcepath="libsrc/poi-src-3.16-20170419.zip"/>

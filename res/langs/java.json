@@ -8,6 +8,7 @@
 		"uint16": "int",
 		"uint32": "long",
 		"float32": "float",
+		"json": "String",
 		"string": "String",
 		"desc": "Key字段在Excel中声明的类型，Value代表属性的数据类型"
 	},
@@ -21,6 +22,7 @@
 			"uint16": "getInt",
 			"uint32": "getLong",
 			"float32": "getDouble",
+			"json": "getString",
 			"string": "getString",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为ang"
 		},
@@ -33,6 +35,7 @@
 			"uint16": "readUInt16",
 			"uint32": "readUInt32",
 			"float32": "readFloat32",
+			"json": "readString",
 			"string": "readString",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryReaderProxy"
 		},
@@ -48,6 +51,7 @@
 			"uint16": "optInt",
 			"uint32": "optLong",
 			"float32": "optDouble",
+			"json": "optString",
 			"string": "optString",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
@@ -60,6 +64,7 @@
 			"uint16": "writeUInt16",
 			"uint32": "writeUInt32",
 			"float32": "writeFloat32",
+			"json": "writeString",
 			"string": "writeString",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryWriterProxy"
 		},

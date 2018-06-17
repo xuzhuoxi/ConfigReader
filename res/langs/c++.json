@@ -8,6 +8,7 @@
 		"uint16": "number",
 		"uint32": "number",
 		"float32": "number",
+		"json": "string",
 		"string": "string",
 		"desc": "Key代表属性类型, Value代表字段在Excel中声明的类型"
 	},
@@ -21,6 +22,7 @@
 			"uint16": "",
 			"uint32": "",
 			"float32": "",
+			"json": "",
 			"string": "",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
@@ -36,6 +38,7 @@
 			"uint16": "",
 			"uint32": "",
 			"float32": "",
+			"json": "",
 			"string": "",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},

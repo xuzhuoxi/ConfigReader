@@ -39,6 +39,10 @@ public class FieldDataFormat {
 	 */
 	public static final FieldDataFormat Boolean = new FieldDataFormat("boolean", 1);
 	/**
+	 * Json
+	 */
+	public static final FieldDataFormat Json = new FieldDataFormat("json", -1);
+	/**
 	 * 字符型
 	 */
 	public static final FieldDataFormat String = new FieldDataFormat("string", -1);
@@ -124,6 +128,8 @@ public class FieldDataFormat {
 			return Float32;
 		} else if (stringValue.equals(Boolean.typeName)) {
 			return Boolean;
+		} else if (stringValue.equals(Json.typeName)) {
+			return Json;
 		} else if (stringValue.equals(String.typeName)) {
 			return String;
 		} else {// 字符串

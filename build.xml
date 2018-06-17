@@ -76,14 +76,14 @@
 	<target name="CompileMain">
 		<delete dir="${bin.main}" />
 		<mkdir dir="${bin.main}" />
-		<javac srcdir="${src.main.dir}" destdir="${bin.main}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.6" target="1.6">
+		<javac srcdir="${src.main.dir}" destdir="${bin.main}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.8" target="1.8">
 			<classpath refid="id_classpath" />
 		</javac>
 	</target>
 	<target name="CompileTest">
 		<delete dir="${bin.test}" />
 		<mkdir dir="${bin.test}" />
-		<javac srcdir="${src.test.dir}" destdir="${bin.test}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.6" target="1.6">
+		<javac srcdir="${src.test.dir}" destdir="${bin.test}" encoding="UTF-8" debug="true" includeantruntime="false" source="1.8" target="1.8">
 			<classpath location="${bin.main}" />
 			<classpath refid="id_classpath" />
 		</javac>

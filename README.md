@@ -73,6 +73,11 @@
 	2. 在序列化时，直接序列化溢出数，即把long直接强转为int，然后调用ByteBuff.putInt方法序列化为Byte数组。也就是-2等于是uint32中的4294967294、uint16中的65534、uint8中的254。
 	3. 在反序列化时，无符号数同样使用高倍精度读入，如果得到为负数，加上对应精度的最大值即可。
 
++ boolean
+```java
+return (byte) (b ? 0x01 : 0x00);
+```
+
 + uint8 & int8
 ```java
 return new byte[] { (byte) value };
@@ -94,19 +99,6 @@ buffer4.putInt(0, value);
 return buffer2.array();
 ```
 
-+ boolean
-```java
-return (byte) (b ? 0x01 : 0x00);
-```
-
-+ string & string(\*)
-```
-1. 读入时，string(*)格式使用多除少补策略。
-2. 根据编码格式把字符串转为Byte数组。
-3. 写入一个uint16记录Byte数组长度。
-4. 写入Byte数组。
-```
-
 + float32
 ```java
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
@@ -114,6 +106,23 @@ buffer4.clear();
 buffer4.putFloat(0, value);
 return buffer2.array();
 ```
+
++ string & string(\*)
+```
+1. 读入时，string(*)格式使用多除少补策略；string格式的长度以读入的长度为准。
+2. 根据编码格式把字符串转为Byte数组。
+3. 写入一个uint16记录Byte数组长度。
+4. 写入Byte数组。
+```
+
++ json
+```java
+1. 以string格式读入。
+2. 根据编码格式把字符串转为Byte数组。
+3. 写入一个uint16记录Byte数组长度。
+4. 写入Byte数组。
+```
+
 	
 ### 功能扩展与定制
 #### 新增编程语言支持(假设新语言为：abc)

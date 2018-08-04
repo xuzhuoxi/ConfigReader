@@ -2,45 +2,45 @@
 	"ConfigOut": {
 		"ClientDefine": "B_1",
 		"ClientData": "C_1",
-		"ServerDefine": "B_2",
-		"ServerData": "C_2",
-		"DBDefine": "B_3",
-		"DBData": "C_3",
-		"DataKey": "B_4",
+		"ServerDefine": "B_1",
+		"ServerData": "D_1",
+		"DBDefine": "B_1",
+		"DBData": "E_1",
+		"DataKey": "F_1",
 		"keyDesc": "ClientDefine(数据结构名),ClientData(数据文件名),ServerDefine(数据结构名),ServerData(数据文件名),DBTableName(数据库表名),DBSqlName(数据库脚本名)",
 		"valueDesc":"值为Excel对应单元格号，用'_'分隔"
 	},
 	"Name": {
-		"value": 5,
+		"value": 2,
 		"desc": "数据名称，从1开始。"
 	},
 	"Remark": {
-		"value": 6,
+		"value": 3,
 		"desc": "数据注释，从1开始。"
 	},
 	"Valid": {
-		"value": 7,
+		"value": 4,
 		"desc": "输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒。从1开始。"
 	},
 	"DataType": {
-		"value": 8,
+		"value": 5,
 		"desc": "数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(*)}"
 	},
 	"FieldName": {
 		"value": {
-			"db": 9,
-			"json": 9,
+			"db": 6,
+			"json": 6,
 
-			"java": 9,
-			"ts": 9,
-			"c++": 9,
-			"c#": 9,
-			"as3": 9
+			"java": 6,
+			"ts": 6,
+			"c++": 6,
+			"c#": 6,
+			"as3": 6
 		},
 		"desc": "导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名，从1开始。"
 	},
 	"StartRow": {
-		"value": 10,
+		"value": 7,
 		"desc": "数据开始行号(Excel左则行号)，从1开始。",
 		"注意": "每条数据的第一个数据值如果为空，则输出数据文件时会跳过当条数据"
 	}

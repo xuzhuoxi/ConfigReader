@@ -1,5 +1,6 @@
 package cfg.settings;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -7,11 +8,18 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import code.file.FileUtils;
+import code.math.NumberSystemUtil;
 
 public class ProjectSettings {
-	protected int serverOutRowIndex;
-	protected int clientOutRowIndex;
-	protected int dbOutRowIndex;
+	protected int[] clientDefineLoc;
+	protected int[] clientDataLoc;
+	protected int[] serverDefineLoc;
+	protected int[] serverDataLoc;
+	protected int[] dbDefineLoc;
+	protected int[] dbDataLoc;
+	
+	protected int[] dataKeyLoc;
+
 	protected int nameRowIndex;
 	protected int remarkRowIndex;
 	protected int validRowIndex;
@@ -22,30 +30,72 @@ public class ProjectSettings {
 	protected Map<String, Integer> fieldNameRowIndexMap;
 
 	/**
-	 * 服务端输出信息行，B列为数据结构名，C列为单独数据文件名(不包含扩展名)。
+	 * 字段范围(客户端)
+	 * 定义文件名的单元格坐标，格式：[col,row]; col,row从1开始
 	 * 
-	 * @return 自然数，对应project.json文件的ServerOut.value值减1
+	 * @return 单元格坐标
 	 */
-	public int getServerOutRowIndex() {
-		return serverOutRowIndex;
+	public int[] getClientDefineLoc() {
+		return clientDefineLoc;
 	}
 
 	/**
-	 * 客户端输出信息行，B列为数据结构名，C列为单独数据文件名(不包含扩展名)。
+	 * 字段范围(客户端)
+	 * 数据文件名的单元格坐标，格式：[col,row]; col,row从1开始
 	 * 
-	 * @return 自然数，对应project.json文件的ClientOut.value值减1
+	 * @return 单元格坐标
 	 */
-	public int getClientOutRowIndex() {
-		return clientOutRowIndex;
+	public int[] getClientDataLoc() {
+		return clientDataLoc;
 	}
 
 	/**
-	 * 数据库输出信息行，B列为表名，C列为单独数据文件名(不包含扩展名)。
+	 * 字段范围(服务端)
+	 * 定义文件名的单元格坐标，格式：[col,row]; col,row从1开始
 	 * 
-	 * @return 自然数，对应project.json文件的DBOut.value值减1
+	 * @return 单元格坐标
 	 */
-	public int getDbOutRowIndex() {
-		return dbOutRowIndex;
+	public int[] getServerDefineLoc() {
+		return serverDefineLoc;
+	}
+
+	/**
+	 * 字段范围(服务端)
+	 * 数据文件名的单元格坐标，格式：[col,row]; col,row从1开始
+	 * 
+	 * @return 单元格坐标
+	 */
+	public int[] getServerDataLoc() {
+		return serverDataLoc;
+	}
+
+	/**
+	 * 字段范围(DB)
+	 * 定义文件名的单元格坐标，格式：[col,row]; col,row从1开始
+	 * 
+	 * @return 单元格坐标
+	 */
+	public int[] getDbDefineLoc() {
+		return dbDefineLoc;
+	}
+
+	/**
+	 * 字段范围(DB)
+	 * 数据文件名的单元格坐标，格式：[col,row]; col,row从1开始
+	 * 
+	 * @return 单元格坐标
+	 */
+	public int[] getDbDataLoc() {
+		return dbDataLoc;
+	}
+
+	/**
+	 * 数据主键格式的单元格坐标，格式：[col,row]; col,row从1开始
+	 * 
+	 * @return 单元格坐标
+	 */
+	public int[] getDataKeyLoc() {
+		return dataKeyLoc;
 	}
 
 	/**
@@ -113,27 +163,36 @@ public class ProjectSettings {
 		return fieldNameRowIndexMap.get(langNamed);
 	}
 
-	@Override
-	public String toString() {
-		return "ProjectSettings [serverOutRowIndex=" + serverOutRowIndex + ", clientOutRowIndex=" + clientOutRowIndex
-				+ ", dbOutRowIndex=" + dbOutRowIndex + ", nameRowIndex=" + nameRowIndex + ", remarkRowIndex="
-				+ remarkRowIndex + ", validRowIndex=" + validRowIndex + ", dataTypeRowIndex=" + dataTypeRowIndex
-				+ ", startRowIndex=" + startRowIndex + ", fieldNameRowIndexMap=" + fieldNameRowIndexMap + "]";
-	}
-
 	public static final ProjectSettings parseByPath(String filePath) {
 		String jsonContent = FileUtils.readFileContent(filePath);
 		System.out.println(jsonContent);
 		return parseByJson(jsonContent);
 	}
 
+	@Override
+	public String toString() {
+		return "ProjectSettings [clientDefineLoc=" + Arrays.toString(clientDefineLoc) + ", clientDataLoc="
+				+ Arrays.toString(clientDataLoc) + ", serverDefineLoc=" + Arrays.toString(serverDefineLoc)
+				+ ", serverDataLoc=" + Arrays.toString(serverDataLoc) + ", dbTableLoc=" + Arrays.toString(dbDefineLoc)
+				+ ", dbSqlLoc=" + Arrays.toString(dbDataLoc) + ", keyLoc=" + Arrays.toString(dataKeyLoc) + ", nameRowIndex="
+				+ nameRowIndex + ", remarkRowIndex=" + remarkRowIndex + ", validRowIndex=" + validRowIndex
+				+ ", dataTypeRowIndex=" + dataTypeRowIndex + ", startRowIndex=" + startRowIndex
+				+ ", fieldNameRowIndexMap=" + fieldNameRowIndexMap + "]";
+	}
+
 	public static final ProjectSettings parseByJson(String json) {
 		JSONObject jsonObj = new JSONObject(json);
 		ProjectSettings settings = new ProjectSettings();
 
-		settings.clientOutRowIndex = jsonObj.getJSONObject("ClientOut").getInt("value") - 1;
-		settings.serverOutRowIndex = jsonObj.getJSONObject("ServerOut").getInt("value") - 1;
-		settings.dbOutRowIndex = jsonObj.getJSONObject("DBOut").getInt("value") - 1;
+		JSONObject configOut = jsonObj.getJSONObject("ConfigOut");
+		settings.clientDefineLoc = getLoc(configOut.getString("ClientDefine"));
+		settings.clientDataLoc = getLoc(configOut.getString("ClientData"));
+		settings.serverDefineLoc = getLoc(configOut.getString("ServerDefine"));
+		settings.serverDataLoc = getLoc(configOut.getString("ServerData"));
+		settings.dbDefineLoc = getLoc(configOut.getString("DBDefine"));
+		settings.dbDataLoc = getLoc(configOut.getString("DBData"));
+		settings.dataKeyLoc = getLoc(configOut.getString("DataKey"));
+
 		settings.nameRowIndex = jsonObj.getJSONObject("Name").getInt("value") - 1;
 		settings.remarkRowIndex = jsonObj.getJSONObject("Remark").getInt("value") - 1;
 		settings.validRowIndex = jsonObj.getJSONObject("Valid").getInt("value") - 1;
@@ -151,5 +210,13 @@ public class ProjectSettings {
 		}
 		settings.fieldNameRowIndexMap = map;
 		return settings;
+	}
+
+	private static final int[] getLoc(String locStr) {
+		String[] info = locStr.split("_");
+		int[] rs = new int[2];
+		rs[0] = NumberSystemUtil.toNumberSystem10(info[0]);
+		rs[1] = Integer.parseInt(info[1]);
+		return rs;
 	}
 }

@@ -86,6 +86,25 @@ public class WorkbookUtil {
 	}
 
 	/**
+	 * 读取一个数据
+	 * 
+	 * @param sheet
+	 *            Excel中的一个Sheet表
+	 * @param rowNum
+	 *            行索引
+	 * @param colNum
+	 *            列索引
+	 * @return 一个数据的文本数组
+	 */
+	public static String getContent(Sheet sheet, int rowNum, int colNum) {
+		Row row = sheet.getRow(rowNum);
+		if (null == row) {
+			return null;
+		}
+		return CellUtil.toStringValue(row.getCell(colNum));
+	}
+
+	/**
 	 * 取得Workbook对象(xls和xlsx对象不同,不过都是Workbook的实现类) <br>
 	 * xls:HSSFWorkbook<br>
 	 * xlsx：XSSFWorkbook<br>

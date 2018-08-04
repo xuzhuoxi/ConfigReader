@@ -19,7 +19,7 @@ public class SheetDefine {
 	private String sheetNamed;
 	private int maxColLength;// 字段个数
 
-	private int[] keys;// 主键索引(未使用)
+	private int[] dataKeyLoc;// 主键索引(未使用)
 	private Map<FieldRangeType, SheetValidInfo> infoMap = new HashMap<FieldRangeType, SheetValidInfo>();
 	private String[] names;// 字段名
 	private String[] remarks;// 字段注释
@@ -68,12 +68,12 @@ public class SheetDefine {
 	}
 
 	/**
-	 * 作为主键字段索引
+	 * 数据映射结构信息所在的单元格坐标
 	 * 
-	 * @return 字段索引数组
+	 * @return 单元格坐标[row,col]
 	 */
-	public int[] getKeys() {
-		return keys;
+	public int[] getDataKeyLoc() {
+		return dataKeyLoc;
 	}
 
 	/**
@@ -176,31 +176,32 @@ public class SheetDefine {
 	public static SheetDefine parse(Sheet sheet) throws SheetDefineException {
 		SheetDefine define = new SheetDefine(sheet.getSheetName());
 		Settings settings = Settings.getInstance();
-		ProjectSettings prjectSettings = settings.getProjectSettings();
-		Row nameRow = sheet.getRow(prjectSettings.getNameRowIndex());
+		ProjectSettings proSettings = settings.getProjectSettings();
+		Row nameRow = sheet.getRow(proSettings.getNameRowIndex());
 		int len = nameRow.getLastCellNum();
 		define.maxColLength = len;
 		// System.out.println("\nNameRow");
-		define.names = WorkbookUtil.getContentArray(sheet, prjectSettings.getNameRowIndex(), len);
+		define.names = WorkbookUtil.getContentArray(sheet, proSettings.getNameRowIndex(), len);
 		// System.out.println("\nRemarkRow");
-		define.remarks = WorkbookUtil.getContentArray(sheet, prjectSettings.getRemarkRowIndex(), len);
+		define.remarks = WorkbookUtil.getContentArray(sheet, proSettings.getRemarkRowIndex(), len);
 
-		// System.out.println("\nClientOutRow" +
-		// prjectSettings.getClientOutRowIndex());
-		String[] clientOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getClientOutRowIndex(), 3);
-		// System.out.println("\nServerOutRow" +
-		// prjectSettings.getServerOutRowIndex());
-		String[] serverOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getServerOutRowIndex(), 3);
-		// System.out.println("\nDbOutRow" + prjectSettings.getDbOutRowIndex());
-		String[] dbOut = WorkbookUtil.getContentArray(sheet, prjectSettings.getDbOutRowIndex(), 3);
-		String clientClassName = clientOut[1].trim();
-		String clientDataFileName = clientOut[2].trim();
-		String serverClassName = serverOut[1].trim();
-		String serverDataFileName = serverOut[2].trim();
-		String dbTableName = dbOut[1].trim();
-		String dbFileName = dbOut[2].trim();
+		int[] clientDefineLoc = proSettings.getClientDefineLoc();
+		int[] clientDataLoc = proSettings.getClientDataLoc();
+		int[] serverDefineLoc = proSettings.getServerDefineLoc();
+		int[] serverDataLoc = proSettings.getServerDataLoc();
+		int[] dbTableLoc = proSettings.getDbDefineLoc();
+		int[] dbSqlLoc = proSettings.getDbDataLoc();
+		String clientClassName = WorkbookUtil.getContent(sheet, clientDefineLoc[1] - 1, clientDefineLoc[0] - 1).trim();
+		String clientDataFileName = WorkbookUtil.getContent(sheet, clientDataLoc[1] - 1, clientDataLoc[0] - 1).trim();
+		String serverClassName = WorkbookUtil.getContent(sheet, serverDefineLoc[1] - 1, serverDefineLoc[0] - 1).trim();
+		String serverDataFileName = WorkbookUtil.getContent(sheet, serverDataLoc[1] - 1, serverDataLoc[0] - 1).trim();
+		String dbTableName = WorkbookUtil.getContent(sheet, dbTableLoc[1] - 1, dbTableLoc[0] - 1).trim();
+		String dbFileName = WorkbookUtil.getContent(sheet, dbSqlLoc[1] - 1, dbSqlLoc[0] - 1).trim();
+
+		define.dataKeyLoc = proSettings.getDataKeyLoc();
+
 		// System.out.println("\nValidRow");
-		int validRowIndex = prjectSettings.getValidRowIndex();
+		int validRowIndex = proSettings.getValidRowIndex();
 		String[] validStrAry = WorkbookUtil.getContentArray(sheet, validRowIndex, len);
 		Integer[][] valids = new Integer[3][];// 0为client, 1为server, 2为db
 		handleValidData(define, validStrAry, validRowIndex, valids);
@@ -208,11 +209,11 @@ public class SheetDefine {
 		define.infoMap.get(FieldRangeType.Server).setInfo(serverClassName, serverDataFileName, valids[1]);
 		define.infoMap.get(FieldRangeType.DB).setInfo(dbTableName, dbFileName, valids[2]);
 
-		Map<String, Integer> fieldNameIndexMap = prjectSettings.getFieldNameRowNumMap();
+		Map<String, Integer> fieldNameIndexMap = proSettings.getFieldNameRowNumMap();
 		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
 
 		// System.out.println("\nDataTypeRow");
-		define.dataTypes = WorkbookUtil.getContentArray(sheet, prjectSettings.getDataTypeRowIndex(), len);
+		define.dataTypes = WorkbookUtil.getContentArray(sheet, proSettings.getDataTypeRowIndex(), len);
 		handleDataTypeInstances(define, define.dataTypes);
 		return define;
 	}

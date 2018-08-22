@@ -2,7 +2,7 @@
 这是一个游戏工具，用于读出Excel配置表，生成对应数据文件和定义。
 
 ## 兼容性
-- Ant 1.9.6
+- Ant 1.10.1
 - JDK 1.8
 
 ## 主要功能
@@ -13,7 +13,7 @@
 ## 如何使用
 
 ### 目录及配置文件说明
-+ source/	：默认读取目录
++ source/    ：默认读取目录
 	* 在不指定具体配置目录或文件时，读取配置文件的默认目录，支持子文件夹。
 	* 可通过修改[system.json](/res/system.json)文件中`Source`配置项进行重新指定。
 	* 支持的文件类型为`*.xls`，`*.exls`，`*.json`。
@@ -58,7 +58,10 @@
 	+ Name：数据名称
 	+ Remark：数据注释
 	+ Valid：输出选择，格式: 'c,s,d'，c、s、d的格式只能是0或1，c指前端，s指后端，d指数据库，顺序不能颠倒
-	+ DataType：数据格式,单元格格式目前支持{uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(\*)},其中string中的*代表字符数
+	+ DataType：数据格式,单元格格式目前支持
+        + uint8,uint16,uint32,int8,int16,int32,float32,boolean,string,string(\*),json
+        + uint8[],uint16[],uint32[],int8[],int16[],int32[],float32[],boolean[],string[],string(\*)[],json[]
+        + 其中string中的*代表字符数。json为特殊记录，格式与string一致。
 	+ FieldName：导出定义时对应的字段名、属性名或key。(db)为数据库字段名，(json)为key，(java,ts,c++,c#)为属性名
 	+ StartRow：数据开始行号(Excel左则行号)
 	**注意**：以前配置的数据值从1开始，例如数据注释行为表单的第六行，那Remark.value应该配置为6。
@@ -92,7 +95,7 @@ return new byte[] { (byte) value };
 ByteBuffer buffer2 = ByteBuffer.allocate(2);
 buffer2.clear();
 buffer2.putShort(0, value);
-return buffer2.array();
+return buffer2.array().clone();
 ```
 
 + uint32 & int32
@@ -100,7 +103,7 @@ return buffer2.array();
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();
 buffer4.putInt(0, value);
-return buffer2.array();
+return buffer4.array().clone();
 ```
 
 + float32
@@ -108,25 +111,28 @@ return buffer2.array();
 ByteBuffer buffer4 = ByteBuffer.allocate(4);
 buffer4.clear();
 buffer4.putFloat(0, value);
-return buffer2.array();
+return buffer4.array().clone();
 ```
 
 + string & string(\*)
-```
-1. 读入时，string(*)格式使用多除少补策略；string格式的长度以读入的长度为准。
-2. 根据编码格式把字符串转为Byte数组。
-3. 写入一个uint16记录Byte数组长度。
-4. 写入Byte数组。
+```java
+读入时，string(*)格式使用多除少补策略；string格式的长度以读入的长度为准。
+根据编码格式把字符串转为Byte数组。
+前2个字节表示字符串字节长度(Byte数组长度)。
+上一步对应长度的余下Byte数组表示字符串内容。
 ```
 
 + json
 ```java
-1. 以string格式读入。
-2. 根据编码格式把字符串转为Byte数组。
-3. 写入一个uint16记录Byte数组长度。
-4. 写入Byte数组。
+存储格式与string相同。
 ```
 
++ 数组类型，包括：uint8[], uint16[], uint32[], int8[], int16[], int32[], float32[], boolean[], json[], string[] 
+```java
+前2个字节表示数组长度。
+以对应数据格式循环写入二进制数据。
+例如：int32[]，前2个Byte记录数组长度为len，然后就是len个int32数据。
+```
 	
 ### 功能扩展与定制
 #### 新增编程语言支持(假设新语言为：abc)

@@ -116,22 +116,22 @@ return buffer4.array().clone();
 
 + string & string(\*)
 ```java
-读入时，string(*)格式使用多除少补策略；string格式的长度以读入的长度为准。
-根据编码格式把字符串转为Byte数组。
-前2个字节表示字符串字节长度(Byte数组长度)。
-上一步对应长度的余下Byte数组表示字符串内容。
+1.读入时，string(*)格式使用多除少补策略；string格式的长度以读入的长度为准。
+2.根据编码格式把字符串转为Byte数组。
+3.前**2**个字节表示字符串字节长度(Byte数组长度)。
+4.上一步对应长度的余下Byte数组表示字符串内容。
 ```
 
 + json
 ```java
-存储格式与string相同。
+1.存储格式与string相同。
 ```
 
-+ 数组类型，包括：uint8[], uint16[], uint32[], int8[], int16[], int32[], float32[], boolean[], json[], string[] 
++ 数组类型，包括：uint8[], uint16[], uint32[], int8[], int16[], int32[], float32[], boolean[], json[], string[], string(*) 
 ```java
-前2个字节表示数组长度。
-以对应数据格式循环写入二进制数据。
-例如：int32[]，前2个Byte记录数组长度为len，然后就是len个int32数据。
+1.前**2**个字节表示数组长度。
+2.以对应数据格式循环写入二进制数据。
+3.例如：int32[]，前**2**个Byte记录数组长度为len，然后就是len个int32数据。
 ```
 	
 ### 功能扩展与定制

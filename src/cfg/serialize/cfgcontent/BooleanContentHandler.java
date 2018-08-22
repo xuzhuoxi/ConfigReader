@@ -26,7 +26,7 @@ public class BooleanContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
-		if (obj instanceof Boolean && attrDataType.equals(FieldDataFormat.Boolean)) {
+		if (obj instanceof Boolean) {
 			byte b = BooleanUtil.toByte((Boolean) obj);
 			return new byte[] { b };
 		} else {

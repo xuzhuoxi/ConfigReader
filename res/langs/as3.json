@@ -10,6 +10,17 @@
 		"float32": "Number",
 		"json": "String",
 		"string": "String",
+		
+		"boolean[]": "Boolean[]",
+		"int8[]": "int[]",
+		"int16[]": "int[]",
+		"int32[]": "int[]",
+		"uint8[]": "uint[]",
+		"uint16[]": "uint[]",
+		"uint32[]": "uint[]",
+		"float32[]": "Number[]",
+		"json[]": "String[]",
+		"string[]": "String[]",
 		"desc": "Key代表属性类型, Value代表字段在Excel中声明的类型"
 	},
 	"Get": {
@@ -24,7 +35,18 @@
 			"float32": "",
 			"json": "",
 			"string": "",
-			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为Object"
+			
+			"boolean[]": "",
+			"int8[]": "",
+			"int16[]": "",
+			"int32[]": "",
+			"uint8[]": "",
+			"uint16[]": "",
+			"uint32[]": "",
+			"float32[]": "",
+			"json[]": "",
+			"string[]": "",
+			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为ActionScript:Object"
 		},
 		"binary": {
 			"boolean": "readBoolean",
@@ -37,7 +59,18 @@
 			"float32": "readFloat32",
 			"json": "readString",
 			"string": "readString",
-			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryReaderProxy，"
+			
+			"boolean[]": "readBooleanArray",
+			"int8[]": "readInt8Array",
+			"int16[]": "readInt16Array",
+			"int32[]": "readInt32Array",
+			"uint8[]": "readUInt8Array",
+			"uint16[]": "readUInt16Array",
+			"uint32[]": "readUInt32Array",
+			"float32[]": "readFloat32Array",
+			"json[]": "readStringArray",
+			"string[]": "readStringArray",
+			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryReaderProxy"
 		},
 		"desc": "以上为各种数据文件格式对应读取数据的方法名称"
 	},
@@ -51,8 +84,19 @@
 			"uint16": "",
 			"uint32": "",
 			"float32": "",
-			"string": "",
 			"json": "",
+			"string": "",
+			
+			"boolean[]": "",
+			"int8[]": "",
+			"int16[]": "",
+			"int32[]": "",
+			"uint8[]": "",
+			"uint16[]": "",
+			"uint32[]": "",
+			"float32[]": "",
+			"json[]": "",
+			"string[]": "",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为Object"
 		},
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"

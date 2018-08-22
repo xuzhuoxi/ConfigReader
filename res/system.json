@@ -23,7 +23,7 @@
 		"desc": "输出数据定义{sql:字段名,java:属性名,ts:属性名,c++属性名,json:key}"
 	},
 	"DataFormat": {
-		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "float32", "boolean", "json", "string"],
+		"value": ["uint8", "uint16", "uint32", "int8", "int16", "int32", "float32", "boolean", "json", "string","uint8[]", "uint16[]", "uint32[]", "int8[]", "int16[]", "int32[]", "float32[]", "boolean[]", "json[]", "string[]"],
 		"desc": "支持输出文件格式",
 		"注意1": "其中string中的*代表字符数，从1开始。",
 		"注意2": "浮点数最多支持6位小数，而且当数值越大，精度就越低，反之亦然",

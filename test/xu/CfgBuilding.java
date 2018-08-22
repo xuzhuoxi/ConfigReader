@@ -1,9 +1,11 @@
 package xu;
 
+import java.util.Arrays;
+
 import org.json.JSONObject;
 
 /**
- * @author xuzhuoxi Created on 2018-04-06.
+ * @author xuzhuoxi Created on 2018-08-22.
  */
 public class CfgBuilding {
 	// ID
@@ -27,7 +29,31 @@ public class CfgBuilding {
 	// 有没有门
 	private int isDoor;
 	// 建筑描述
-	private String desc;
+	private String desc1;
+	// 建筑描述
+	private String desc2;
+	// 建筑描述
+	private JSONObject desc3;
+	// 测试1
+	private boolean[] f1;
+	// 测试2
+	private short[] f2;
+	// 测试3
+	private int[] f3;
+	// 测试4
+	private long[] f4;
+	// 测试5
+	private byte[] f5;
+	// 测试6
+	private short[] f6;
+	// 测试7
+	private int[] f7;
+	// 测试8
+	private float[] f8;
+	// 测试9
+	private String[] f9;
+	// 测试10
+	private String[] f10;
 
 	/**
 	 * ID
@@ -136,8 +162,182 @@ public class CfgBuilding {
 	 * @remark 建筑描述 string(20)
 	 * @returns {String}
 	 */
-	public String getDesc() {
-		return this.desc;
+	public String getDesc1() {
+		return this.desc1;
+	}
+
+	/**
+	 * 建筑描述
+	 *
+	 * @remark 建筑描述 string
+	 * @returns {String}
+	 */
+	public String getDesc2() {
+		return this.desc2;
+	}
+
+	/**
+	 * 建筑描述
+	 *
+	 * @remark 建筑描述 json
+	 * @returns {JSONObject}
+	 */
+	public JSONObject getDesc3() {
+		return this.desc3;
+	}
+
+	/**
+	 * 测试1
+	 *
+	 * @remark 测试1
+	 * @returns {boolean[]}
+	 */
+	public boolean[] getF1() {
+		return this.f1;
+	}
+
+	/**
+	 * 测试2
+	 *
+	 * @remark 测试2
+	 * @returns {short[]}
+	 */
+	public short[] getF2() {
+		return this.f2;
+	}
+
+	/**
+	 * 测试3
+	 *
+	 * @remark 测试3
+	 * @returns {int[]}
+	 */
+	public int[] getF3() {
+		return this.f3;
+	}
+
+	/**
+	 * 测试4
+	 *
+	 * @remark 测试4
+	 * @returns {long[]}
+	 */
+	public long[] getF4() {
+		return this.f4;
+	}
+
+	/**
+	 * 测试5
+	 *
+	 * @remark 测试5
+	 * @returns {byte[]}
+	 */
+	public byte[] getF5() {
+		return this.f5;
+	}
+
+	/**
+	 * 测试6
+	 *
+	 * @remark 测试6
+	 * @returns {short[]}
+	 */
+	public short[] getF6() {
+		return this.f6;
+	}
+
+	/**
+	 * 测试7
+	 *
+	 * @remark 测试7
+	 * @returns {int[]}
+	 */
+	public int[] getF7() {
+		return this.f7;
+	}
+
+	/**
+	 * 测试8
+	 *
+	 * @remark 测试8
+	 * @returns {float[]}
+	 */
+	public float[] getF8() {
+		return this.f8;
+	}
+
+	/**
+	 * 测试9
+	 *
+	 * @remark 测试9
+	 * @returns {String[]}
+	 */
+	public String[] getF9() {
+		return this.f9;
+	}
+
+	/**
+	 * 测试10
+	 *
+	 * @remark 测试10
+	 * @returns {String[]}
+	 */
+	public String[] getF10() {
+		return this.f10;
+	}
+
+	public void parseJson(JsonReaderProxy proxy) {
+		this.building_type = proxy.getUInt16("building_type");
+		this.name = proxy.getString("name");
+		this.promotion = proxy.getUInt8("promotion");
+		this.layoutX = proxy.getUInt16("layoutX");
+		this.type_idx = proxy.getUInt32("type_idx");
+		this.gateX = proxy.getFloat32("gateX");
+		this.gateY = proxy.getFloat32("gateY");
+		this.terrain_flags = proxy.getInt32("terrain_flags");
+		this.supply_population_type = proxy.getInt16("supply_population_type");
+		this.isDoor = proxy.getInt8("isDoor");
+		this.desc1 = proxy.getString("desc1");
+		this.desc2 = proxy.getString("desc2");
+		this.desc3 = proxy.getJsonObject("desc3");
+		this.f1 = proxy.getBooleanArray("f1");
+		this.f2 = proxy.getUInt8Array("f2");
+		this.f3 = proxy.getUInt16Array("f3");
+		this.f4 = proxy.getUInt32Array("f4");
+		this.f5 = proxy.getInt8Array("f5");
+		this.f6 = proxy.getInt16Array("f6");
+		this.f7 = proxy.getInt32Array("f7");
+		this.f8 = proxy.getFloat32Array("f8");
+		this.f9 = proxy.getStringArray("f9");
+		this.f10 = proxy.getStringArray("f10");
+
+	}
+
+	public void parseBinary(BinaryReaderProxy proxy) throws Exception {
+		this.building_type = proxy.readUInt16();
+		this.name = proxy.readString();
+		this.promotion = proxy.readUInt8();
+		this.layoutX = proxy.readUInt16();
+		this.type_idx = proxy.readUInt32();
+		this.gateX = proxy.readFloat32();
+		this.gateY = proxy.readFloat32();
+		this.terrain_flags = proxy.readInt32();
+		this.supply_population_type = proxy.readInt16();
+		this.isDoor = proxy.readInt8();
+		this.desc1 = proxy.readString();
+		this.desc2 = proxy.readString();
+		this.desc3 = proxy.readJsonObject();
+		this.f1 = proxy.readBooleanArray();
+		this.f2 = proxy.readUInt8Array();
+		this.f3 = proxy.readUInt16Array();
+		this.f4 = proxy.readUInt32Array();
+		this.f5 = proxy.readInt8Array();
+		this.f6 = proxy.readInt16Array();
+		this.f7 = proxy.readInt32Array();
+		this.f8 = proxy.readFloat32Array();
+		this.f9 = proxy.readStringArray();
+		this.f10 = proxy.readStringArray();
+
 	}
 
 	@Override
@@ -145,36 +345,11 @@ public class CfgBuilding {
 		return "CfgBuilding [building_type=" + building_type + ", name=" + name + ", promotion=" + promotion
 				+ ", layoutX=" + layoutX + ", type_idx=" + type_idx + ", gateX=" + gateX + ", gateY=" + gateY
 				+ ", terrain_flags=" + terrain_flags + ", supply_population_type=" + supply_population_type
-				+ ", isDoor=" + isDoor + ", desc=" + desc + "]";
+				+ ", isDoor=" + isDoor + ", desc1=" + desc1 + ", desc2=" + desc2 + ", desc3=" + desc3 + ", f1="
+				+ Arrays.toString(f1) + ", f2=" + Arrays.toString(f2) + ", f3=" + Arrays.toString(f3) + ", f4="
+				+ Arrays.toString(f4) + ", f5=" + Arrays.toString(f5) + ", f6=" + Arrays.toString(f6) + ", f7="
+				+ Arrays.toString(f7) + ", f8=" + Arrays.toString(f8) + ", f9=" + Arrays.toString(f9) + ", f10="
+				+ Arrays.toString(f10) + "]";
 	}
 
-	public void parseJson(JSONObject data) {
-		this.building_type = (int) data.getInt("building_type");
-		this.name = (String) data.getString("name");
-		this.promotion = (int) data.getInt("promotion");
-		this.layoutX = (int) data.getInt("layoutX");
-		this.type_idx = (long) data.getLong("type_idx");
-		this.gateX = (float) data.getDouble("gateX");
-		this.gateY = (float) data.getDouble("gateY");
-		this.terrain_flags = (int) data.getInt("terrain_flags");
-		this.supply_population_type = (int) data.getInt("supply_population_type");
-		this.isDoor = (int) data.getInt("isDoor");
-		this.desc = (String) data.getString("desc");
-
-	}
-
-	public void parseBinary(BinaryReaderProxy proxy) throws Exception {
-		this.building_type = (int) proxy.readUInt16();
-		this.name = (String) proxy.readString();
-		this.promotion = (int) proxy.readUInt8();
-		this.layoutX = (int) proxy.readUInt16();
-		this.type_idx = (long) proxy.readUInt32();
-		this.gateX = (float) proxy.readFloat32();
-		this.gateY = (float) proxy.readFloat32();
-		this.terrain_flags = (int) proxy.readInt32();
-		this.supply_population_type = (int) proxy.readInt16();
-		this.isDoor = (int) proxy.readInt8();
-		this.desc = (String) proxy.readString();
-
-	}
 }

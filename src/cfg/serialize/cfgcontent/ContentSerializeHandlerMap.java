@@ -29,6 +29,25 @@ public class ContentSerializeHandlerMap {
 		this.handlerMap.put(FieldDataFormat.Float32.getTypeName(), new DecimalContentHandler());
 		this.handlerMap.put(FieldDataFormat.Json.getTypeName(), new JsonContentHandler());
 		this.handlerMap.put(FieldDataFormat.String.getTypeName(), new StringContentHandler());
+
+		this.handlerMap.put(FieldDataFormat.A_Boolean.getTypeName(),
+				new ArrayContentHandler(new BooleanContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_UInt8.getTypeName(),
+				new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_UInt16.getTypeName(),
+				new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_UInt32.getTypeName(),
+				new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Int8.getTypeName(), new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Int16.getTypeName(),
+				new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Int32.getTypeName(),
+				new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Float32.getTypeName(),
+				new ArrayContentHandler(new DecimalContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Json.getTypeName(), new ArrayContentHandler(new JsonContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_String.getTypeName(),
+				new ArrayContentHandler(new StringContentHandler()));
 	}
 
 	public IContentSerializeHandler getHandler(FieldDataFormat dataType) {

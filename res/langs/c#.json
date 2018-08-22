@@ -10,6 +10,17 @@
 		"float32": "float",
 		"json": "string",
 		"string": "string",
+		
+		"boolean[]": "bool[]",
+		"int8[]": "sbyte[]",
+		"int16[]": "short[]",
+		"int32[]": "int[]",
+		"uint8[]": "byte[]",
+		"uint16[]": "ushort[]",
+		"uint32[]": "uint[]",
+		"float32[]": "float[]",
+		"json[]": "string[]",
+		"string[]": "string[]",
 		"desc": "Key代表属性类型, Value代表字段在Excel中声明的类型"
 	},
 	"Get": {
@@ -24,6 +35,17 @@
 			"float32": "",
 			"json": "",
 			"string": "",
+			
+			"boolean[]": "",
+			"int8[]": "",
+			"int16[]": "",
+			"int32[]": "",
+			"uint8[]": "",
+			"uint16[]": "",
+			"uint32[]": "",
+			"float32[]": "",
+			"json[]": "",
+			"string[]": "",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
 		"desc": "以上为各种数据文件格式对应读取数据的方法名称"
@@ -40,6 +62,17 @@
 			"float32": "",
 			"json": "",
 			"string": "",
+			
+			"boolean[]": "",
+			"int8[]": "",
+			"int16[]": "",
+			"int32[]": "",
+			"uint8[]": "",
+			"uint16[]": "",
+			"uint32[]": "",
+			"float32[]": "",
+			"json[]": "",
+			"string[]": "",
 			"desc": "Key代表数据写入时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为org.json.JSONObject"
 		},
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"

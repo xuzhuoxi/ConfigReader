@@ -21,6 +21,7 @@ import code.file.FileUtils;
 import code.lang.NumberUtil;
 import xu.BinaryReaderProxy;
 import xu.CfgBuilding;
+import xu.JsonReaderProxy;
 
 public class SerializeTest {
 
@@ -58,24 +59,6 @@ public class SerializeTest {
 	}
 
 	@Test
-	public void testWorkbook2Binary() throws SheetDefineException, SheetDataException {
-		String basePath = AppDefine.instance.getBasePath();
-		String filePath = basePath + "/source/cfg_building.xls";
-		System.out.println("FilePaht:" + filePath);
-		WorkbookInfo info = new WorkbookInfo(filePath);
-		info.loadSheetInfos();
-
-		BinarySheetHandler handler = new BinarySheetHandler();
-		List<SheetInfo> sheets = info.getSheetInfos();
-		for (SheetInfo sheetInfo : sheets) {
-			handler.config(sheetInfo);
-			byte[] out = (byte[]) handler.serialize(FieldRangeType.Client, FieldKey.Json);
-			System.out.println(sheetInfo);
-			System.out.println(out.length);
-		}
-	}
-
-	@Test
 	public void testSerializeDefine() throws SheetDefineException {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/source/cfg_building.xls";
@@ -101,6 +84,24 @@ public class SerializeTest {
 					basePath + "/../testres/dist/define/db", "ts");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.DB, OutputDefineLangType.CSharp,
 					basePath + "/../testres/dist/define/db", "cs");
+		}
+	}
+	
+	@Test
+	public void testWorkbook2Binary() throws SheetDefineException, SheetDataException {
+		String basePath = AppDefine.instance.getBasePath();
+		String filePath = basePath + "/source/cfg_building.xls";
+		System.out.println("FilePaht:" + filePath);
+		WorkbookInfo info = new WorkbookInfo(filePath);
+		info.loadSheetInfos();
+
+		BinarySheetHandler handler = new BinarySheetHandler();
+		List<SheetInfo> sheets = info.getSheetInfos();
+		for (SheetInfo sheetInfo : sheets) {
+			handler.config(sheetInfo);
+			byte[] out = (byte[]) handler.serialize(FieldRangeType.Client, FieldKey.Json);
+			System.out.println(sheetInfo);
+			System.out.println(out.length);
 		}
 	}
 
@@ -138,10 +139,12 @@ public class SerializeTest {
 		JSONArray ary = new JSONArray(jsonContent);
 		int len = ary.length();
 		System.out.println("Length:" + len);
+		JsonReaderProxy proxy = new JsonReaderProxy();
 		for (int i = 0; i < len; i++) {
 			JSONObject jObj = ary.getJSONObject(i);
+			proxy.setObject(jObj);
 			CfgBuilding obj = new CfgBuilding();
-			obj.parseJson(jObj);
+			obj.parseJson(proxy);
 			System.out.println(obj);
 		}
 	}

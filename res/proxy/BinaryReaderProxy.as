@@ -66,5 +66,52 @@ package xu {
 			var str:String=data.readMultiByte(len, charsetName);
 			return str;
 		}
+		
+		//---------------------------------------------
+		
+		public function readBooleanArray():Vector.<Boolean> {
+			return this.readArray(this.readBoolean);
+		}
+
+		public function readInt8():Vector.<int> {
+			return this.readArray(this.readInt8);
+		}
+
+		public function readInt16():Vector.<int> {
+			return this.readArray(this.readInt16);
+		}
+
+		public function readInt32():Vector.<int> {
+			return this.readArray(this.readInt32);
+		}
+
+		public function readUInt8():Vector.<uint> {
+			return this.readArray(this.readUInt8);
+		}
+
+		public function readUInt16():Vector.<uint> {
+			return this.readArray(this.readUInt16);
+		}
+
+		public function readUInt32():Vector.<uint> {
+			return this.readArray(this.readUInt32);
+		}
+
+		public function readFloat32():Vector.<Number> {
+			return this.readArray(this.readFloat32);
+		}
+		
+		public function readStringArray():Vector.<String> {
+			return this.readArray(this.readString);
+		}
+		
+		private function readArray(func:Function): *{
+			const len:int = this.data.readUnsignedShort();
+			var rs:Vector.<*> = new Vector.<*>(len);
+			for (var i = 0; i < len; i++) {
+				rs[i] = func.call(this);
+			}
+			return rs;
+		}
 	}
 }

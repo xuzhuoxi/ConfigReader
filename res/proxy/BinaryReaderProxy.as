@@ -73,31 +73,31 @@ package xu {
 			return this.readArray(this.readBoolean);
 		}
 
-		public function readInt8():Vector.<int> {
+		public function readInt8Array():Vector.<int> {
 			return this.readArray(this.readInt8);
 		}
 
-		public function readInt16():Vector.<int> {
+		public function readInt16Array():Vector.<int> {
 			return this.readArray(this.readInt16);
 		}
 
-		public function readInt32():Vector.<int> {
+		public function readInt32Array():Vector.<int> {
 			return this.readArray(this.readInt32);
 		}
 
-		public function readUInt8():Vector.<uint> {
+		public function readUInt8Array():Vector.<uint> {
 			return this.readArray(this.readUInt8);
 		}
 
-		public function readUInt16():Vector.<uint> {
+		public function readUInt16Array():Vector.<uint> {
 			return this.readArray(this.readUInt16);
 		}
 
-		public function readUInt32():Vector.<uint> {
+		public function readUInt32Array():Vector.<uint> {
 			return this.readArray(this.readUInt32);
 		}
 
-		public function readFloat32():Vector.<Number> {
+		public function readFloat32Array():Vector.<Number> {
 			return this.readArray(this.readFloat32);
 		}
 		

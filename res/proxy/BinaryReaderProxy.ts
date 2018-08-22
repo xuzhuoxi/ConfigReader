@@ -44,5 +44,59 @@ namespace xu {
             let len: number = this.byteArray.readUnsignedShort();
             return this.byteArray.readUTFBytes(len);
         }
+		
+		public readJsonObject(): any {
+			let jsonStr: string = this.readString();
+			let rs = JSON.parse(jsonStr);
+			return rs;
+		}
+
+		//---------------------------------------------
+		
+        public readBooleanArray(): boolean[] {
+			return this.readArray(this.readBoolean);
+        }
+
+        public readInt8Array(): number[] {
+			return this.readArray(this.readInt8);
+        }
+
+        public readInt16Array(): number[] {
+            return this.readArray(this.readInt16);
+        }
+
+        public readInt32Array(): number[] {
+            return this.readArray(this.readInt32);
+        }
+
+        public readUInt8Array(): number[] {
+            return this.readArray(this.readUInt8);
+        }
+
+        public readUInt16Array(): number[] {
+            return this.readArray(this.readUInt16);
+        }
+
+        public readUInt32Array(): number[] {
+            return this.readArray(this.readUInt32);
+        }
+
+        public readStringArray(): string[] {
+            return this.readArray(this.readString);
+        }
+		
+		public readJsonArray(): any[] {
+			return this.readArray(this.readJsonObject);
+		}
+		
+		private readArray(func:Function):any{
+			let thisObj = this;
+			let len: number = thisObj.byteArray.readUnsignedShort();
+			let rs:any[] = [];
+			for (let i = 0; i < len; i++) {
+				rs.push(func.call(thisObj));
+			}
+            return rs;
+		}
     }
 }

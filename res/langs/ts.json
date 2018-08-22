@@ -8,7 +8,7 @@
 		"uint16": "number",
 		"uint32": "number",
 		"float32": "number",
-		"json": "string",
+		"json": "any",
 		"string": "string",
 		
 		"boolean[]": "boolean[]",
@@ -19,7 +19,7 @@
 		"uint16[]": "number[]",
 		"uint32[]": "number[]",
 		"float32[]": "number[]",
-		"json[]": "string[]",
+		"json[]": "any[]",
 		"string[]": "string[]",
 		
 		"desc": "Key代表属性类型, Value代表字段在Excel中声明的类型"
@@ -58,7 +58,7 @@
 			"uint16": "readUInt16",
 			"uint32": "readUInt32",
 			"float32": "readFloat32",
-			"json": "readString",
+			"json": "readJsonObject",
 			"string": "readString",
 			
 			"boolean[]": "readBooleanArray",
@@ -69,7 +69,7 @@
 			"uint16[]": "readUInt16Array",
 			"uint32[]": "readUInt32Array",
 			"float32[]": "readFloat32Array",
-			"json[]": "readStringArray",
+			"json[]": "readJsonArray",
 			"string[]": "readStringArray",
 			"desc": "Key代表数据读取时使用的方法名, Value代表字段在Excel中声明的类型，当前数据对象为xu.BinaryReaderProxy，注意：ts里读二进制数据字符串在这里只支持utf-8格式"
 		},

@@ -13,6 +13,7 @@ import cfg.serialize.FieldRangeType;
 import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.ProjectSettings;
 import cfg.settings.Settings;
+import cfg.settings.lang.LangInfo;
 import cfg.source.WorkbookUtil;
 
 public class SheetDefine {
@@ -21,12 +22,12 @@ public class SheetDefine {
 
 	private int[] dataKeyLoc;// 主键索引(未使用)
 	private Map<FieldRangeType, SheetValidInfo> infoMap = new HashMap<FieldRangeType, SheetValidInfo>();
-	private String[] names;// 字段名
-	private String[] remarks;// 字段注释
-	private Map<String, String[]> fieldNameMap;
-	private String[] dataTypes;// 每个字段对应的数据类型
+	private String[] propertyNames;// 字段名称
+	private String[] propertyRemarks;// 字段注释
+	private Map<String, String[]> lang2property;// 字段代码定义
 
-	private FieldDataFormat[] dataTypeInstances;
+	private String[] excelDataTypes;// 每个字段对应的数据类型
+	private FieldDataFormat[] dataFormats;
 
 	private SheetDefine(String sheetNamed) {
 		super();
@@ -77,14 +78,36 @@ public class SheetDefine {
 	}
 
 	/**
+	 * 取属性相关数据信息
+	 * 
+	 * @param lang
+	 *            语言
+	 * @param index
+	 *            属性索引号
+	 * @return 属性信息
+	 */
+	public SheetProperty getPropertyDefine(String lang, int index) {
+		LangInfo langInfo = Settings.getInstance().getLangSettings().getLangInfo(lang);
+		String property = this.getProperty(lang, index);
+		String jsonProperty = this.getProperty("json", index);
+		String pName = this.getPropertyName(index);
+		String pRemark = this.getPropertyRemark(index);
+		String pDataType = langInfo.getLangDataType(this.getFieldDataFormat(index).getDataFormatName());
+		FieldDataFormat dataFormat = this.getFieldDataFormat(index);
+//		System.out
+//				.println(this.getFieldDataFormat(index) + "  |  " + pDataType + "  |  " + this.getExcelDataType(index));
+		return new SheetProperty(property, jsonProperty, pName, pRemark, pDataType, dataFormat);
+	}
+
+	/**
 	 * 取对应字段的名称
 	 * 
 	 * @param index
 	 *            索引
 	 * @return 字段的名称
 	 */
-	public String getName(int index) {
-		return names[index];
+	public String getPropertyName(int index) {
+		return propertyNames[index];
 	}
 
 	/**
@@ -94,8 +117,8 @@ public class SheetDefine {
 	 *            索引
 	 * @return 字段的注释
 	 */
-	public String getRemark(int index) {
-		return remarks[index];
+	public String getPropertyRemark(int index) {
+		return propertyRemarks[index];
 	}
 
 	/**
@@ -105,8 +128,8 @@ public class SheetDefine {
 	 *            语言
 	 * @return 字段属性名数组
 	 */
-	public String[] getFieldNameArray(String lang) {
-		return fieldNameMap.get(lang).clone();
+	public String[] getPropertyArray(String lang) {
+		return lang2property.get(lang).clone();
 	}
 
 	/**
@@ -118,8 +141,8 @@ public class SheetDefine {
 	 *            字段索引
 	 * @return 字段属性名
 	 */
-	public String getFieldName(String lang, int index) {
-		return fieldNameMap.get(lang)[index];
+	public String getProperty(String lang, int index) {
+		return lang2property.get(lang)[index];
 	}
 
 	/**
@@ -127,8 +150,8 @@ public class SheetDefine {
 	 * 
 	 * @return 配置表上全部原始的数据类型字符串
 	 */
-	public String[] getDataTypes() {
-		return dataTypes;
+	public String[] getExcelDataTypes() {
+		return excelDataTypes;
 	}
 
 	/**
@@ -138,28 +161,28 @@ public class SheetDefine {
 	 *            字段索引
 	 * @return 配置表上原始的数据类型字符串
 	 */
-	public String getDataType(int index) {
-		return dataTypes[index];
+	public String getExcelDataType(int index) {
+		return excelDataTypes[index];
 	}
 
 	/**
-	 * 取每个字段对应的Java类型定义
+	 * 取每个字段对应的数据格式定义
 	 * 
 	 * @return 字段的数据格式
 	 */
-	public FieldDataFormat[] getDataTypeInstances() {
-		return dataTypeInstances;
+	public FieldDataFormat[] getFieldDataFormats() {
+		return dataFormats;
 	}
 
 	/**
-	 * 对单个字段对应的Java类型定义
+	 * 对单个字段对应的数据格式定义
 	 * 
 	 * @param index
 	 *            字段索引
 	 * @return 字段的数据格式
 	 */
-	public FieldDataFormat getDataTypeInstance(int index) {
-		return dataTypeInstances[index];
+	public FieldDataFormat getFieldDataFormat(int index) {
+		return dataFormats[index];
 	}
 
 	/**
@@ -181,9 +204,9 @@ public class SheetDefine {
 		int len = nameRow.getLastCellNum();
 		define.maxColLength = len;
 		// System.out.println("\nNameRow");
-		define.names = WorkbookUtil.getContentArray(sheet, proSettings.getNameRowIndex(), len);
+		define.propertyNames = WorkbookUtil.getContentArray(sheet, proSettings.getNameRowIndex(), len);
 		// System.out.println("\nRemarkRow");
-		define.remarks = WorkbookUtil.getContentArray(sheet, proSettings.getRemarkRowIndex(), len);
+		define.propertyRemarks = WorkbookUtil.getContentArray(sheet, proSettings.getRemarkRowIndex(), len);
 
 		int[] clientDefineLoc = proSettings.getClientDefineLoc();
 		int[] clientDataLoc = proSettings.getClientDataLoc();
@@ -210,22 +233,22 @@ public class SheetDefine {
 		define.infoMap.get(FieldRangeType.DB).setInfo(dbTableName, dbFileName, valids[2]);
 
 		Map<String, Integer> fieldNameIndexMap = proSettings.getFieldNameRowNumMap();
-		handlFieldNameMap(define, sheet, fieldNameIndexMap, len);
+		handleLangToProperty(define, sheet, fieldNameIndexMap, len);
 
 		// System.out.println("\nDataTypeRow");
-		define.dataTypes = WorkbookUtil.getContentArray(sheet, proSettings.getDataTypeRowIndex(), len);
-		handleDataTypeInstances(define, define.dataTypes);
+		define.excelDataTypes = WorkbookUtil.getContentArray(sheet, proSettings.getDataTypeRowIndex(), len);
+		handleDataFormats(define, define.excelDataTypes);
 		return define;
 	}
 
-	private static void handlFieldNameMap(SheetDefine define, Sheet sheet, Map<String, Integer> map, int len) {
+	private static void handleLangToProperty(SheetDefine define, Sheet sheet, Map<String, Integer> map, int len) {
 		Map<String, String[]> fieldNameMap = new HashMap<String, String[]>();
 		int rowIndex;
 		for (String key : map.keySet()) {
 			rowIndex = map.get(key);
 			fieldNameMap.put(key, WorkbookUtil.getContentArray(sheet, rowIndex, len));
 		}
-		define.fieldNameMap = fieldNameMap;
+		define.lang2property = fieldNameMap;
 	}
 
 	private static void handleValidData(SheetDefine define, String[] validStrAry, int rowIndex, Integer[][] valids) {
@@ -267,17 +290,17 @@ public class SheetDefine {
 		valids[2] = dbList.toArray(d);
 	}
 
-	private static void handleDataTypeInstances(SheetDefine define, String[] dataTypes) throws SheetDefineException {
-		FieldDataFormat[] instances = new FieldDataFormat[dataTypes.length];
+	private static void handleDataFormats(SheetDefine define, String[] propertyDataTypes) throws SheetDefineException {
+		FieldDataFormat[] instances = new FieldDataFormat[propertyDataTypes.length];
 		int i = 0;
-		for (i = 0; i < dataTypes.length; i++) {
+		for (i = 0; i < propertyDataTypes.length; i++) {
 			try {
-				instances[i] = FieldDataFormat.from(dataTypes[i]);
+				instances[i] = FieldDataFormat.from(propertyDataTypes[i]);
 			} catch (Exception e) {
 				throw new SheetDefineException("Sheet(\"" + define.sheetNamed + "\") DataType Define Error In Column: "
-						+ i + ". Value is \"" + dataTypes[i] + "\".");
+						+ i + ". Value is \"" + propertyDataTypes[i] + "\".");
 			}
 		}
-		define.dataTypeInstances = instances;
+		define.dataFormats = instances;
 	}
 }

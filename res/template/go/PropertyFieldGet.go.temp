@@ -1,0 +1,4 @@
+func (o ${CLASS}) get${UP_PROPERTY}() ${PROPETY_DATA_TYPE} {
+	return o._${PROPERTY}
+}
+

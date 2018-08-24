@@ -1,3 +1,3 @@
-::call ant > build.log
-call ant
+call ant > build.log
+::call ant
 pause

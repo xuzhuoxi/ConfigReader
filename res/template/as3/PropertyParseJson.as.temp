@@ -1,2 +1,0 @@
-		this._${PROPERTY} = ${DATA_TYPE}(data.${PROPERTY_JSON});
-	

@@ -35,11 +35,13 @@
 	+ Get:数据读取时调用的方法名，现支持Json、二进制读取，对应子键分别为json、binary。
 	+ Set:数据写入时调用的方法名，现支持Json、二进制读取，对应子键分别为json、binary。
 	+ Temp:对应的模板配置。
-		1. "${PACKAGE_CONTENT}": 包定义模板，可嵌套"${CLASS_CONTENT}
-		2. "${CLASS_CONTENT}": 类定义模板，可嵌套"${PROPERTY_CONTENT}",
-		3. "${PROPERTY_CONTENT}": 属性模板，可嵌套"${PARSE_BINARY_CONTENT}"，"${PARSE_JSON_CONTENT}"。
-		4. "${PARSE_BINARY_CONTENT}": 解释一个二进制属性的模板文件,
-		5. "${PARSE_JSON_CONTENT}": 解释一个Json属性的模板文件。
+		+ "Main" : 主模板文件。
+		+ "Sub" : 子模板文件配置。
+			1. "${PROPERTY_FIELD}": 字段声明模板。
+			2. "${PROPERTY_FIELD_GET}": 字段数据读取模板
+			3. "${PROPERTY_FIELD_GET2}": 字段数据读取模板，与上一个模板功能类型，备用。
+			4. "${PARSE_BINARY_CONTENT}": 解释一个二进制属性的模板文件,
+			5. "${PARSE_JSON_CONTENT}": 解释一个Json属性的模板文件。
 	+ 完整例子：[java.json](/res/langs/java.json)
 
 + template/	：模板文件目录。

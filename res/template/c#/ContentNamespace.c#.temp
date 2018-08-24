@@ -1,7 +1,0 @@
-/**
- * C#定义
- * 当前模板还没不完整
- */
-namespace ${MODULE} {
-	${CLASS_CONTENT}
-}

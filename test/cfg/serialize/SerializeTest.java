@@ -66,6 +66,8 @@ public class SerializeTest {
 		info.loadSheetInfos();
 		List<SheetInfo> sheets = info.getSheetInfos();
 		for (SheetInfo sheetInfo : sheets) {
+			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.Go,
+					basePath + "/../testres/dist/define/client", "go");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.Java,
 					basePath + "/../testres/dist/define/client", "java");
 			SerializeDefineUtil.serializeDefine(sheetInfo, FieldRangeType.Client, OutputDefineLangType.TypeScript,
@@ -86,7 +88,7 @@ public class SerializeTest {
 					basePath + "/../testres/dist/define/db", "cs");
 		}
 	}
-	
+
 	@Test
 	public void testWorkbook2Binary() throws SheetDefineException, SheetDataException {
 		String basePath = AppDefine.instance.getBasePath();

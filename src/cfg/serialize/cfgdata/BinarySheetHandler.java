@@ -25,7 +25,7 @@ public class BinarySheetHandler implements ISheetHandler {
 	public void config(SheetInfo sheetInfo) {
 		this.sheetInfo = sheetInfo;
 		this.sheetDefine = this.sheetInfo.getDefine();
-		this.attrDataTypes = this.sheetDefine.getDataTypeInstances();
+		this.attrDataTypes = this.sheetDefine.getFieldDataFormats();
 		this.dataList = this.sheetInfo.getDataList();
 	}
 

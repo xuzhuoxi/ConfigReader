@@ -1,0 +1,7 @@
+	/**
+	 * ${PROPERTY_NAME}
+	 *
+	 * @remark ${PROPETY_REMARK}
+	 * @return {${PROPETY_DATA_TYPE}}
+	 */
+	get${UP_PROPERTY}() ${PROPETY_DATA_TYPE}

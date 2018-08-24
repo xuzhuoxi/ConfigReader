@@ -1,0 +1,1 @@
+			this._${PROPERTY} = data.${PROPERTY_JSON};

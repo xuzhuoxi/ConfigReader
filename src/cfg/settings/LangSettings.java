@@ -17,24 +17,28 @@ public class LangSettings {
 		return this.langMap.get(lang.getValue());
 	}
 
-	public String getDataFormat(String lang, String excelDataFormat) {
-		return this.langMap.get(lang).getDataFormat(excelDataFormat);
+	public LangInfo getLangInfo(String lang) {
+		return this.langMap.get(lang);
+	}
+
+	public String getLangDataType(String lang, String dataFormatName) {
+		return this.langMap.get(lang).getLangDataType(dataFormatName);
 	}
 
 	public String getFunctionGetDesc(String lang, String param) {
 		return this.langMap.get(lang).getFunctionGetDesc(param);
 	}
 
-	public String getFunctionGetDesc(String lang, String fileFormat, String dataFormat) {
-		return this.langMap.get(lang).getFunctionGetDesc(fileFormat, dataFormat);
+	public String getFunctionGetDesc(String lang, String fileFormat, String dataFormatName) {
+		return this.langMap.get(lang).getFunctionGetDesc(fileFormat, dataFormatName);
 	}
 
 	public String getFunctionSetDesc(String lang, String param) {
 		return this.langMap.get(lang).getFunctionSetDesc(param);
 	}
 
-	public String getFunctionSetDesc(String lang, String fileFormat, String dataFormat) {
-		return this.langMap.get(lang).getFunctionSetDesc(fileFormat, dataFormat);
+	public String getFunctionSetDesc(String lang, String fileFormat, String dataFormatName) {
+		return this.langMap.get(lang).getFunctionSetDesc(fileFormat, dataFormatName);
 	}
 
 	public final void appendLangByPath(String lang, String langSettingFilePath) {

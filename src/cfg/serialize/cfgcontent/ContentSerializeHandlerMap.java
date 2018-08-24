@@ -19,39 +19,39 @@ public class ContentSerializeHandlerMap {
 
 	private ContentSerializeHandlerMap() {
 		this.handlerMap = new HashMap<String, IContentSerializeHandler>();
-		this.handlerMap.put(FieldDataFormat.Boolean.getTypeName(), new BooleanContentHandler());
-		this.handlerMap.put(FieldDataFormat.UInt8.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.UInt16.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.UInt32.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.Int8.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.Int16.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.Int32.getTypeName(), new IntegerContentHandler());
-		this.handlerMap.put(FieldDataFormat.Float32.getTypeName(), new DecimalContentHandler());
-		this.handlerMap.put(FieldDataFormat.Json.getTypeName(), new JsonContentHandler());
-		this.handlerMap.put(FieldDataFormat.String.getTypeName(), new StringContentHandler());
+		this.handlerMap.put(FieldDataFormat.Boolean.getDataFormatName(), new BooleanContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt8.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt16.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.UInt32.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int8.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int16.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Int32.getDataFormatName(), new IntegerContentHandler());
+		this.handlerMap.put(FieldDataFormat.Float32.getDataFormatName(), new DecimalContentHandler());
+		this.handlerMap.put(FieldDataFormat.Json.getDataFormatName(), new JsonContentHandler());
+		this.handlerMap.put(FieldDataFormat.String.getDataFormatName(), new StringContentHandler());
 
-		this.handlerMap.put(FieldDataFormat.A_Boolean.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_Boolean.getDataFormatName(),
 				new ArrayContentHandler(new BooleanContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_UInt8.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_UInt8.getDataFormatName(),
 				new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_UInt16.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_UInt16.getDataFormatName(),
 				new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_UInt32.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_UInt32.getDataFormatName(),
 				new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_Int8.getTypeName(), new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_Int16.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_Int8.getDataFormatName(), new ArrayContentHandler(new IntegerContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_Int16.getDataFormatName(),
 				new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_Int32.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_Int32.getDataFormatName(),
 				new ArrayContentHandler(new IntegerContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_Float32.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_Float32.getDataFormatName(),
 				new ArrayContentHandler(new DecimalContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_Json.getTypeName(), new ArrayContentHandler(new JsonContentHandler()));
-		this.handlerMap.put(FieldDataFormat.A_String.getTypeName(),
+		this.handlerMap.put(FieldDataFormat.A_Json.getDataFormatName(), new ArrayContentHandler(new JsonContentHandler()));
+		this.handlerMap.put(FieldDataFormat.A_String.getDataFormatName(),
 				new ArrayContentHandler(new StringContentHandler()));
 	}
 
 	public IContentSerializeHandler getHandler(FieldDataFormat dataType) {
-		return this.handlerMap.get(dataType.getTypeName());
+		return this.handlerMap.get(dataType.getDataFormatName());
 	}
 
 	public IContentSerializeHandler getHander(String dataTypeNamed) {

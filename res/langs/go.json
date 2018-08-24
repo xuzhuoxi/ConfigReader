@@ -10,7 +10,7 @@
 		"float32": "Number",
 		"json": "String",
 		"string": "String",
-		
+
 		"boolean[]": "Vector.<Boolean>",
 		"int8[]": "Vector.<int>",
 		"int16[]": "Vector.<int>",
@@ -35,7 +35,7 @@
 			"float32": "",
 			"json": "",
 			"string": "",
-			
+
 			"boolean[]": "",
 			"int8[]": "",
 			"int16[]": "",
@@ -59,7 +59,7 @@
 			"float32": "readFloat32",
 			"json": "readString",
 			"string": "readString",
-			
+
 			"boolean[]": "readBooleanArray",
 			"int8[]": "readInt8Array",
 			"int16[]": "readInt16Array",
@@ -86,7 +86,7 @@
 			"float32": "",
 			"json": "",
 			"string": "",
-			
+
 			"boolean[]": "",
 			"int8[]": "",
 			"int16[]": "",
@@ -102,12 +102,13 @@
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"
 	},
 	"Temp": {
-		"Main": "template/as3/MainTemp.as.temp",
+		"Main": "template/go/MainTemp.go.temp",
 		"Sub": {
-			"${PARSE_BINARY_CONTENT}": "template/as3/ParseBinary.as.temp",
-			"${PARSE_JSON_CONTENT}": "template/as3/ParseJson.as.temp",
-			"${PROPERTY_FIELD}": "template/as3/PropertyField.as.temp",
-			"${PROPERTY_FIELD_GET}": "template/as3/PropertyFieldGet.as.temp"
+			"${PARSE_BINARY_CONTENT}": "template/go/ParseBinary.go.temp",
+			"${PARSE_JSON_CONTENT}": "template/go/ParseJson.go.temp",
+			"${PROPERTY_FIELD}": "template/go/PropertyField.go.temp",
+			"${PROPERTY_FIELD_GET}": "template/go/PropertyFieldGet.go.temp",
+			"${PROPERTY_FIELD_GET2}": "template/go/PropertyFieldInterface.go.temp",
 		},
 		"desc": "以上模板配置映射，key位于源码文件TempKey.java中"
 	},

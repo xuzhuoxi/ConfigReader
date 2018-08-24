@@ -1,0 +1,1 @@
+		this.${PROPERTY} = proxy.${LANG_PARSE}("${PROPERTY_JSON}");

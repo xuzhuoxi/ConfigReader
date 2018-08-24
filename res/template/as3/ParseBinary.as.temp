@@ -1,0 +1,2 @@
+		this._${PROPERTY} = ${PROPETY_DATA_TYPE}(proxy.${LANG_PARSE}());
+	

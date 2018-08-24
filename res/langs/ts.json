@@ -103,11 +103,13 @@
 		"desc": "以上为各种数据文件格式对应写入数据的方法名称"
 	},
 	"Temp": {
-		"${PACKAGE_CONTENT}": "template/ts/ContentNamespace.ts.temp",
-		"${CLASS_CONTENT}": "template/ts/ContentClass.ts.temp",
-		"${PROPERTY_CONTENT}": "template/ts/ContentProperty.ts.temp",
-		"${PARSE_BINARY_CONTENT}": "template/ts/PropertyParseBinary.ts.temp",
-		"${PARSE_JSON_CONTENT}": "template/ts/PropertyParseJson.ts.temp",
+		"Main": "template/ts/MainTemp.ts.temp",
+		"Sub": {
+			"${PARSE_BINARY_CONTENT}": "template/ts/ParseBinary.ts.temp",
+			"${PARSE_JSON_CONTENT}": "template/ts/ParseJson.ts.temp",
+			"${PROPERTY_FIELD}": "template/ts/PropertyField.ts.temp",
+			"${PROPERTY_FIELD_GET}": "template/ts/PropertyFieldGet.ts.temp"
+		},
 		"desc": "以上模板配置映射，key位于源码文件TempKey.java中"
 	},
 	"desc": "以上为TypeScript语言设置,DataFormat为配置表字段类型对语言数据类型的映射,Get为数据读取时调用的方法名,Set为数据写入时调用的方法名,Temp为对应的模板配置"

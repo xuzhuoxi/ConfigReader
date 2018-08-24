@@ -125,4 +125,11 @@ public class ConfigReaderTest {
 		System.out.println(BasePathUtils.getBasePath(Settings.class));
 		System.out.println(BasePathUtils.getAppPath(Settings.class));
 	}
+	
+	@Test
+	public void testReplace() {
+		String source = "ababa";
+		String target = source.replace("b", "ab");
+		System.out.println(target);
+	}
 }

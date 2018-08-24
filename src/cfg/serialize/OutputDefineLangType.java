@@ -6,7 +6,7 @@ package cfg.serialize;
  * @author xuzhuoxi
  */
 public enum OutputDefineLangType {
-	Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#"), AS3("as3");
+	Java("java"), TypeScript("ts"), CAddAdd("c++"), CSharp("c#"), AS3("as3"), Go("go");
 
 	private String value;
 
@@ -26,6 +26,8 @@ public enum OutputDefineLangType {
 			return "cs";
 		case AS3:
 			return "as";
+		case Go:
+			return "go";
 		default:
 			return "";
 		}

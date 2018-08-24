@@ -10,10 +10,11 @@ import code.file.FileUtils;
 
 public class LangInfo {
 	private String langNamed;
-	private Map<String, String> mapDataFormat = new HashMap<String, String>();
-	private Map<String, String> mapGetFunc = new HashMap<String, String>();
-	private Map<String, String> mapSetFunc = new HashMap<String, String>();
-	private Map<String, String> mapTemp = new HashMap<String, String>();// 模板映射，value为对应文件的内容
+	private Map<String, String> dataFormatToLangDataType = new HashMap<String, String>();
+	private Map<String, String> dataFormatToGetFunc = new HashMap<String, String>();
+	private Map<String, String> dataFormatToSetFunc = new HashMap<String, String>();
+
+	private LangTempInfo tempInfo = new LangTempInfo();
 
 	/**
 	 * 编程语言
@@ -24,9 +25,9 @@ public class LangInfo {
 		return langNamed;
 	}
 
-	public String getDataFormat(String excelDataFormat) {
-		if (this.mapDataFormat.containsKey(excelDataFormat)) {
-			return this.mapDataFormat.get(excelDataFormat);
+	public String getLangDataType(String dataFormatName) {
+		if (this.dataFormatToLangDataType.containsKey(dataFormatName)) {
+			return this.dataFormatToLangDataType.get(dataFormatName);
 		}
 		return "";
 	}
@@ -39,8 +40,8 @@ public class LangInfo {
 	 * @return 字段属性的读取(解释)方法名
 	 */
 	public String getFunctionGetDesc(String param) {
-		if (this.mapGetFunc.containsKey(param)) {
-			return this.mapGetFunc.get(param);
+		if (this.dataFormatToGetFunc.containsKey(param)) {
+			return this.dataFormatToGetFunc.get(param);
 		}
 		return "";
 	}
@@ -50,12 +51,12 @@ public class LangInfo {
 	 * 
 	 * @param fileFormat
 	 *            数据文件格式
-	 * @param dataFormat
+	 * @param dataFormatName
 	 *            字段数据类型
 	 * @return 字段属性的读取(解释)方法名
 	 */
-	public String getFunctionGetDesc(String fileFormat, String dataFormat) {
-		return this.getFunctionGetDesc(fileFormat + "_" + dataFormat);
+	public String getFunctionGetDesc(String fileFormat, String dataFormatName) {
+		return this.getFunctionGetDesc(fileFormat + "_" + dataFormatName);
 	}
 
 	/**
@@ -66,8 +67,8 @@ public class LangInfo {
 	 * @return 字段属性的写入(设置)方法名
 	 */
 	public String getFunctionSetDesc(String param) {
-		if (this.mapSetFunc.containsKey(param)) {
-			return this.mapSetFunc.get(param);
+		if (this.dataFormatToSetFunc.containsKey(param)) {
+			return this.dataFormatToSetFunc.get(param);
 		}
 		return "";
 	}
@@ -77,39 +78,48 @@ public class LangInfo {
 	 * 
 	 * @param fileFormat
 	 *            数据文件格式
-	 * @param dataFormat
+	 * @param dataFormatName
 	 *            字段数据类型
 	 * @return 字段属性的写入(设置)方法名
 	 */
-	public String getFunctionSetDesc(String fileFormat, String dataFormat) {
-		return this.getFunctionSetDesc(fileFormat + "_" + dataFormat);
+	public String getFunctionSetDesc(String fileFormat, String dataFormatName) {
+		return this.getFunctionSetDesc(fileFormat + "_" + dataFormatName);
 	}
 
 	/**
 	 * 取模板文件内容
 	 * 
-	 * @param tempKey
-	 *            模板键
 	 * @return 模板的文本内容
 	 */
-	public String getTempContent(String tempKey) {
-		return this.mapTemp.get(tempKey);
+	public String getTempMainContent() {
+		return this.tempInfo.getMainContent();
+	}
+
+	/**
+	 * 取子模板文件内容
+	 * 
+	 * @param subKey
+	 *            子模板键
+	 * @return 模板的文本内容
+	 */
+	public String getTempSubContent(String subKey) {
+		return this.tempInfo.getSubContent(subKey);
 	}
 
 	@Override
 	public String toString() {
-		return "LangInfo [langNamed=" + langNamed + ", mapDataFormat=" + mapDataFormat + ", mapGetFunc=" + mapGetFunc
-				+ ", mapSetFunc=" + mapSetFunc + "]";
+		return "LangInfo [langNamed=" + langNamed + ", mapDataFormat=" + dataFormatToLangDataType + ", mapGetFunc=" + dataFormatToGetFunc
+				+ ", mapSetFunc=" + dataFormatToSetFunc + ", tempInfo=" + tempInfo + "]";
 	}
 
-	public void parse(String named, JSONObject jObj) {
+	public void parse(String named, JSONObject jo) {
 		this.langNamed = named;
-		this.parseDataFormat(this.mapDataFormat, jObj.getJSONObject("DataFormat"));
-		this.parseFunc(this.mapGetFunc, jObj.getJSONObject("Get"));
-		if (jObj.has("Set")) {
-			this.parseFunc(this.mapSetFunc, jObj.getJSONObject("Set"));
+		this.parseDataFormat(this.dataFormatToLangDataType, jo.getJSONObject("DataFormat"));
+		this.parseFunc(this.dataFormatToGetFunc, jo.getJSONObject("Get"));
+		if (jo.has("Set")) {
+			this.parseFunc(this.dataFormatToSetFunc, jo.getJSONObject("Set"));
 		}
-		this.parseTemp(mapTemp, jObj.getJSONObject("Temp"));
+		this.tempInfo.parse(jo.getJSONObject("Temp"));
 	}
 
 	protected void parseDataFormat(Map<String, String> map, JSONObject jObj) {

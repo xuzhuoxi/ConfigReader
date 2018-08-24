@@ -1,0 +1,37 @@
+package ${MODULE} 
+
+/**
+ * @author ${AUTHOR}
+ * Created on ${DATE}.
+ */
+type I${CLASS} interface {
+	//以下为接口定义------------
+	
+${PROPERTY_FIELD_GET2}
+}
+
+/**
+ * @author ${AUTHOR}
+ * Created on ${DATE}.
+ */
+type ${CLASS} struct {
+	//以下为字段定义------------
+	
+${PROPERTY_FIELD}
+}
+ 
+//属性接口实现-----------------------
+
+${PROPERTY_FIELD_GET}
+
+//解释接口实现-----------------------
+
+func (o ICfgParse) parseJson() {
+	//以下为从Json数据中解释出字段数据
+${PARSE_JSON_CONTENT}
+}
+
+func (o ICfgParse) parseBinary() {
+	//以下为从二进制数据中解释出字段数据
+${PARSE_BINARY_CONTENT}
+}

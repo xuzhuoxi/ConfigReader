@@ -1,0 +1,9 @@
+		/**
+		 * ${PROPERTY_NAME}
+		 *
+		 * @remark ${PROPETY_REMARK}
+		 * @return {${PROPETY_DATA_TYPE}}
+		 */
+		get ${PROPERTY}(): ${PROPETY_DATA_TYPE} {
+			return this._${PROPERTY};
+		}

@@ -25,7 +25,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	public void config(SheetInfo sheetInfo) {
 		this.sheetInfo = sheetInfo;
 		this.sheetDefine = this.sheetInfo.getDefine();
-		this.attrDataTypes = this.sheetDefine.getDataTypeInstances();
+		this.attrDataTypes = this.sheetDefine.getFieldDataFormats();
 		this.dataList = this.sheetInfo.getDataList();
 	}
 
@@ -33,7 +33,7 @@ public class JsonSheetHandler implements ISheetHandler {
 	public Object serialize(FieldRangeType exportType, FieldKey attrKeyType) throws SheetDataException {
 		this.start();
 		Integer[] indexs = sheetDefine.getExportInfo(exportType).getValidIndexs();
-		String[] attrKeys = sheetDefine.getFieldNameArray(attrKeyType.getValue());
+		String[] attrKeys = sheetDefine.getPropertyArray(attrKeyType.getValue());
 
 		this.start();
 		int i = 0;

@@ -2,8 +2,8 @@ package cfg.serialize;
 
 import java.util.List;
 
-import cfg.serialize.cfgdefine.IContentGenerater;
-import cfg.serialize.cfgdefine.LangFileGenerater;
+import cfg.serialize.cfgdefine.DefineGenerater;
+import cfg.serialize.cfgdefine.IDefineGenerater;
 import cfg.serialize.exceptions.SheetDefineException;
 import cfg.settings.Settings;
 import cfg.source.data.SheetInfo;
@@ -29,8 +29,10 @@ public class SerializeDefineUtil {
 		if (sheetInfo.getDefine().isFieldRangeEmpty(fieldRange)) {// 跳过无索引字段的表
 			return;
 		}
-		IContentGenerater cg = LangFileGenerater.getModuleGenerater(lang, fieldRange);
-		String value = cg.serialize(sheetInfo.getDefine());
+		IDefineGenerater dg = new DefineGenerater();
+		dg.setInfo(lang, fieldRange);
+		String value = dg.serialize(sheetInfo.getDefine());
+
 		String className = sheetInfo.getDefine().getExportInfo(fieldRange).getClassName();
 		if (className.length() == 0) {
 			Exception e = new SheetDefineException("ClassName is Empty: " + sheetInfo.getSheetNamed());

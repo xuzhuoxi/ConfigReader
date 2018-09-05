@@ -8,18 +8,26 @@ import cfg.serialize.FieldKey;
 import cfg.serialize.FieldRangeType;
 import cfg.serialize.exceptions.SheetDataException;
 import cfg.settings.Settings;
+import cfg.settings.sys.BuffSetting;
 import cfg.source.data.SheetDefine;
 import cfg.source.data.SheetInfo;
 
 public class BinarySheetHandler implements ISheetHandler {
 
 	private IItemHandler binaryItemHandler = new BinaryItemHandler();
-	private ByteBuffer bb = ByteBuffer.allocate(2096000);
+	private ByteBuffer bb = null;
 
 	private SheetInfo sheetInfo;
 	private SheetDefine sheetDefine;
 	private FieldDataFormat[] attrDataTypes;
 	private List<String[]> dataList;
+
+	public BinarySheetHandler() {
+		super();
+		BuffSetting bs = Settings.getInstance().getSysSettings().getBuffSettings();
+		this.bb = ByteBuffer.allocate(bs.getSheetBuffLen());
+		this.bb.order(bs.byteOrder());
+	}
 
 	@Override
 	public void config(SheetInfo sheetInfo) {

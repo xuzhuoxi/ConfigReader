@@ -2,7 +2,6 @@ package cfg.serialize.cfgcontent;
 
 import cfg.serialize.FieldDataFormat;
 import code.array.ArrayUtils;
-import code.lang.NumberUtil;
 
 public class ArrayContentHandler implements IContentSerializeHandler {
 	private IContentSerializeHandler eleContentHandler;
@@ -107,7 +106,7 @@ class ArrayContentUtil {
 	public static byte[] toBinary(Object[] ao, FieldDataFormat attrDataType, IContentSerializeHandler contentHandler) {
 		short len = (short) ao.length;
 		// System.out.println("数组长度：" + len);
-		byte[] rs = NumberUtil.toByteArray(len);// 前面两个字节代表数组个数
+		byte[] rs = BinaryContentUtil.getNumberConverter().toByteArray(len);// 前面两个字节代表数组个数
 		for (Object o : ao) {
 			rs = ArrayUtils.mergeArray(rs, contentHandler.toBinary(o, attrDataType));
 		}

@@ -6,11 +6,20 @@ import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
 import cfg.serialize.exceptions.SheetDataException;
+import cfg.settings.Settings;
+import cfg.settings.sys.BuffSetting;
 
 public class BinaryItemHandler implements IItemHandler {
 
-	private ByteBuffer bb = ByteBuffer.allocate(2048);
+	private ByteBuffer bb = null;
 	private ITokenHandler tokenHandler = new BinaryTokenHandler();
+
+	public BinaryItemHandler() {
+		super();
+		BuffSetting bs = Settings.getInstance().getSysSettings().getBuffSettings();
+		this.bb = ByteBuffer.allocate(bs.getItemBuffLen());
+		this.bb.order(bs.byteOrder());
+	}
 
 	@Override
 	public void start() {

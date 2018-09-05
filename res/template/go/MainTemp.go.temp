@@ -26,12 +26,12 @@ ${PROPERTY_FIELD_GET}
 
 //解释接口实现-----------------------
 
-func (o ICfgParse) parseJson() {
+func (o *${CLASS}) parseJson(proxy IJsonReaderProxy) {
 	//以下为从Json数据中解释出字段数据
 ${PARSE_JSON_CONTENT}
 }
 
-func (o ICfgParse) parseBinary() {
+func (o *${CLASS}) parseBinary(proxy IBinaryReaderProxy) {
 	//以下为从二进制数据中解释出字段数据
 ${PARSE_BINARY_CONTENT}
 }

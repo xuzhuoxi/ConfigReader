@@ -1,1 +1,1 @@
-	this._${PROPERTY} = proxy.${LANG_PARSE}()
+	o._${PROPERTY} = proxy.${LANG_PARSE}()

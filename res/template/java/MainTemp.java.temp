@@ -16,7 +16,7 @@ ${PROPERTY_FIELD}
 ${PROPERTY_FIELD_GET}
 
 	//以下为解释数据方法------------
-    public void parseJson(JsonReaderProxy  proxy) {
+    public void parseJson(JsonReaderProxy proxy) {
 ${PARSE_JSON_CONTENT}
     }
     

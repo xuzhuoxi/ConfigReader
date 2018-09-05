@@ -109,8 +109,8 @@ public class SysSettings {
 		settings.targetCharset = Charset.forName(settings.targetEncoding);
 
 		JSONObject buffObject = jsonObj.getJSONObject("Buff");
-		settings.buffSettings = BuffSetting.create(buffObject.getInt("token"), buffObject.getInt("item"),
-				buffObject.getInt("sheet"));
+		settings.buffSettings = BuffSetting.create(buffObject.getBoolean("BigEndian"), buffObject.getInt("token"),
+				buffObject.getInt("item"), buffObject.getInt("sheet"));
 
 		settings.fileTypes = getStringArray(jsonObj, "FileType", "value");
 		settings.langs = getStringArray(jsonObj, "Langs", "value");

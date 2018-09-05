@@ -5,8 +5,7 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import cfg.serialize.FieldDataFormat;
-import code.lang.BigIntegerUtil;
-import code.lang.NumberUtil;
+import code.lang.BigNumberUtil;
 
 public class DecimalContentHandler implements IContentSerializeHandler {
 
@@ -53,11 +52,11 @@ public class DecimalContentHandler implements IContentSerializeHandler {
 			throw new Error("DecimalDataHandler.toBinary");
 		}
 		if (obj instanceof Float) {
-			return NumberUtil.toByteArray((Float) obj);
+			return BinaryContentUtil.getNumberConverter().toByteArray((Float) obj);
 		} else if (obj instanceof Double) {
-			return NumberUtil.toByteArray((Double) obj);
+			return BinaryContentUtil.getNumberConverter().toByteArray((Double) obj);
 		} else {
-			return BigIntegerUtil.toByteArray((BigInteger) obj, attrDataType.getDataLen());
+			return BigNumberUtil.toByteArray((BigInteger) obj, attrDataType.getDataLen());
 		}
 	}
 }

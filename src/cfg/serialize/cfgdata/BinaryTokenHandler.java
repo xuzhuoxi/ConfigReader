@@ -5,10 +5,19 @@ import java.nio.ByteBuffer;
 import cfg.serialize.FieldDataFormat;
 import cfg.serialize.cfgcontent.ContentSerializeHandlerMap;
 import cfg.serialize.cfgcontent.IContentSerializeHandler;
+import cfg.settings.Settings;
+import cfg.settings.sys.BuffSetting;
 
 public class BinaryTokenHandler implements ITokenHandler {
 
-	private ByteBuffer bb = ByteBuffer.allocate(512);
+	private ByteBuffer bb = null;
+
+	public BinaryTokenHandler() {
+		super();
+		BuffSetting bs = Settings.getInstance().getSysSettings().getBuffSettings();
+		this.bb = ByteBuffer.allocate(bs.getTokenBuffLen());
+		this.bb.order(bs.byteOrder());
+	}
 
 	@Override
 	public Object serializeContentToken(FieldDataFormat attrDataType, String attrKey, String valueContent) {

@@ -4,8 +4,7 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import cfg.serialize.FieldDataFormat;
-import code.lang.BigIntegerUtil;
-import code.lang.NumberUtil;
+import code.lang.BigNumberUtil;
 
 public class IntegerContentHandler implements IContentSerializeHandler {
 
@@ -62,7 +61,8 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 	public String toJson(Object obj, FieldDataFormat attrDataType) {
 		if (obj instanceof BigInteger) {
 			return obj.toString().trim();
-		} else if (obj instanceof Integer || obj instanceof Long) {
+		} else if ((obj instanceof Byte) || (obj instanceof Short) || (obj instanceof Integer)
+				|| (obj instanceof Long)) {
 			return format.format(obj);
 		} else {
 			throw new Error("IntegerDataHandler.toJson");
@@ -71,20 +71,27 @@ public class IntegerContentHandler implements IContentSerializeHandler {
 
 	@Override
 	public byte[] toBinary(Object obj, FieldDataFormat attrDataType) {
-		boolean typeTrue = (obj instanceof Integer) || (obj instanceof Long) || (obj instanceof BigInteger);
+		boolean typeTrue = (obj instanceof Byte) || (obj instanceof Short) || (obj instanceof Integer)
+				|| (obj instanceof Long) || (obj instanceof BigInteger);
 		if (!typeTrue) {
 			throw new Error("IntegerDataHandler.toBinary");
 		}
 		int count = attrDataType.getDataLen();
 
-		if (obj instanceof Integer) {
+		if (obj instanceof Byte) {
+			byte val = (Byte) obj;
+			return BinaryContentUtil.getNumberConverter().toByteArray(val, count);
+		} else if (obj instanceof Short) {
+			short val = (Short) obj;
+			return BinaryContentUtil.getNumberConverter().toByteArray(val, count);
+		} else if (obj instanceof Integer) {
 			int val = (Integer) obj;
-			return NumberUtil.toByteArray(val, count);
+			return BinaryContentUtil.getNumberConverter().toByteArray(val, count);
 		} else if (obj instanceof Long) {
 			long val = (Long) obj;
-			return NumberUtil.toByteArray(val, count);
+			return BinaryContentUtil.getNumberConverter().toByteArray(val, count);
 		} else {
-			return BigIntegerUtil.toByteArray((BigInteger) obj, count);
+			return BigNumberUtil.toByteArray((BigInteger) obj, count);
 		}
 	}
 

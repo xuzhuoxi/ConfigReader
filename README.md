@@ -71,7 +71,7 @@
 + [system.json](/res/system.json)	：基础配置
 	+ Source：默认读取目录。
 	+ Target：默认输出目录。
-	+ Buff：处理数据时缓存池长度配置，单位为字节，token指一个单元格数据，item指一行数据，sheet指一个表数据。
+	+ Buff：处理字节数据时缓存池长度配置，单位为字节，BigEndian指大小端模式是否采用大端(建议true,false暂时不支持)，token指一个单元格数据，item指一行数据，sheet指一个表数据。
 	+ FileType：支持输出文件格式，现在暂时支持json,binary(二进制),sql。
 	+ Langs：输出数据定义时支持的格式(编程语言)。
 	+ DataFormat：支持输出的数据格式。**注意**：string包含了`string`和`string(*)`两种数据格式。

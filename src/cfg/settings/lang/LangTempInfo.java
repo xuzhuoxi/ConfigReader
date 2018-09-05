@@ -89,7 +89,7 @@ public class LangTempInfo {
 	private String getContent(String path) {
 		String basePath = AppDefine.instance.getBasePath();
 		String filePath = basePath + "/" + path;
-		System.out.println(filePath + ":" + FileUtils.isExists(filePath));
+//		System.out.println("模板配置信息： " + filePath + " , 文件存在=" + FileUtils.isExists(filePath));
 		if (FileUtils.isExists(filePath)) {
 			return FileUtils.readFileContent(filePath);
 		} else {

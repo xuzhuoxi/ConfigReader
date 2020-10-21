@@ -4,6 +4,4 @@
 		 * @remark ${PROPETY_REMARK}
 		 * @return {${PROPETY_DATA_TYPE}}
 		 */
-		public ${PROPETY_DATA_TYPE} ${PROPERTY} {
-			get{return _${PROPERTY};}
-		}
+		public ${PROPETY_DATA_TYPE} ${UP_PROPERTY} => ${PROPERTY}; 

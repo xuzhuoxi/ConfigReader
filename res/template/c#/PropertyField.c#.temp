@@ -1,2 +1,2 @@
 		 //${PROPERTY_NAME}
-		private ${PROPETY_DATA_TYPE} _${PROPERTY};
+		[SerializeField] protected ${PROPETY_DATA_TYPE} ${PROPERTY};

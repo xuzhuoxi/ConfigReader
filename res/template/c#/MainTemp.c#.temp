@@ -1,13 +1,18 @@
+using System;
+using UnityEngine;
+
 /**
  * C#定义
- * 当前模板还没不完整
  */
-namespace ${MODULE} {
+namespace ${MODULE}
+{
 	/**
-	 * @author ${AUTHOR}
-	 * Created on ${DATE}.
+     * @author ${AUTHOR}
+     * Created on ${DATE}.
 	 */
-	public class ${CLASS} {
+	[Serializable]
+	public class ${CLASS} 
+	{
 		//以下为属性声明----------------
 ${PROPERTY_FIELD}
 	
@@ -16,12 +21,20 @@ ${PROPERTY_FIELD_GET}
 
 		//以下为解释数据方法------------
 	   
-		public void ParseJson(data: any) {
-${PARSE_JSON_CONTENT}
+		public void ParseJson(string data) 
+		{
+			JsonUtility.FromJsonOverwrite(data, this);
 		}
 		
-		public void ParseBinary(proxy: xu.BinaryReaderProxy) {
+//		public void ParseBinary(proxy: xu.BinaryReaderProxy) 
+//		{
 ${PARSE_BINARY_CONTENT}
+//		}
+
+		// 静态实例化
+		public static ${CLASS} FromJson(string data) 
+		{
+			return JsonUtility.FromJson<${CLASS}>(data);
 		}
 	}
 }

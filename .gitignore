@@ -1,8 +1,15 @@
+.gradle
+.idea/
+!.idea/icon*.png
+*.iml
+build/
+
 /bin/
 /dist/
 /antbin/
 /libsrc/
 /testres/
+
 build.log
 
 *.class

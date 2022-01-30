@@ -108,7 +108,7 @@
 			"${PARSE_JSON_CONTENT}": "template/go/ParseJson.go.temp",
 			"${PROPERTY_FIELD}": "template/go/PropertyField.go.temp",
 			"${PROPERTY_FIELD_GET}": "template/go/PropertyFieldGet.go.temp",
-			"${PROPERTY_FIELD_GET2}": "template/go/PropertyFieldInterface.go.temp",
+			"${PROPERTY_FIELD_GET2}": "template/go/PropertyFieldInterface.go.temp"
 		},
 		"desc": "以上模板配置映射，key位于源码文件TempKey.java中"
 	},
